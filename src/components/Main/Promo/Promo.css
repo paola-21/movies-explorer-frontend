@@ -1,0 +1,28 @@
+.promo {
+    padding-right: 70px;
+    padding-left: 70px;
+    background-color: #073042;
+    position: relative;
+    height: 560px;
+  }
+  
+  .promo__title {
+    margin: 0;
+    padding-top: 50px;
+    max-width: 626px;
+    color: #FFFFFF;
+    font-family: Inter;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 52px;  
+  }
+  
+  .promo__img {
+    width: 722px;
+    height: 244px;
+    margin-bottom: 60px;
+    display: block;
+    margin-left: auto;
+    margin-top: 102px;
+  }
