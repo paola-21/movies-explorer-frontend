@@ -20,7 +20,7 @@ function AboutMe() {
             работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься 
             фриланс-заказами и ушёл с постоянной работы.
         </h4>
-        <h4 className='about-me__git'>
+        <h4 className='about-me__link'>
         Github
         </h4>
         <img className="about-me__photo" src={photoStudent} alt="фото студента" />

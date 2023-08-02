@@ -2,7 +2,7 @@
     padding-right: 70px;
     padding-left: 70px;
     background-color: #202020;
-    height: 625px;
+    /* height: 625px; */
 }
 
 .about-me__title {
@@ -13,6 +13,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    letter-spacing: -0.88px;
     padding-top: 110px;
     padding-bottom: 23px;
     border-left: 0;
@@ -31,6 +32,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 58px;
+    letter-spacing: -2px;
     width: 600px;
 }
 
@@ -53,6 +55,8 @@
     grid-template-rows: auto auto auto auto;
     grid-auto-flow: column dense;
     justify-content: space-between;
+    padding-bottom: 102px;
+
 }
 
 .about-me__photo {
@@ -71,10 +75,10 @@
     font-weight: 400;
     line-height: 22px;
     padding-top: 26px;
-    width: 600px;
+    width: 599px;
 }
 
-.about-me__git {
+.about-me__link {
     margin: 0;
     color: #FFF;
     font-family: Inter;

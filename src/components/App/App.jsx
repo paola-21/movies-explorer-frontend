@@ -3,6 +3,7 @@ import Promo from '../Main/Promo/Promo';
 import AboutProject from '../Main/AboutProject/AboutProject';
 import AboutMe from '../Main/AboutMe/AboutMe';
 import Techs from '../Main/Techs/Techs';
+import Portfolio from '../Main/Portfolio/Portfolio';
 
 import './App.css'
 
@@ -28,6 +29,7 @@ function App() {
         <AboutProject />
         <Techs />
         <AboutMe />
+        <Portfolio />
       </div>
     </div>
   );

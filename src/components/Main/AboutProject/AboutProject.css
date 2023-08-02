@@ -21,12 +21,13 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: #DADADA;
+    letter-spacing: -0.88px;
 }
 
 .project__container {
     margin-top: 70px;
     display: grid;
-    grid-template-columns: repeat(2, 50%); 
+    grid-template-columns: repeat(2, 1fr); 
     gap: 26px 40px;
     margin-bottom: 110px;
 }
@@ -39,6 +40,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    letter-spacing: -0.8px;
 }
 
 .project__text {
@@ -67,7 +69,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    padding: 9px 14px;
+    padding: 10px 14px;
 }
 
 .project__week-subtitle_activ {
@@ -80,7 +82,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    padding: 9px 14px;
+    padding: 10px 14px;
 }
 
 .project__week-text {
