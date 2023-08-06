@@ -7,7 +7,7 @@
 .techs__title {
     margin: 0px;
     color: #FFF;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 400;
@@ -27,7 +27,7 @@
     margin: 0;
     color: #FFF;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -41,7 +41,7 @@
     margin: 0;
     color: #FFF;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -69,7 +69,7 @@
     background: #303030;
     color: #FFF;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -109,6 +109,7 @@
     .techs__container {
         padding-top: 83px;
         padding-bottom: 90px;
+        column-gap: 3px;
     }
   }
 
@@ -124,7 +125,7 @@
 
   @media (max-width: 767px) {
     .techs {
-        padding-right: 14x;
+        padding-right: 14px;
         padding-left: 14px;
     }
   }
@@ -136,6 +137,8 @@
         letter-spacing: -0.72px;
         padding-bottom: 28px;
         border-bottom-color: #000;
+        padding-right: 4px;
+        padding-left: 4px;
     }
   }
 
@@ -161,9 +164,10 @@
 
   @media (max-width: 767px) {
     .techs__container {
-        padding-top: 50px;
-        grid-template-columns: repeat(2, 84px);
+        padding-top: 51px;
+        grid-template-columns: repeat(2, 86px);
         padding-bottom: 70px;
         row-gap: 10px;
+        column-gap: 6px;
     }
   }

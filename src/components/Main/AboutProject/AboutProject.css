@@ -7,7 +7,7 @@
 .project__title {
     margin: 0px;
     color: #FFF;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 400;
@@ -36,7 +36,7 @@
 .project__subtitle{
     margin: 0;
     color: #FFF;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -47,7 +47,7 @@
 .project__text {
     margin: 0;
     color: #FFF;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -66,7 +66,7 @@
     background-color: #303030;
     color: #FFF;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -79,7 +79,7 @@
     background-color: #3DDC84;
     color: #000;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -91,7 +91,7 @@
     margin: 0;
     color: #8B8B8B;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -129,25 +129,25 @@
   @media (max-width: 1279px) {
     .project__container-week {
         padding-bottom: 90px;
+        grid-template-columns: 21% 79%;
     }
   }
   
   @media (max-width: 1279px) {
     .project__week-subtitle_activ {
-        padding: 9px 10px;
+        padding: 10px 10px;
     }
   }
 
   @media (max-width: 1279px) {
     .project__week-subtitle {
-        padding: 9px 10px;
+        padding: 10px 10px;
     }
   }
 
   @media (max-width: 1279px) {
     .project__week-text {
         color: #A0A0A0;
-        font-family: Inter;
         font-weight: 400;
         line-height: 17px;
     }
@@ -163,7 +163,7 @@
   @media (max-width: 767px) {
     .project__title {
         font-size: 18px;
-        padding-top: 70px;
+        padding-top: 71px;
         padding-bottom: 28px;
         letter-spacing: -0.72px;
     }
@@ -171,7 +171,7 @@
 
   @media (max-width: 767px) {
     .project__container {
-        margin-top: 60px;
+        margin-top: 62px;
         display: grid;
         grid-template-columns: 284px;
         grid-auto-flow: row;
@@ -192,15 +192,15 @@
     .project__text {
         font-size: 11px;
         line-height: 16px;
-        padding-bottom: 40px;
+        padding-bottom: 41px;
     }
   }
 
   @media (max-width: 767px) {
     .project__container-week {
-        display: grid;
+        grid-template-columns: 35% 65%;
         row-gap: 10px;
-        padding-bottom: 140px;
+        padding-bottom: 70px;
     }
   }
   

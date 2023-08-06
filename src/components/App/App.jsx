@@ -1,9 +1,12 @@
+import { Route, Routes } from 'react-router-dom';
+
 import Header from '../Header/Header';
-import Promo from '../Main/Promo/Promo';
-import AboutProject from '../Main/AboutProject/AboutProject';
-import AboutMe from '../Main/AboutMe/AboutMe';
-import Techs from '../Main/Techs/Techs';
-import Portfolio from '../Main/Portfolio/Portfolio';
+import Main from '../Main/Main';
+//import Footer from '../Footer/Footer';
+import SearchForm from '../Movies/SearchForm/SearchForm';
+import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import More from '../Movies/More/More';
+import Footer from '../Footer/Footer';
 
 import './App.css'
 
@@ -11,7 +14,11 @@ function App() {
   return (
     <div className="App">
       <div className='app__container'>
-        <Header 
+
+      <Routes>
+        <Route path="/" element={
+        <>
+          <Header 
             movies={""}
             moviesLink={""}
             moviesText={"Фильмы"}
@@ -24,12 +31,34 @@ function App() {
             login={""}
             loginLink={""}
             loginText={"Войти"}
-        />
-        <Promo />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Portfolio />
+          />
+          <Main />
+        </>} />
+
+        <Route path="/movies" element={
+        <>
+          <Header 
+            movies={""}
+            moviesLink={""}
+            moviesText={"Фильмы"}
+            saved={""}
+            savedLink={""}
+            savedText={"Сохраненные фильмы"}
+            register={""}
+            registerLink={""}
+            registerText={"Регистрация"}
+            login={""}
+            loginLink={""}
+            loginText={"Войти"}
+          />
+          <SearchForm />
+          <MoviesCardList />
+          <More />
+        </>} />
+
+      </Routes>
+
+      <Footer />
       </div>
     </div>
   );
