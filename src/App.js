@@ -1,38 +1,104 @@
-// import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+
 import Header from './components/Header/Header';
+import Main from './components/Main/Main';
+import SearchForm from './components/Movies/SearchForm/SearchForm';
+import MoviesCardList from './components/Movies/MoviesCardList/MoviesCardList';
+import Footer from './components/Footer/Footer';
+import SavedMoviesCardList from './components/SavedMovies/MoviesCardList/MoviesCardList';
+import Register from './components/Register/Register';
+
+import './App.css'
 
 function App() {
   return (
     <div className="App">
-      <Header 
-        movies={""}
-        moviesLink={""}
-        moviesText={""}
-        saved={""}
-        savedLink={""}
-        savedText={""}
-        register={""}
-        registerLink={""}
-        registerText={""}
-        login={""}
-        loginLink={""}
-        loginText={""}
-      />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='app__container'>
+
+      <Routes>
+
+      <Route path="/signup" element={
+        <>
+          <Header 
+            movies={""}
+            moviesLink={""}
+            moviesText={"Фильмы"}
+            saved={""}
+            savedLink={""}
+            savedText={"Сохраненные фильмы"}
+            register={""}
+            registerLink={""}
+            registerText={"Регистрация"}
+            login={""}
+            loginLink={""}
+            loginText={"Войти"}
+          />
+          <Register/>
+        </>} />
+
+        <Route path="/" element={
+        <>
+          <Header 
+            movies={""}
+            moviesLink={""}
+            moviesText={"Фильмы"}
+            saved={""}
+            savedLink={""}
+            savedText={"Сохраненные фильмы"}
+            register={""}
+            registerLink={""}
+            registerText={"Регистрация"}
+            login={""}
+            loginLink={""}
+            loginText={"Войти"}
+          />
+          <Main />
+        </>} />
+
+        <Route path="/movies" element={
+        <>
+          <Header 
+            movies={""}
+            moviesLink={""}
+            moviesText={"Фильмы"}
+            saved={""}
+            savedLink={""}
+            savedText={"Сохраненные фильмы"}
+            register={""}
+            registerLink={""}
+            registerText={"Регистрация"}
+            login={""}
+            loginLink={""}
+            loginText={"Войти"}
+          />
+          <SearchForm />
+          <MoviesCardList />
+        </>} />
+
+        <Route path="/saved-movies" element={
+        <>
+          <Header 
+            movies={""}
+            moviesLink={""}
+            moviesText={"Фильмы"}
+            saved={""}
+            savedLink={""}
+            savedText={"Сохраненные фильмы"}
+            register={""}
+            registerLink={""}
+            registerText={"Регистрация"}
+            login={""}
+            loginLink={""}
+            loginText={"Войти"}
+          />
+          <SearchForm />
+          <SavedMoviesCardList />
+        </>} />
+
+      </Routes>
+
+      <Footer />
+      </div>
     </div>
   );
 }

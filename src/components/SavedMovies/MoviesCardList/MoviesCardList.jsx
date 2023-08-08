@@ -1,6 +1,6 @@
-import MoviesCard from '../../Movies/MoviesCard/MoviesCard';
-import './MoviesCardList.css';
+import MoviesCard from '../../SavedMovies/MoviesCard/MoviesCard';
 import More from '../More/More';
+import './MoviesCardList.css';
 
 function MoviesCardList() {
   return (

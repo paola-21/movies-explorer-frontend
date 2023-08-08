@@ -116,6 +116,7 @@
     .search {
         padding-left: 14px;
         padding-right: 14px;
+        padding-bottom: 0;
     }
 }
 
@@ -123,6 +124,7 @@
     .search__movies{
         row-gap: 47px;
         padding-bottom: 10px;
+        grid-template-rows: 44px 58px;
     }
 }
 

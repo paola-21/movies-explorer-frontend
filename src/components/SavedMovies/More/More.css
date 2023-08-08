@@ -1,0 +1,16 @@
+.more-null {
+    background: #202020;
+    height: 212px;
+}
+
+@media (max-width: 1279px) {
+    .more-null {
+        height: 163px;
+    }
+}
+
+@media (max-width: 767px) {
+    .more-null {
+        height: 33px;
+    }
+}

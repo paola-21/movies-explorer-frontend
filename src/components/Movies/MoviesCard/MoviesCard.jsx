@@ -18,8 +18,7 @@ function MoviesCard() {
     <>
     <li className="movies-list">
       <img className="movies__foto" src={Movies} alt="фильм" />
-      {/* <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button> */}
-      <button className='movies__button-save'>Сохранить</button>
+      <button className='movies__button-save'></button>
       <div className='movies-list__container'>
         <h3 className='movies_text'>33 слова о дизайне</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -27,8 +26,7 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies2} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save_activ'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Киноальманах «100 лет дизайна»</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -36,8 +34,7 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies3} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>В погоне за Бенкси</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -45,8 +42,7 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies4} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Баския: Взрыв реальности</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -54,17 +50,15 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies5} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Бег это свобода</h3>
         <h3 className='movies_time'>1ч 17м</h3>
     </div>
     </li>
-    <li className="movies-list">
+    {/* <li className="movies-list">
     <img className="movies__foto" src={Movies6} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Книготорговцы</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -72,8 +66,7 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies7} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Когда я думаю о Германии ночью</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -81,17 +74,15 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies8} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Gimme Danger: История Игги и The Stooges</h3>
         <h3 className='movies_time'>1ч 17м</h3>
     </div>
-    </li>
+    </li> */}
     {/* <li className="movies-list">
     <img className="movies__foto" src={Movies9} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Дженис: Маленькая девочка грустит</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -99,8 +90,7 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies10} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Соберись перед прыжком</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -108,8 +98,7 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies11} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>Пи Джей Харви: A dog called money</h3>
         <h3 className='movies_time'>1ч 17м</h3>
@@ -117,8 +106,7 @@ function MoviesCard() {
     </li>
     <li className="movies-list">
     <img className="movies__foto" src={Movies12} alt="фильм" />
-    <button className='movies__button'><img className="movies__button-img" src={Save} alt="сохранено" /></button>
-    <button className='movies__button-save'>Сохранить</button>
+    <button className='movies__button-save'></button>
     <div className='movies-list__container'>
         <h3 className='movies_text'>По волнам: Искусство звука в кино</h3>
         <h3 className='movies_time'>1ч 17м</h3>
