@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../../images/logo.svg';
-import './Register.css';
+import './Login.css';
 import useFormAndValidation from '../hooks/useFormAndValidation';
 
 
@@ -10,24 +10,11 @@ function Register() {
   return (
     <div className="register__container" novalidate>
       <img className="register__photo" src={logo} alt="логотип" />
-      <h2 className="register__header">Добро пожаловать!</h2>
+      <h2 className="register__header">Рады видеть!</h2>
       <form className="form__register">
-        <div className="form__container">
-            <h3 className="register__title">Имя</h3>
-            <input
-            className="register__input"
-            type="text"
-            placeholder="Имя"
-            minLength="2"
-            name="name"
-            autoComplete="name"
-            required
-            onChange={handleChange}
-            />
-            <span className="form__input-error">{errors.name}</span>
-
-            <h3 className="register__title">E-mail</h3>
-            <input
+      <div className="form__container">
+          <h3 className="register__title">E-mail</h3>
+          <input
             className="register__input"
             type="email"
             placeholder="Email"
@@ -35,11 +22,11 @@ function Register() {
             autoComplete="email"
             required
             onChange={handleChange}
-            />
-            <span className="form__input-error">{errors.email}</span>
+          />
+          <span className="form__input-error">{errors.email}</span>
 
-            <h3 className="register__title">Пароль</h3>
-            <input
+          <h3 className="register__title">Пароль</h3>
+          <input
             className="register__input"
             type="password"
             placeholder="Пароль"
@@ -49,19 +36,19 @@ function Register() {
             minLength="8"
             maxLength="16"
             onChange={handleChange}
-            />
-            <span className="form__input-error">{errors.password}</span>
-        </div>
+          />
+          <span className="form__input-error">{errors.password}</span>
+        </div> 
         <button className="register__input-button" type="submit">
-          Зарегистрироваться
+        Войти
         </button>
       </form>
       <h2 className="register__text">
-        Уже зарегистрированы?{" "}
-        <Link className="register__link" to={"/signin"}>
-          Войти
+        Ещё не зарегистрированы?{" "}
+        <Link className="register__link" to={"/signup"}>
+        Регистрация
         </Link>
-      </h2>
+      </h2> 
     </div>
   );
 }

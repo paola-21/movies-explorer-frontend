@@ -7,6 +7,7 @@ import MoviesCardList from './components/Movies/MoviesCardList/MoviesCardList';
 import Footer from './components/Footer/Footer';
 import SavedMoviesCardList from './components/SavedMovies/MoviesCardList/MoviesCardList';
 import Register from './components/Register/Register';
+import Login from './components/Login/Login';
 
 import './App.css'
 
@@ -18,23 +19,12 @@ function App() {
       <Routes>
 
       <Route path="/signup" element={
-        <>
-          <Header 
-            movies={""}
-            moviesLink={""}
-            moviesText={"Фильмы"}
-            saved={""}
-            savedLink={""}
-            savedText={"Сохраненные фильмы"}
-            register={""}
-            registerLink={""}
-            registerText={"Регистрация"}
-            login={""}
-            loginLink={""}
-            loginText={"Войти"}
-          />
           <Register/>
-        </>} />
+      } />
+
+      <Route path="/signin" element={
+                <Login/>
+            } />
 
         <Route path="/" element={
         <>
@@ -53,6 +43,7 @@ function App() {
             loginText={"Войти"}
           />
           <Main />
+          <Footer />
         </>} />
 
         <Route path="/movies" element={
@@ -73,6 +64,7 @@ function App() {
           />
           <SearchForm />
           <MoviesCardList />
+          <Footer />
         </>} />
 
         <Route path="/saved-movies" element={
@@ -93,11 +85,10 @@ function App() {
           />
           <SearchForm />
           <SavedMoviesCardList />
+          <Footer />
         </>} />
 
       </Routes>
-
-      <Footer />
       </div>
     </div>
   );
