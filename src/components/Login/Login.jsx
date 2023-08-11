@@ -8,7 +8,7 @@ import useFormAndValidation from '../hooks/useFormAndValidation';
 function Register() {
     const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
   return (
-    <div className="register__container" novalidate>
+    <div className="register__container" noValidate>
       <img className="register__photo" src={logo} alt="логотип" />
       <h2 className="register__header">Рады видеть!</h2>
       <form className="form__register">

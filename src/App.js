@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
@@ -12,6 +12,8 @@ import Login from './components/Login/Login';
 import './App.css'
 
 function App() {
+  const { pathname } = useLocation();
+  console.log(pathname);
   return (
     <div className="App">
       <div className='app__container'>
@@ -28,27 +30,14 @@ function App() {
 
         <Route path="/" element={
         <>
-          <Header 
-            movies={""}
-            moviesLink={""}
-            moviesText={"Фильмы"}
-            saved={""}
-            savedLink={""}
-            savedText={"Сохраненные фильмы"}
-            register={""}
-            registerLink={""}
-            registerText={"Регистрация"}
-            login={""}
-            loginLink={""}
-            loginText={"Войти"}
-          />
+          <Header />
           <Main />
           <Footer />
         </>} />
 
         <Route path="/movies" element={
         <>
-          <Header 
+          {/* <Header 
             movies={""}
             moviesLink={""}
             moviesText={"Фильмы"}
@@ -61,7 +50,7 @@ function App() {
             login={""}
             loginLink={""}
             loginText={"Войти"}
-          />
+          /> */}
           <SearchForm />
           <MoviesCardList />
           <Footer />
@@ -69,7 +58,7 @@ function App() {
 
         <Route path="/saved-movies" element={
         <>
-          <Header 
+          {/* <Header 
             movies={""}
             moviesLink={""}
             moviesText={"Фильмы"}
@@ -82,7 +71,7 @@ function App() {
             login={""}
             loginLink={""}
             loginText={"Войти"}
-          />
+          /> */}
           <SearchForm />
           <SavedMoviesCardList />
           <Footer />
