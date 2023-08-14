@@ -37,20 +37,7 @@ function App() {
 
         <Route path="/movies" element={
         <>
-          {/* <Header 
-            movies={""}
-            moviesLink={""}
-            moviesText={"Фильмы"}
-            saved={""}
-            savedLink={""}
-            savedText={"Сохраненные фильмы"}
-            register={""}
-            registerLink={""}
-            registerText={"Регистрация"}
-            login={""}
-            loginLink={""}
-            loginText={"Войти"}
-          /> */}
+          <Header />
           <SearchForm />
           <MoviesCardList />
           <Footer />
@@ -58,20 +45,7 @@ function App() {
 
         <Route path="/saved-movies" element={
         <>
-          {/* <Header 
-            movies={""}
-            moviesLink={""}
-            moviesText={"Фильмы"}
-            saved={""}
-            savedLink={""}
-            savedText={"Сохраненные фильмы"}
-            register={""}
-            registerLink={""}
-            registerText={"Регистрация"}
-            login={""}
-            loginLink={""}
-            loginText={"Войти"}
-          /> */}
+          <Header />
           <SearchForm />
           <SavedMoviesCardList />
           <Footer />
