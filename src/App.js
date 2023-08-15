@@ -10,6 +10,7 @@ import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import HeaderNavBar from './components/Header/HeaderNavBar/HeaderNavBar';
 import HeaderLogin from './components/Header/HeaderLogin/HeaderLogin';
+import Profile from './components/Profile/Profile';
 
 import './App.css'
 
@@ -29,21 +30,28 @@ function App() {
       <Route path="/signin" element={
                 <Login/>
             } />
+      
+      <Route path="/profile" element={
+        <>
+          <HeaderNavBar/>
+          <Profile/>
+        </>}
+       />
 
-        <Route path="/" element={
+      <Route path="/" element={
         <>
           <HeaderLogin />
           <Main />
-          {/* <Footer /> */}
-        </>} />
+        </>}
+      />
 
-        <Route path="/movies" element={
-        <>
-          <HeaderNavBar/>
-          <SearchForm />
-          <MoviesCardList />
-          <Footer />
-        </>} />
+      <Route path="/movies" element={
+      <>
+        <HeaderNavBar/>
+        <SearchForm />
+        <MoviesCardList />
+        <Footer />
+      </>} />
 
         <Route path="/saved-movies" element={
         <>
