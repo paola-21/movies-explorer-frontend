@@ -15,6 +15,7 @@
 .header__menu {
   display: grid;
   grid-template-columns: auto 100px;
+  align-items: center;
 }
 
 .header__logo {
@@ -91,7 +92,7 @@ display: none;
 
   .header__body {
     display: grid;
-    grid-template-columns: 38px 37px;
+    grid-template-columns: 38px auto;
     justify-content: space-between;
     height: 72px;
     align-items: center;
@@ -215,7 +216,7 @@ display: none;
 
 @media (max-width: 650px) {
   .header__container {
-    padding: 0 9px 0 14px;
+    padding: 0 14px 0 14px;
   }
 
 

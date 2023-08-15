@@ -8,6 +8,8 @@ import Footer from './components/Footer/Footer';
 import SavedMoviesCardList from './components/SavedMovies/MoviesCardList/MoviesCardList';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
+import HeaderNavBar from './components/Header/HeaderNavBar/HeaderNavBar';
+import HeaderLogin from './components/Header/HeaderLogin/HeaderLogin';
 
 import './App.css'
 
@@ -30,14 +32,14 @@ function App() {
 
         <Route path="/" element={
         <>
-          <Header />
+          <HeaderLogin />
           <Main />
-          <Footer />
+          {/* <Footer /> */}
         </>} />
 
         <Route path="/movies" element={
         <>
-          <Header />
+          <HeaderNavBar/>
           <SearchForm />
           <MoviesCardList />
           <Footer />
@@ -45,7 +47,7 @@ function App() {
 
         <Route path="/saved-movies" element={
         <>
-          <Header />
+          <HeaderNavBar />
           <SearchForm />
           <SavedMoviesCardList />
           <Footer />
