@@ -171,7 +171,7 @@
 
   @media (max-width: 767px) {
     .project__container {
-        margin-top: 62px;
+        margin-top: 61px;
         display: grid;
         grid-template-columns: 284px;
         grid-auto-flow: row;

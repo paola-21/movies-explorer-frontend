@@ -1,16 +1,42 @@
-.more-null {
+.more {
+    padding: 33px 0 80px 0;
     background: #202020;
-    height: 212px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.more_button {
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+    background-image: url(../../../images/buttonBorder.svg);
+    background-size: cover;
+    width: 320px;
+    height: 36px;
+    background-repeat: no-repeat;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 @media (max-width: 1279px) {
-    .more-null {
-        height: 163px;
+    .more {
+        padding: 33px 0 80px 0;
     }
 }
 
 @media (max-width: 767px) {
-    .more-null {
-        height: 33px;
+    .more {
+        padding: 37px 0 79px 0;
+    }
+
+    .more_button {
+        width: 240px;
+        height: 36px;
     }
 }

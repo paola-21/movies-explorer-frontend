@@ -1,6 +1,6 @@
 .header__profile {
   display: grid;
-  grid-template-columns: auto 100px;
+  grid-template-columns: auto 106px;
   align-items: center;
 }
 

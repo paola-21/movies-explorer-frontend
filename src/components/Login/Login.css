@@ -1,4 +1,4 @@
-.register__container {
+/* .register__container {
     background-color: #202020;
     padding-top: 70px;
     display: grid;
@@ -6,6 +6,7 @@
     justify-content: center;
     padding-bottom: 70px;
     grid-template-rows: 78px 69px 380px 33px;
+    height: 100vh;
 }
 
 .register__photo {
@@ -110,3 +111,10 @@
     line-height: normal;
     min-height: 10px;
 }
+
+@media (max-width: 1279px) {
+    .register__container {
+        padding-top: 232px;
+        padding-bottom: 232px;
+    }
+  } */

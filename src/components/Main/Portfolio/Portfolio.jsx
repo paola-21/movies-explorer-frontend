@@ -8,29 +8,20 @@ function Portfolio() {
       </h2>
       <nav>
         <ul className='portfolio__container'>
-          <li className='portfolio__grid'>
-            <h3 className='portfolio__subtitle'>
-            Статичный сайт
-            </h3>
-            <button className='portfolio__button'>
-            ↗
-            </button>
+          <li className='portfolio__list'>
+            <a href='https://github.com/paola-21/how-to-learn' target="_blank" className='portfolio__link'>
+              Статичный сайт <span>↗</span>
+            </a>
           </li>
-          <li className='portfolio__grid'>
-            <h3 className='portfolio__subtitle'>
-            Адаптивный сайт
-            </h3>
-            <button className='portfolio__button'>
-            ↗
-            </button>
+          <li className='portfolio__list'>
+          <a href='https://paola-21.github.io/russian-travel/' target="_blank" className='portfolio__link'>
+            Адаптивный сайт <span>↗</span>    
+          </a>
           </li>
-          <li className='portfolio__grid'>
-            <h3 className='portfolio__subtitle'>
-            Одностраничное приложение
-            </h3>
-            <button className='portfolio__button'>
-            ↗
-            </button>
+          <li className='portfolio__list'>
+          <a href='https://paola-21.github.io/mesto/' target="_blank" className='portfolio__link'>
+            Одностраничное приложение <span>↗</span>
+            </a>
           </li>
         </ul>
       </nav>

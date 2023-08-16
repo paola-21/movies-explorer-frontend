@@ -11,6 +11,7 @@ import Login from './components/Login/Login';
 import HeaderNavBar from './components/Header/HeaderNavBar/HeaderNavBar';
 import HeaderLogin from './components/Header/HeaderLogin/HeaderLogin';
 import Profile from './components/Profile/Profile';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 
 import './App.css'
 
@@ -60,6 +61,8 @@ function App() {
           <SavedMoviesCardList />
           <Footer />
         </>} />
+
+        <Route path="*" element={<PageNotFound />} />
 
       </Routes>
       </div>

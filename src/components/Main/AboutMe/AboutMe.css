@@ -142,7 +142,7 @@
   @media (max-width: 1279px) {
     .about-me__container {
         grid-template-columns: 364px auto;
-        padding-top: 69px;
+        padding-top: 66px;
         padding-bottom: 91px;
     }
   }

@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: repeat(3, 360px);
     column-gap: 30px;
-    row-gap: 42px;
+    row-gap: 43px;
 }
 
 @media (max-width: 1279px) {
@@ -14,7 +14,7 @@
         padding: 62px 30px 12px 30px;
         grid-template-columns: repeat(2, 339px);
         column-gap: 30px;
-        row-gap: 44px;
+        row-gap: 30px;
         grid-template-rows: repeat(2, auto);
     }
 }
@@ -23,7 +23,7 @@
     .movies {
         padding: 40px 10px 12px 10px;
         grid-template-columns: 300px;
-        row-gap: 35px;
+        row-gap: 21px;
         grid-template-rows: repeat(5, auto);
     }
 }

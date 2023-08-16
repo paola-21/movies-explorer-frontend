@@ -16,6 +16,7 @@
     padding-top: 12px;
     padding-left: 14px;
     padding-right: 14px;
+    height: 32px;
 }
 
 .movies_text {
@@ -29,7 +30,7 @@
     max-height: 32px;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: break-spaces;
 }
 
 .movies_time {
@@ -117,7 +118,7 @@
 @media (max-width: 1279px) {
     .movies_text {
         max-height: 16px;
-
+        white-space: nowrap;
     }
 }
 

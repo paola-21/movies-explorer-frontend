@@ -7,9 +7,6 @@ function MoviesCardList() {
     <>
       <ul className='movies'>
           <MoviesCard />
-          {/* {cards.map(() => (
-              <MoviesCard />
-          ))} */}
       </ul>
       <More />
     </>

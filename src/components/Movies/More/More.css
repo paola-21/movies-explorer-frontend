@@ -26,17 +26,15 @@
 
 @media (max-width: 1279px) {
     .more {
-        padding: 46px 0 80px 0;
+        padding: 33px 0 80px 0;
     }
 }
 
 @media (max-width: 767px) {
     .more {
-        padding: 50px 0 80px 0;
+        padding: 37px 0 79px 0;
     }
-}
 
-@media (max-width: 767px) {
     .more_button {
         width: 240px;
         height: 36px;
