@@ -19,52 +19,52 @@ function App() {
   const { pathname } = useLocation();
   console.log(pathname);
   return (
-    <div className="App">
+    <div className="app">
       <div className='app__container'>
 
-      <Routes>
+        <Routes>
 
-      <Route path="/signup" element={
-          <Register/>
-      } />
+        <Route path="/signup" element={
+            <Register/>
+        } />
 
-      <Route path="/signin" element={
-                <Login/>
-            } />
-      
-      <Route path="/profile" element={
+        <Route path="/signin" element={
+                  <Login/>
+              } />
+        
+        <Route path="/profile" element={
+          <>
+            <HeaderNavBar/>
+            <Profile/>
+          </>}
+        />
+
+        <Route path="/" element={
+          <>
+            <HeaderLogin />
+            <Main />
+          </>}
+        />
+
+        <Route path="/movies" element={
         <>
           <HeaderNavBar/>
-          <Profile/>
-        </>}
-       />
-
-      <Route path="/" element={
-        <>
-          <HeaderLogin />
-          <Main />
-        </>}
-      />
-
-      <Route path="/movies" element={
-      <>
-        <HeaderNavBar/>
-        <SearchForm />
-        <MoviesCardList />
-        <Footer />
-      </>} />
-
-        <Route path="/saved-movies" element={
-        <>
-          <HeaderNavBar />
           <SearchForm />
-          <SavedMoviesCardList />
+          <MoviesCardList />
           <Footer />
         </>} />
 
-        <Route path="*" element={<PageNotFound />} />
+          <Route path="/saved-movies" element={
+          <>
+            <HeaderNavBar />
+            <SearchForm />
+            <SavedMoviesCardList />
+            <Footer />
+          </>} />
 
-      </Routes>
+          <Route path="*" element={<PageNotFound />} />
+
+        </Routes>
       </div>
     </div>
   );
