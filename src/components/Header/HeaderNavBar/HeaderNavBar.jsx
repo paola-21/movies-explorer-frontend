@@ -23,18 +23,18 @@ function HeaderNavBar() {
           <nav className="header__menu">
             <ul className="header__list">
               <li className="header__link">
-                <Link className="header__link-text"> Главная
+                <Link className="header__link-text" to='/'> Главная
                 </Link>
               </li>
               <li className="header__link">
-                <Link className="header__link-text"> Фильмы
+                <Link className="header__link-text" to='/movies'> Фильмы
                 </Link>
               </li>
               <li className="header__link">
-                <Link className="header__link-text">Сохранённые фильмы</Link>
+                <Link className="header__link-text" to='/saved-movies'>Сохранённые фильмы</Link>
               </li>
             </ul>
-            <Link className="header__account" to='signup'>Аккаунт</Link>
+            <Link className="header__account" to='/profile'>Аккаунт</Link>
           </nav>
         </div> 
       </div>

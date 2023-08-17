@@ -56,7 +56,7 @@ function MoviesCard() {
         <h3 className='movies_time'>1ч 17м</h3>
     </div>
     </li>
-    {/* <li className="movies-list">
+    <li className="movies-list">
     <img className="movies__foto" src={Movies6} alt="фильм" />
     <button className='movies__button-save'></button>
     <div className='movies-list__container'>
@@ -79,8 +79,8 @@ function MoviesCard() {
         <h3 className='movies_text'>Gimme Danger: История Игги и The Stooges</h3>
         <h3 className='movies_time'>1ч 17м</h3>
     </div>
-    </li> */}
-    {/* <li className="movies-list">
+    </li>
+    <li className="movies-list">
     <img className="movies__foto" src={Movies9} alt="фильм" />
     <button className='movies__button-save'></button>
     <div className='movies-list__container'>
@@ -111,7 +111,7 @@ function MoviesCard() {
         <h3 className='movies_text'>По волнам: Искусство звука в кино</h3>
         <h3 className='movies_time'>1ч 17м</h3>
     </div>
-    </li> */}
+    </li>
     </>
   );
 }

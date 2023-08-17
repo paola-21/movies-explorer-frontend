@@ -1,6 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import SearchForm from './components/Movies/SearchForm/SearchForm';
 import MoviesCardList from './components/Movies/MoviesCardList/MoviesCardList';
