@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../../images/logo.svg';
-import './Login.css';
+import '../Register/Register.css';
 import useFormAndValidation from '../hooks/useFormAndValidation';
 
 
@@ -9,9 +9,10 @@ function Register() {
     const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
   return (
     <div className="register__container" noValidate>
+      <Link className="register__photo-link" to='/'><img className="register__photo" src={logo} alt="логотип" /> </Link>
       <h2 className="register__header">Рады видеть!</h2>
-      <form className="form__register">
-        <div className="form__input">
+      <form className="register__form">
+        <div className="register__form-container">
           <h3 className="register__title">E-mail</h3>
           <input
             className="register__input"
@@ -38,19 +39,17 @@ function Register() {
           />
           <span className="form__input-error">{errors.password}</span>
         </div>
-        <div className="form__button">
         <button className="register__input-button" type="submit">
         Войти
         </button>
+        </form>
         <h2 className="register__text">
         Ещё не зарегистрированы?{" "}
         <Link className="register__link" to={"/signup"}>
         Регистрация
         </Link>
         </h2> 
-        </div>
-      </form>
-
+      
     </div>
   );
 }

@@ -9,10 +9,10 @@ function Register() {
     const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
   return (
     <div className="register__container" noValidate>
-      <img className="register__photo" src={logo} alt="логотип" />
+      <Link className="register__photo-link" to='/'><img className="register__photo" src={logo} alt="логотип" /> </Link>
       <h2 className="register__header">Добро пожаловать!</h2>
-      <form className="form__register">
-        <div className="form__container">
+      <form className="register__form">
+        <div className="register__form-container">
           <h3 className="register__title">Имя</h3>
           <input
           className="register__input"
