@@ -14,9 +14,9 @@ function HeaderNavBar() {
       }
 
     return (
-        <div className="header__container">
+        <div className="header">
         <div className="header__body">
-          <img className="header__logo" src={headerLogo} alt="Логотип" /> 
+        <Link className="header__logo-link" to='/'><img className="header__logo" src={headerLogo} alt="Логотип" /> </Link>
           <div className="header__burger" onClick={handleBurger}>
             <span></span>  
           </div>

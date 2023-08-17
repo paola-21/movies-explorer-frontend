@@ -4,8 +4,9 @@
 .app {
     background: #2F2F2F;
 }
-.app__container {
+.page {
     max-width: 1280px;
     margin: auto;
-    height: 100%;
+    height: 100vh;
+    background: #202020;
 }

@@ -14,15 +14,13 @@ function SearchForm() {
             <div className='search__container-button'>
                 <label>
                     <input className='search__invisible-checkbox' type="checkbox" name="myCheckbox"/>
-                    <span class="search__visible-checkbox">
+                    <span className="search__visible-checkbox">
                     </span> 
                 </label>
                 <h3 className='search__text'>
                 Короткометражки
                 </h3>
-            </div>
-
-            
+            </div>          
         </form>
     </div>
   );

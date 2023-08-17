@@ -7,16 +7,14 @@ import Footer from '../Footer/Footer';
 
 function Main() {
   return (
-    <div className="App">
-      <div className='app__container'>
-        <Promo />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Portfolio />
-        <Footer />
-      </div>
-    </div>
+    <>
+      <Promo />
+      <AboutProject />
+      <Techs />
+      <AboutMe />
+      <Portfolio />
+      <Footer />
+      </>
   );
 }
 

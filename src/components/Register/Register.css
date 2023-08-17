@@ -131,7 +131,7 @@
     }
     
     .form__register {
-        grid-template-columns: 320px;
+        grid-template-columns: 260px;
         justify-content: flex-start;
     }
     

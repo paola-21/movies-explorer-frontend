@@ -1,6 +1,5 @@
 .profile {
     background: #202020;
-    height: 100vh;
 }
 
 
@@ -92,7 +91,7 @@
 
 @media (max-width: 768px) {
     .profile__form {
-        padding: 236px 0 70px 0;
+        padding: 236px 0 269px 0;
     }
     
     .profile__title {

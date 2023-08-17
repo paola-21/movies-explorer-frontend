@@ -66,10 +66,10 @@
 }
 
 .search__visible-checkbox {
-    display: inline-block; /* элемент span теперь сможет принимать определённую ширину и высоту */
-    vertical-align: middle; /* элемент и текст будут правильно выровнены по вертикали. Работает в паре с inline-block */
+    display: inline-block;
+    vertical-align: middle;
     width: 36px;
-    height: 20px; /* размеры */
+    height: 20px;
     background-image: url('../../../images/smalltumb.svg');
     background-repeat: no-repeat;
 }
@@ -103,10 +103,7 @@
         padding-left: 30px;
         padding-right: 30px;
     }
-}
-
-@media (max-width: 1279px) {
-    .search__movies{
+    .search__movies {
         row-gap: 41px;
         padding-bottom: 10px;
     }
@@ -118,32 +115,20 @@
         padding-right: 14px;
         padding-bottom: 0;
     }
-}
-
-@media (max-width: 767px) {
-    .search__movies{
+    .search__movies {
         row-gap: 47px;
         padding-bottom: 10px;
         grid-template-rows: 44px 58px;
     }
-}
-
-@media (max-width: 767px) {
     .search__container-button {
         grid-template-columns: 36px 99px;
         column-gap: 13px;
     }
-}
-
-@media (max-width: 767px) {
     .search__input {
         height: 44px;
         padding: 0 0 0 13px;
         border: 0;
     }
-}
-
-@media (max-width: 767px) {
     .search__text {
         font-size: 11px;
     }

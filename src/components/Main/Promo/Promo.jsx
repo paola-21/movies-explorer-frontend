@@ -22,7 +22,6 @@ function Promo() {
           </ul>
         </nav>
       </div>
-
     </div>
   );
 }

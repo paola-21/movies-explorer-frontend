@@ -21,7 +21,7 @@ function AboutProject() {
         </h4>
       </div>
       <div className='project__container-week'>
-        <h3 className='project__week-subtitle_activ'>
+        <h3 className='project__week-subtitle-activ'>
         1 неделя
         </h3>
         <h3 className='project__week-subtitle'>

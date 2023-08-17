@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.more_button {
+.more__button {
     margin: 0;
     border: 0;
     background-color: transparent;
@@ -35,7 +35,7 @@
         padding: 37px 0 79px 0;
     }
 
-    .more_button {
+    .more__button {
         width: 240px;
         height: 36px;
     }

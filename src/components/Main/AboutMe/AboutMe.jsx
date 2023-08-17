@@ -19,9 +19,9 @@ function AboutMe() {
             и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. &#10;&#13; С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься 
             фриланс-заказами и ушёл с постоянной работы.
         </h4>
-        <h4 className='about-me__link'>
+        <a className='about-me__link' href='https://github.com/paola-21' target="_blank">
         Github
-        </h4>
+        </a>
         <img className="about-me__photo" src={photoStudent} alt="фото студента" />
       </div>
     </div>

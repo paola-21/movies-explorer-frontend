@@ -5,12 +5,12 @@ import './HeaderLogin.css'
 function Header() {
 
     return (
-        <div className="header__container">
+        <div className="header">
         <div className="header__body">
-          <img className="header__logo" src={headerLogo} alt="Логотип" /> 
+        <Link className="header__logo-link" to='/'><img className="header__logo" src={headerLogo} alt="Логотип" /> </Link>
           <nav className="header__profile">
-              <Link className="header__profile_register" to='signup'>Регистрация</Link>
-              <Link className="header__profile_login" to='signin'>Войти</Link>
+            <Link className="header__profile_register" to='signup'>Регистрация</Link>
+            <Link className="header__profile_login" to='signin'>Войти</Link>
           </nav>
         </div> 
       </div>

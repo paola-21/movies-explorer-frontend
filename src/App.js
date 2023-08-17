@@ -18,8 +18,8 @@ function App() {
   const { pathname } = useLocation();
   console.log(pathname);
   return (
-    <div className="app">
-      <div className='app__container'>
+    <div className='app'>
+      <div className='page'>
 
         <Routes>
 

@@ -9,10 +9,9 @@ function Register() {
     const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
   return (
     <div className="register__container" noValidate>
-      <img className="register__photo" src={logo} alt="логотип" />
       <h2 className="register__header">Рады видеть!</h2>
       <form className="form__register">
-      <div className="form__container">
+        <div className="form__input">
           <h3 className="register__title">E-mail</h3>
           <input
             className="register__input"
@@ -38,17 +37,20 @@ function Register() {
             onChange={handleChange}
           />
           <span className="form__input-error">{errors.password}</span>
-        </div> 
+        </div>
+        <div className="form__button">
         <button className="register__input-button" type="submit">
         Войти
         </button>
-      </form>
-      <h2 className="register__text">
+        <h2 className="register__text">
         Ещё не зарегистрированы?{" "}
         <Link className="register__link" to={"/signup"}>
         Регистрация
         </Link>
-      </h2> 
+        </h2> 
+        </div>
+      </form>
+
     </div>
   );
 }
