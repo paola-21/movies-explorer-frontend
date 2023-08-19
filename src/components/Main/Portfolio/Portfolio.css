@@ -18,7 +18,7 @@
 .portfolio__container {
   margin: 0;
   padding-top: 48px;
-  padding-bottom: 88px;
+  padding-bottom: 86px;
   padding-left: 0;
 }
 
@@ -29,7 +29,7 @@
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #DADADA;
-  margin-bottom: 19px;
+  margin-bottom: 20px;
 }
 
 .portfolio__link {
@@ -48,6 +48,11 @@
   font-weight: 400;
   line-height: 50px; /* 166.667% */
   letter-spacing: -1.2px;
+}
+
+.portfolio__link:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 .portfolio__link span {

@@ -8,7 +8,7 @@ import useFormAndValidation from '../hooks/useFormAndValidation';
 function Register() {
     const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
   return (
-    <div className="register__container" noValidate>
+    <div className="register" noValidate>
       <Link className="register__photo-link" to='/'><img className="register__photo" src={logo} alt="логотип" /> </Link>
       <h2 className="register__header">Рады видеть!</h2>
       <form className="register__form">
@@ -23,7 +23,7 @@ function Register() {
             required
             onChange={handleChange}
           />
-          <span className="form__input-error">{errors.email}</span>
+          <span className="register__input-error">{errors.email}</span>
 
           <h3 className="register__title">Пароль</h3>
           <input
@@ -37,7 +37,7 @@ function Register() {
             maxLength="16"
             onChange={handleChange}
           />
-          <span className="form__input-error">{errors.password}</span>
+          <span className="register__input-error">{errors.password}</span>
         </div>
         <button className="register__input-button" type="submit">
         Войти
@@ -49,7 +49,6 @@ function Register() {
         Регистрация
         </Link>
         </h2> 
-      
     </div>
   );
 }

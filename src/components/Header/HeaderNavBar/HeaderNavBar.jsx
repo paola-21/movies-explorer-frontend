@@ -8,8 +8,10 @@ function HeaderNavBar() {
         const burger = document.querySelector('.header__burger');
         if (burger) {
           const headerMenu = document.querySelector('.header__menu');
+          const menuTransparent = document.querySelector('.header__menu-no-transparent');
           burger.classList.toggle('header__burger_active');
-          headerMenu.classList.toggle('header__menu_active');
+          headerMenu.classList.toggle('header__menu__active');
+          menuTransparent.classList.toggle('header__menu-transparent');
         }
       }
 
@@ -20,6 +22,9 @@ function HeaderNavBar() {
           <div className="header__burger" onClick={handleBurger}>
             <span></span>  
           </div>
+          <div className="header__menu-no-transparent">
+            <img className="header__menu-no-transparent__logo" src={headerLogo} alt="Логотип" />
+            </div>
           <nav className="header__menu">
             <ul className="header__list">
               <li className="header__link">

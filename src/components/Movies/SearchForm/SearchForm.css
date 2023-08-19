@@ -57,6 +57,11 @@
     padding: 0
 }
 
+.search__button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
 .search__invisible-checkbox[type="checkbox"]  {
     position: absolute;
     width: 1px;
@@ -72,6 +77,11 @@
     height: 20px;
     background-image: url('../../../images/smalltumb.svg');
     background-repeat: no-repeat;
+}
+
+.search__visible-checkbox:hover {
+    opacity: 0.6;
+    cursor: pointer;
 }
 
 .search__invisible-checkbox[type="checkbox"]:checked + .search__visible-checkbox {

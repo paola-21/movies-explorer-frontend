@@ -64,6 +64,8 @@
 
 .movies-list__button-close:hover {
     opacity: 1;
+    opacity: 0.6;
+    cursor: pointer;
 }
 
 .movies-list__foto:hover + .movies-list__button-close {
@@ -107,6 +109,12 @@
         font-size: 12px;
         max-height: 15px;
     }
+    .movies-list__button-close {
+        opacity: 1;
+        top: 11px;
+        right: 10px;
+    }
+    
 }
 
 

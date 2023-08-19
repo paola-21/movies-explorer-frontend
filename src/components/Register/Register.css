@@ -1,4 +1,4 @@
-.register__container {
+.register {
     background-color: #202020;
     padding-top: 70px;
     display: grid;
@@ -55,7 +55,7 @@
     font-weight: 400;
     line-height: normal;
     margin-bottom: 20px;
-    width: 370px;
+    width: 366px;
 }
 
 .register__input-button {
@@ -72,6 +72,11 @@
     font-weight: 500;
     line-height: normal;
     align-self: end;
+}
+
+.register__input-button:hover {
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 .register__text {
@@ -97,7 +102,12 @@
     text-decoration: none;    
 }
 
-.form__input-error {
+.register__link:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.register__input-error {
     color: #EE3465;
     font-family: Inter, Arial, sans-serif;
     font-size: 10px;
@@ -108,14 +118,14 @@
 }
 
 @media (max-width: 1279px) {
-    .register__container {
+    .register {
         padding-top: 232px;
         padding-bottom: 232px;
     }
   }
 
   @media (max-width: 767px) {
-    .register__container {
+    .register {
         padding-top: 56px;
         grid-template-columns: 260px;
         padding-bottom: 30px;
@@ -155,13 +165,14 @@
     
     .register__text {
         font-size: 12px;
+        padding-top: 14px;
     }
     
     .register__link {
         font-size: 12px;  
     }
     
-    .form__input-error {
+    .register__input-error {
         color: #EE3465;
         font-family: Inter, Arial, sans-serif;
         font-size: 10px;

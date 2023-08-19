@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.more_button {
+.more__button {
     margin: 0;
     border: 0;
     background-color: transparent;
@@ -24,6 +24,11 @@
     line-height: normal;
 }
 
+.more__button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
 @media (max-width: 1279px) {
     .more {
         padding: 33px 0 80px 0;
@@ -35,8 +40,9 @@
         padding: 37px 0 79px 0;
     }
 
-    .more_button {
+    .more__button {
         width: 240px;
         height: 36px;
+        background-image: url(../../../images/bottonBorder320.svg);
     }
 }

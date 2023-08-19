@@ -42,6 +42,11 @@
     text-decoration: none;
 }
 
+.button_type_to-main:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
     .not-found {
         padding-top: 165px;

@@ -76,6 +76,11 @@
     padding: 0;
 }
 
+.profile__edit:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
 .profile__exit {
     padding: 0;
     border: 0;
@@ -87,6 +92,11 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.profile__exit:hover {
+    opacity: 0.6;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {

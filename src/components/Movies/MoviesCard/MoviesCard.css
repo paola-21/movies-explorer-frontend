@@ -75,8 +75,15 @@
     border: 0;
 }
 
+.movies-list__button-save__activ:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
 .movies-list__button-save:hover {
     opacity: 1;
+    opacity: 0.6;
+    cursor: pointer;
 }
 
 .movies-list__foto:hover + .movies-list__button-save {
@@ -120,12 +127,20 @@
         font-size: 12px;
         max-height: 15px;
     }
-}
 
-/* @media (max-width: 767px) {
-    .movies__button-save {
-        top: 11px;
-        right: 10px;
+    .movies-list__button-save {
         opacity: 1;
+        top: 11px;
+        right: 10px; 
     }
-} */
+
+    .movies-list__button-save:hover {
+        opacity: 0.6;
+        cursor: pointer;
+    }
+
+    .movies-list__button-save__activ {
+        top: 11px;
+        right: 10px;   
+    }
+}
