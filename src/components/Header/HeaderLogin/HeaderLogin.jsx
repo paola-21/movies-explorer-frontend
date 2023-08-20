@@ -9,8 +9,8 @@ function Header() {
         <div className="header__body-profile">
         <Link className="header__logo-profile" to='/'><img className="header__logo" src={headerLogo} alt="Логотип" /> </Link>
           <nav className="header__profile">
-            <Link className="header__profile_register" to='signup'>Регистрация</Link>
-            <Link className="header__profile_login" to='signin'>Войти</Link>
+            <Link className="header__profile__register" to='/signup'>Регистрация</Link>
+            <Link className="header__profile__login" to='/signin'>Войти</Link>
           </nav>
         </div> 
       </div>

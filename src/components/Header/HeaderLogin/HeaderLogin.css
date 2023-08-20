@@ -14,7 +14,7 @@
 
 
 
-.header__profile_login {
+.header__profile__login {
   color: #000;
   font-family: Inter, Arial, sans-serif;
   font-size: 12px;
@@ -29,9 +29,10 @@
   border: 0;
   text-decoration: none;
   justify-self: end;
+  z-index: 2;
   }
   
-.header__profile_register {
+.header__profile__register {
   background-color: transparent;
   border: 0;
   padding: 0;
@@ -44,14 +45,15 @@
   font-weight: 500;
   line-height: 16px;
   text-decoration: none;
+  z-index: 2;
 }
 
-.header__profile_register:hover {
+.header__profile__register:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 
-.header__profile_login:hover {
+.header__profile__login:hover {
   opacity: 0.6;
   cursor: pointer;
 }
@@ -74,13 +76,13 @@
     column-gap: 14px;
   }
 
-  .header__profile_login {
+  .header__profile__login {
     font-size: 10px;
     padding: 5px 12px;
     width: 30px;
   }
 
-  .header__profile_register {
+  .header__profile__register {
     font-size: 10px;
   }
 }  

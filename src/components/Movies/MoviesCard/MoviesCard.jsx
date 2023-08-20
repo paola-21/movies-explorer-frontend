@@ -83,7 +83,7 @@ function MoviesCard() {
       </div>
     </li>
 
-    {/* <li className="movies-list">
+    <li className="movies-list">
       <img className="movies-list__foto" src={Movies9} alt="фильм" />
       <button className='movies-list__button-save'></button>
       <div className='movies-list__container'>
@@ -114,7 +114,7 @@ function MoviesCard() {
         <h3 className='movies-list__text'>По волнам: Искусство звука в кино</h3>
         <h3 className='movies-list__time'>1ч 17м</h3>
       </div>
-    </li> */}
+    </li>
     </>
   );
 }
