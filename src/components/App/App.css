@@ -1,5 +1,5 @@
-@import url(../src/vendor/normalize.css);
-@import url(../src/vendor/fonts/inter.css);
+@import url(../../vendor/normalize.css);
+@import url(../../vendor/fonts/inter.css);
 
 .app {
     background: #2F2F2F;

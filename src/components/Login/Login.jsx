@@ -5,13 +5,20 @@ import '../Register/Register.css';
 import useFormAndValidation from '../hooks/useFormAndValidation';
 
 
-function Register() {
+function Login({ onLogin }) {
     const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
-  return (
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const { email, password } = values;
+      onLogin({ email, password });
+    };
+
+    return (
     <div className="register" noValidate>
       <Link className="register__photo-link" to='/'><img className="register__photo" src={logo} alt="логотип" /> </Link>
       <h2 className="register__header">Рады видеть!</h2>
-      <form className="register__form">
+      <form className="register__form" onSubmit={handleSubmit}>
         <div className="register__form-container">
           <h3 className="register__title">E-mail</h3>
           <input
@@ -53,4 +60,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

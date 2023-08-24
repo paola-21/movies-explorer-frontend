@@ -1,17 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import logo from '../../images/logo.svg';
 import './Register.css';
 import useFormAndValidation from '../hooks/useFormAndValidation';
 
 
-function Register() {
+function Register({ onRegister } ) {
+
     const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
+
+    let location = useLocation();
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const { name, email, password } = values;
+      onRegister({ name, email, password });
+    };
+  
   return (
     <div className="register" noValidate>
       <Link className="register__photo-link" to='/'><img className="register__photo" src={logo} alt="логотип" /> </Link>
       <h2 className="register__header">Добро пожаловать!</h2>
-      <form className="register__form">
+      <form className="register__form" onSubmit={handleSubmit} >
         <div className="register__form-container">
           <h3 className="register__title">Имя</h3>
           <input

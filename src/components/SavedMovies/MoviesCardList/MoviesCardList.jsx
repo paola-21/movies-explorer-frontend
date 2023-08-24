@@ -1,12 +1,16 @@
-import MoviesCard from '../../SavedMovies/MoviesCard/MoviesCard';
+import MoviesCard from '../MoviesCard/MoviesCard';
 import More from '../../Movies/More/More';
 import '../../Movies/MoviesCardList/MoviesCardList.css';
 
-function MoviesCardList() {
+function MoviesCardList({movies}) {
   return (
     <>
       <ul className='movies'>
-          <MoviesCard />
+        {/* {movies.map((movie) => ( */}
+            <MoviesCard
+            // movie={movie} key={movie._id}
+            />
+          {/* ))} */}
       </ul>
       <More />
     </>

@@ -85,17 +85,14 @@
 }
 
 .search__invisible-checkbox[type="checkbox"]:checked + .search__visible-checkbox {
-    background-image: url('../../../images/smalltumb.svg');
+    background-image: url('../../../images/smalltumbActive.svg');
 }
 
 .search__invisible-checkbox[type="checkbox"]:disabled + .search__visible-checkbox {
     background-image: url('../../../images/smalltumb.svg');
 }
 .search__invisible-checkbox[type="checkbox"]:disabled:checked + .search__visible-checkbox {
-    background-image: url('../../../images/smalltumb.svg');
-}
-.search__invisible-checkbox[type="checkbox"]:focus + .search__visible-checkbox {
-    background-image: url('../../../images/smalltumb.svg');
+    background-image: url('../../../images/smalltumbActive.svg');
 }
 
 .search__text {
