@@ -79,6 +79,14 @@
     align-self: end;
 }
 
+.register__input-button__inactive {
+    opacity: 0.2;
+}
+
+.register__input-button__inactive:hover {
+    opacity: 0.2;
+}
+
 .register__input-button:hover {
     opacity: 0.7;
     cursor: pointer;

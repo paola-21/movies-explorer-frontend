@@ -5,7 +5,7 @@ import More from "../More/More";
 import './MoviesCardList.css';
 import {useMediaQuery} from '../../hooks/useMediaQuery';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, handlelikeClick}) {
 
   const LG_ROW_CARD_COUNT = 3;
   const MD_ROW_CARD_COUNT = 2;
@@ -57,16 +57,23 @@ function MoviesCardList({ movies }) {
     <>
       <ul className='movies'>
 
+        {movies.map((movie) => (
+        <MoviesCard
+        movie={movie} key={movie.id}  handlelikeClick={handlelikeClick}
+        />
+      ))}
+      
+{/* 
         {movies.length === 0 ? (
           <p className="movies__text"> Фильмы по запросу не найдены</p>
         ) : (
           movies?.slice(0, roundedVisibleCardCount).map((movie) => (
           <MoviesCard
-          movie={movie} key={movie._id}
+          movie={movie} key={movie.id}  handlelikeClick={handlelikeClick}
           />
         ))
         )
-        }
+        } */}
       </ul>
       {movies.length === 0 ? (<p className="movies__text"> Фильмы по запросу не найдены</p>) :
       (<More onClick={handleClick}/>) 

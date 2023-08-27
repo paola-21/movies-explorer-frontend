@@ -1,7 +1,7 @@
 import './MoviesCard.css';
 import React from 'react';
 
-function MoviesCard({ movie }) {
+function MoviesCard({ movie, handlelikeClick}) {
   const URL = 'https://api.nomoreparties.co/';
 
   //формат времени
@@ -11,12 +11,16 @@ function MoviesCard({ movie }) {
     return hour ? `${hour}ч ${min}м` : `${min}м`;
   };
 
+  const handleLikeClic = () => {
+    handlelikeClick(movie);
+  }
+
     return (
     <li className="movies-list">
       <a href={movie.trailerLink}>
         <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} />
       </a>
-      <button className='movies-list__button-save'></button>
+      <button className='movies-list__button-save' onClick={handleLikeClic}></button>
       <div className='movies-list__container'>
         <h3 className='movies-list__text'>{movie.nameRU}</h3>
         <h3 className='movies-list__time'>{formatTime(movie.duration)}</h3>

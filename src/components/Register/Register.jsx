@@ -7,21 +7,23 @@ import useFormAndValidation from '../hooks/useFormAndValidation';
 
 function Register({ onRegister } ) {
 
-    const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
+    const {values, handleChange, errors, isValid, setValues} = useFormAndValidation()
 
-    let location = useLocation();
-  
     const handleSubmit = (e) => {
       e.preventDefault();
       const { name, email, password } = values;
       onRegister({ name, email, password });
     };
+
+    const button = `register__input-button ${
+      !isValid && "register__input-button__inactive"
+    }`;
   
   return (
     <div className="register" noValidate>
       <Link className="register__photo-link" to='/'><img className="register__photo" src={logo} alt="логотип" /> </Link>
       <h2 className="register__header">Добро пожаловать!</h2>
-      <form className="register__form" onSubmit={handleSubmit} >
+      <form className="register__form" onSubmit={handleSubmit} resetForm>
         <div className="register__form-container">
           <h3 className="register__title">Имя</h3>
           <input
@@ -62,7 +64,7 @@ function Register({ onRegister } ) {
           />
           <span className="register__input-error">{errors.password}</span>
         </div>
-        <button className="register__input-button" type="submit">
+        <button className={button} type="submit" disabled={!isValid}>
           Зарегистрироваться
         </button>
       </form>
