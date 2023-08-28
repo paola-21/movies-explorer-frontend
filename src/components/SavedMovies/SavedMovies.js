@@ -5,12 +5,12 @@ import { api } from "../../utils/MoviesApi";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 
-function SavedMovies({ handleSearchButton, setSearch, filteredMovies, handlelikeClick }) {
+function SavedMovies({ handleSearchSavedMoviesButton, setSearch, savedMovies, handlelikeClick, handleDeleteClick, filteredSavedMovies, setCheckbox }) {
 
   return (
     <>
-        <SearchForm setSearch={setSearch} handleSearchButton={handleSearchButton}/>
-        <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick}/>
+        <SearchForm setSearch={setSearch} handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckbox={setCheckbox}/>
+        <MoviesCardList movies={savedMovies} handlelikeClick={handlelikeClick} handleDeleteClick ={handleDeleteClick} filteredSavedMovies={filteredSavedMovies}/>
     </>
   );
 }

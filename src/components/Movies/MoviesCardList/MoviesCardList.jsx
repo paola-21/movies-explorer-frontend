@@ -1,11 +1,13 @@
 import React from "react";
+import {useMemo, useState} from 'react-router-dom';
 
 import MoviesCard from '../../Movies/MoviesCard/MoviesCard';
 import More from "../More/More";
 import './MoviesCardList.css';
 import {useMediaQuery} from '../../hooks/useMediaQuery';
+import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ movies, handlelikeClick}) {
+function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClick, filteredSavedMovies}) {
 
   const LG_ROW_CARD_COUNT = 3;
   const MD_ROW_CARD_COUNT = 2;
@@ -53,34 +55,33 @@ function MoviesCardList({ movies, handlelikeClick}) {
       setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
     };
 
+
   return (
     <>
       <ul className='movies'>
-
-        {movies.map((movie) => (
-        <MoviesCard
-        movie={movie} key={movie.id}  handlelikeClick={handlelikeClick}
-        />
-      ))}
-      
-{/* 
         {movies.length === 0 ? (
           <p className="movies__text"> Фильмы по запросу не найдены</p>
         ) : (
           movies?.slice(0, roundedVisibleCardCount).map((movie) => (
           <MoviesCard
-          movie={movie} key={movie.id}  handlelikeClick={handlelikeClick}
+          movie={movie} key={movie._id}  handlelikeClick={handlelikeClick} savedMovies={savedMovies} handleDeleteClick={handleDeleteClick} filteredSavedMovies={filteredSavedMovies}
           />
         ))
         )
-        } */}
+        }
       </ul>
-      {movies.length === 0 ? (<p className="movies__text"> Фильмы по запросу не найдены</p>) :
-      (<More onClick={handleClick}/>) 
-      }
+
+                <More onClick={handleClick}/>
+
+
       
     </>
   );
 }
 
 export default MoviesCardList;
+
+
+// {movies.length === 0 ? (<p className="movies__text"> Фильмы по запросу не найдены</p>) :
+// (<More onClick={handleClick}/>) 
+// }

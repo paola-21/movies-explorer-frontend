@@ -27,14 +27,21 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [errorsUser, setErrorsUser] = React.useState('');
+  const [movies, setMovies] = React.useState(null);
+  const [search, setSearch] = React.useState('');
+  const [checkbox, setCheckbox] = React.useState(false);
+  const [ filteredMovies, setFilteredMovies ] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
+  const [ filteredSavedMovies, setFilteredSavedMovies ] = React.useState([]);
 
   //регистрация
   function handleRegister({ name, email, password }) {
     signOut();
     mainApi
-      .register({ name, email, password })
+      .register({ name, email, password}, localStorage.getItem('token'))
       .then(() => {
         navigate("/movies", { replace: true });
+        handleAuthorize({ email, password });
       })
       .catch((err) => {
         console.log(err);
@@ -116,14 +123,6 @@ function App() {
 
 
     //часть movies
-    const [movies, setMovies] = React.useState(null);
-    const [search, setSearch] = React.useState('');
-    const [checkbox, setCheckbox] = React.useState(false);
-    const [ filteredMovies, setFilteredMovies ] = React.useState([]);
-    const [savedMovie, setSavedMovies] = React.useState(null);
-    const [ filteredSavedMovies, setFilteredSavedMovies ] = React.useState([]);
-    
-
 
     //загрузка всех фильмов с сервера
       React.useEffect(() => {
@@ -138,11 +137,13 @@ function App() {
     }, []);
 
 
-    //фильтр по имени и чекбокс, 
+    //фильтр по имени и чекбокс
     const handleSearchButton = (e) => {
             e.preventDefault();
 
         let filtered = movies;
+
+        console.log(filtered)
 
         if (search) {
             const s = search.toLowerCase();
@@ -153,24 +154,31 @@ function App() {
             filtered = filtered.filter(n => n.duration < 40);
             }
             setFilteredMovies(filtered);
+
+            console.log(setFilteredMovies)
     };
 
 
-      //фильтр по имени и чекбокс, 
+      //фильтр по имени и чекбокс сохраненные фильмы
       const handleSearchSavedMoviesButton = (e) => {
-        e.preventDefault();
+          e.preventDefault();
 
-    let filtered = savedMovie;
+          let filtered = savedMovies;
 
-    if (search) {
-        const s = search.toLowerCase();
-        filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-        }
+          console.log(filtered)
 
-    if (checkbox) {
-      filtered = filtered.filter(n => n.duration < 40);
-        }
+          if (search) {
+              const s = search.toLowerCase();
+              filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+              }
+
+          if (checkbox) {
+            filtered = filtered.filter(n => n.duration < 40);
+          }
         setFilteredSavedMovies(filtered);
+        console.log(
+          setFilteredSavedMovies
+        )
 };
     
     //загрузка сохранненых фильмов с сервера
@@ -178,7 +186,7 @@ function App() {
       mainApi
       .getsaveMovies()
         .then((data) => {
-          setSavedMovies(data)
+          setSavedMovies(data.data);
         })
         .catch((err) => {
           console.log(err);
@@ -187,24 +195,50 @@ function App() {
     
 
   //сохраняем карточку фильма
-
-    const handlelikeClick = (movie) => {
-      const NewMovie = {
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: "https://api.nomoreparties.co" + movie.image.url,
-        trailerLink: movie.trailerLink,
-        thumbnail: "https://api.nomoreparties.co" + movie.image.formats.thumbnail.url,
-        movieId: movie.id,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
+  const handlelikeClick = (movie) => {
+    const URL = 'https://api.nomoreparties.co/';
+    const NewMovie = {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: URL + movie.image.url,
+      trailerLink: movie.trailerLink,
+      thumbnail: URL + movie.image.formats.thumbnail.url,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+    }
+      const isSevedMovies = savedMovies.some((item) => (item.movieId === movie.id));
+    if (!isSevedMovies) {
+    mainApi
+      .saveMovies(NewMovie)
+      .then((NewMovie) => {
+        NewMovie.image = URL + movie.image.url;
+        setSavedMovies([NewMovie, ...setSavedMovies])})
+      .catch((err) => { console.log(err)});
+    } else {
+    const isSevedMovieId = savedMovies.find((item) => item.movieId === movie.id)._id;
+    mainApi
+      .deleteMovies(isSevedMovieId)
+      .then(() => setSavedMovies((state) => 
+      state.filter((item) => item.movieId === movie.id)
+      ))
+      .catch((err) => { console.log(err)});
       }
-        mainApi
-      .saveMovies (NewMovie)
-      .then((savedMovie) => setSavedMovies([savedMovie, ...setSavedMovies]))
+  };
+
+  //удаляем карточку фильма
+
+  const handleDeleteClick = (movie) => {
+    mainApi
+      .deleteMovies(movie._id)
+      .then(() => {
+        setSavedMovies((state) =>
+          state.filter((item) => item.movieId !== movie.movieId)
+        );
+      })
       .catch((err) => { console.log(err)});
   };
 
@@ -246,14 +280,17 @@ function App() {
         <Route path="/movies" element={
         <>
           <HeaderNavBar/>
-          <Movies handleSearchButton={handleSearchButton} setSearch={setSearch} filteredMovies={filteredMovies} handlelikeClick={handlelikeClick}/>
+          <Movies handleSearchButton={handleSearchButton} setSearch={setSearch} setCheckbox={setCheckbox} 
+          filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
+          handleDeleteClick={handleDeleteClick} loggedIn={loggedIn}/>
           <Footer />
         </>} />
 
           <Route path="/saved-movies" element={
           <>
             <HeaderNavBar />
-            <SavedMovies handleSearchButton={handleSearchSavedMoviesButton} setSearch={setSearch} filteredMovies={filteredSavedMovies} handlelikeClick={handlelikeClick} />
+            <SavedMovies handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckbox={setCheckbox} setSearch={setSearch} filteredSavedMovies={filteredSavedMovies} savedMovies={filteredSavedMovies} handlelikeClick={handlelikeClick} 
+            handleDeleteClick={handleDeleteClick} />
             <Footer />
           </>} />
 

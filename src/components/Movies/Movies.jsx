@@ -6,13 +6,21 @@ import * as mainApi  from '../../utils/MainApi';
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import More from "./More/More";
+import Preloader from "./Preloader/Preloader";
 
-function Movies({ handleSearchButton, setSearch, filteredMovies, handlelikeClick }) {
+function Movies({ handleSearchButton, setSearch, filteredMovies, handlelikeClick, savedMovies, handleDeleteClick, setCheckbox,
+  loggedIn}) {
 
   return (
     <>
-      <SearchForm setSearch={setSearch} handleSearchButton={handleSearchButton}/>
-      <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick}/>
+      <SearchForm setSearch={setSearch} setCheckbox={setCheckbox} handleSearchButton={handleSearchButton}/>
+
+      {!loggedIn ? (
+      <Preloader/>
+      ) : ( <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick} 
+        savedMovies={savedMovies} handleDeleteClick={handleDeleteClick}
+        />)   }
+
     </>
   );
 }

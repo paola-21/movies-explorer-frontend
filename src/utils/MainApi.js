@@ -100,27 +100,14 @@ export const getsaveMovies = (movie) => {
   .then(getResponseData);
 };
 
-export const deleteMovies = (movie) => {
-  return fetch(`${BASE_URL}/movies`, {
+export const deleteMovies = (id) => {
+  return fetch(`${BASE_URL}/movies/${id}`, {
       credentials: 'include',
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        // Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      body: JSON.stringify(movie),
   })
   .then(getResponseData);
 };
-
-// country: movie.country,
-// director: movie.director,
-// duration: movie.duration,
-// year: movie.year,
-// description: movie.description,
-// image: movie.image.url,
-// trailerLink: movie.trailerLink,
-// thumbnail: movie.image,
-// movieId: movie.movieId,
-// nameRU: movie.nameRU,
-// nameEN: movie.nameEN,
