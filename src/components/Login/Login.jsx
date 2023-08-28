@@ -50,8 +50,7 @@ function Login({ onLogin }) {
           />
           <span className="register__input-error">{errors.password}</span>
         </div>
-        <span className="register__input-error">{errors.q}</span>
-        <button className={button} type="submit" name="q" disabled={!isValid}>
+        <button className={button} type="submit" disabled={!isValid}>
         Войти
         </button>
         </form>

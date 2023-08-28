@@ -17,6 +17,9 @@ import Profile from '../Profile/Profile';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Movies from "../Movies/Movies";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import InfoTooltip from '../InfoTooltip/InfoTooltip'; 
+import imageRegister from '../../images/Register.png';
+import imageNoRegister from '../../images/NoRegister.png';
 
 
 import './App.css';
@@ -24,15 +27,54 @@ import './App.css';
 function App() {
  
   const navigate = useNavigate();
+  //const checkboxValue = JSON.parse(localStorage.getItem('checkboxValue'));
+  
+  const checkboxValue = localStorage.getItem('checkboxValue') === 'true' ? true : false ;
+  
+
+
+
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [errorsUser, setErrorsUser] = React.useState('');
   const [movies, setMovies] = React.useState(null);
   const [search, setSearch] = React.useState('');
-  const [checkbox, setCheckbox] = React.useState(false);
+  const [checkbox, setCheckbox] = React.useState(checkboxValue || false);
   const [ filteredMovies, setFilteredMovies ] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [ filteredSavedMovies, setFilteredSavedMovies ] = React.useState([]);
+  const [isInfoTooltip, setIsInfoTooltip] = React.useState(false);
+  const [isInfoTooltipError, setIsInfoTooltipError] = React.useState(false);
+  const [isInfoTooltipErrorMovies, setIsInfoTooltipErrorMovies] = React.useState(false);
+  const [isInfoTooltipProfile, setIsInfoTooltipProfile] = React.useState(false);
+  const [searchError, setSearchError] = React.useState('');
+
+console.log(typeof checkboxValue, 'checkboxValue');
+console.log(checkbox, 'checkbox');
+  // попапы
+  function handleInfoTooltipProfile() {
+    setIsInfoTooltipProfile(true);
+  }
+
+  function handleInfoTooltip() {
+    setIsInfoTooltip(true);
+  }
+
+  function handleInfoTooltipError() {
+    setIsInfoTooltipError(true);
+  }
+
+  function handleInfoTooltipMovies() {
+    setIsInfoTooltipErrorMovies(true);
+  }
+
+    //закрытие всех попапов
+    function closeAllPopups() {
+      setIsInfoTooltip(false);
+      setIsInfoTooltipError(false);
+      setIsInfoTooltipProfile(false);
+      setIsInfoTooltipErrorMovies(false);
+    }
 
   //регистрация
   function handleRegister({ name, email, password }) {
@@ -40,10 +82,12 @@ function App() {
     mainApi
       .register({ name, email, password}, localStorage.getItem('token'))
       .then(() => {
+        handleInfoTooltip();
         navigate("/movies", { replace: true });
         handleAuthorize({ email, password });
       })
       .catch((err) => {
+        handleInfoTooltipError();
         console.log(err);
       });
   }
@@ -54,15 +98,15 @@ function App() {
       .authorize({ email, password })
       .then((data) => {
         if (data.token) {
+          handleInfoTooltip();
           setLoggedIn(true);
           localStorage.setItem('token', data.token);
           navigate("/movies", { replace: true });
-          setErrorsUser('успех');
         }
       })
       .catch((err) => {
+        handleInfoTooltipError();
         console.log(err);
-        setErrorsUser('неуспех');
       });
   };
 
@@ -89,6 +133,7 @@ function App() {
     mainApi
       .profile( email, name, localStorage.getItem('token') )
       .then((newUser) => {
+        handleInfoTooltipProfile();
         localStorage.setItem('token', newUser.token);
         setCurrentUser({
           email: newUser.email,
@@ -96,6 +141,7 @@ function App() {
         });
       })
       .catch((err) => {
+        handleInfoTooltipError();
         console.log(err);
       })
   }
@@ -122,6 +168,7 @@ function App() {
     }, [loggedIn]);
 
 
+    
     //часть movies
 
     //загрузка всех фильмов с сервера
@@ -132,31 +179,105 @@ function App() {
           setMovies(data);
         })
         .catch((err) => {
-          console.log(err);
+          setSearchError(err);
+          handleInfoTooltipMovies();
         });
     }, []);
 
-
-    //фильтр по имени и чекбокс
+    //фильтр по имени
     const handleSearchButton = (e) => {
             e.preventDefault();
 
         let filtered = movies;
-
-        console.log(filtered)
-
         if (search) {
             const s = search.toLowerCase();
             filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-            }
+            localStorage.setItem('searchValue', s);
+            }         
 
-        if (checkbox) {
-            filtered = filtered.filter(n => n.duration < 40);
-            }
+        // if (checkbox) {
+        //     filtered = filtered.filter(n => n.duration < 40);
+        //     }
+        //     localStorage.setItem('checkboxValue', checkbox);
             setFilteredMovies(filtered);
-
-            console.log(setFilteredMovies)
     };
+
+    // чек бокс
+    React.useEffect(() => {
+        if (checkbox && filteredMovies) {
+        let filtered = filteredMovies;
+          filtered = filtered.filter(n => n.duration < 40);
+          console.log(filtered);
+          setFilteredMovies(filtered);
+          //localStorage.setItem('checkboxValue', 'true');
+        } else {
+          if (movies) {
+            let filtered = movies;
+            const s = search.toLowerCase();
+            filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+            // localStorage.setItem('searchValue', s);
+            setFilteredMovies(filtered);
+            //localStorage.setItem('checkboxValue', 'false');
+  
+            console.log(s);
+          }
+          //JSON.parse(localStorage.getItem('checkboxValue'))
+
+           //localStorage.setItem('checkboxValue', String(checkbox));
+           
+        }
+        
+        // localStorage.getItem('checkboxValue', checkbox);
+        localStorage.setItem('checkboxValue', String(checkbox));
+        console.log(checkbox, 'checkbox22');
+      console.log(checkbox, 'checkbox11');
+
+    }, [ checkbox, movies ])
+
+
+
+
+      const handleCheckbox = (isChecked) => {
+        // e.preventDefault();
+        // let filtered = movies;
+        // setCheckbox(e.target.checked);
+        //setCheckbox(!checkbox)
+        console.log(isChecked, 'isChecked');
+
+
+
+        // if (checkbox) {
+        //   filtered = filtered.filter(n => n.duration < 40);
+        //   }
+        //   localStorage.setItem('checkboxValue', checkbox);
+        //   setFilteredMovies(filtered);
+          
+      }
+
+      console.log(checkbox, 'checkbox');
+      
+
+
+  //localStorage 
+  const searchValue = localStorage.getItem('searchValue');
+  //const checkboxValue = localStorage.getItem('checkboxValue');
+
+    React.useEffect(() => {
+      let filtered = movies;
+      if (movies) {
+        if (searchValue) {
+          const s = searchValue.toLowerCase();
+          filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+          }
+       console.log(searchValue);
+
+      if (checkboxValue) {
+          filtered = filtered.filter(n => n.duration < 40);
+          }
+          setFilteredMovies(filtered);
+      }
+
+    }, [ movies, checkboxValue, searchValue ])
 
 
       //фильтр по имени и чекбокс сохраненные фильмы
@@ -164,8 +285,6 @@ function App() {
           e.preventDefault();
 
           let filtered = savedMovies;
-
-          console.log(filtered)
 
           if (search) {
               const s = search.toLowerCase();
@@ -176,23 +295,20 @@ function App() {
             filtered = filtered.filter(n => n.duration < 40);
           }
         setFilteredSavedMovies(filtered);
-        console.log(
-          setFilteredSavedMovies
-        )
 };
     
     //загрузка сохранненых фильмов с сервера
     React.useEffect(() => {
       mainApi
       .getsaveMovies()
-        .then((data) => {
-          setSavedMovies(data.data);
+        .then((response) => {
+          setSavedMovies(response.data);
         })
         .catch((err) => {
-          console.log(err);
+          setSearchError(err)
         });
     }, []);
-    
+
 
   //сохраняем карточку фильма
   const handlelikeClick = (movie) => {
@@ -217,7 +333,7 @@ function App() {
       .then((NewMovie) => {
         NewMovie.image = URL + movie.image.url;
         setSavedMovies([NewMovie, ...setSavedMovies])})
-      .catch((err) => { console.log(err)});
+      .catch((err) => {setSearchError(err)});
     } else {
     const isSevedMovieId = savedMovies.find((item) => item.movieId === movie.id)._id;
     mainApi
@@ -228,6 +344,8 @@ function App() {
       .catch((err) => { console.log(err)});
       }
   };
+
+
 
   //удаляем карточку фильма
 
@@ -245,7 +363,9 @@ function App() {
     function signOut() {
       localStorage.removeItem('token');
       setLoggedIn(false);
+      navigate("/movies", { replace: true });
     }
+    
 
 
   return (
@@ -280,9 +400,9 @@ function App() {
         <Route path="/movies" element={
         <>
           <HeaderNavBar/>
-          <Movies handleSearchButton={handleSearchButton} setSearch={setSearch} setCheckbox={setCheckbox} 
+          <Movies handleSearchButton={handleSearchButton} setSearch={setSearch} handleCheckbox={handleCheckbox} 
           filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
-          handleDeleteClick={handleDeleteClick} loggedIn={loggedIn}/>
+          handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} searchError={searchError} setCheckbox={setCheckbox} checkbox={checkbox}/>
           <Footer />
         </>} />
 
@@ -290,7 +410,7 @@ function App() {
           <>
             <HeaderNavBar />
             <SavedMovies handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckbox={setCheckbox} setSearch={setSearch} filteredSavedMovies={filteredSavedMovies} savedMovies={filteredSavedMovies} handlelikeClick={handlelikeClick} 
-            handleDeleteClick={handleDeleteClick} />
+            handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} searchError={searchError}/>
             <Footer />
           </>} />
 
@@ -299,6 +419,40 @@ function App() {
         </Routes>
       </div>
     </div>
+
+    <InfoTooltip
+              name="register"
+              title="Вы успешно зарегистрировались!"
+              image={imageRegister}
+              isOpen={isInfoTooltip}
+              onClose={closeAllPopups}
+            />
+
+    <InfoTooltip
+          name="register"
+          title="Данные профиля обновлены"
+          image={imageRegister}
+          isOpen={isInfoTooltipProfile}
+          onClose={closeAllPopups}
+        />
+
+        <InfoTooltip
+          name="error"
+          title="Что-то пошло не так! Попробуйте ещё раз."
+          image={imageNoRegister}
+          isOpen={isInfoTooltipError}
+          onClose={closeAllPopups}
+        />
+
+    <InfoTooltip
+          name="error"
+          title="Во время запроса произошла ошибка.
+          Возможно, проблема с соединением или сервер недоступен. 
+          Подождите немного и попробуйте ещё раз"
+          image={imageNoRegister}
+          isOpen={isInfoTooltipErrorMovies}
+          onClose={closeAllPopups}
+        />
     </CurrentUserContext.Provider>
   );
 }

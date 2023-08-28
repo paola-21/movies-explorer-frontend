@@ -55,7 +55,7 @@ function Profile({handleProfile}) {
           </div>
           <span className="register__input-error">{errors.email}</span>
         </div>
-          <button className='profile__edit' onClick={handleSubmit}>Редактировать</button>
+          <button className='profile__edit' onClick={handleSubmit} disabled={!isValid}>Редактировать</button>
           <button className='profile__exit'>Выйти из аккаунта</button>
       </form>
     </div>

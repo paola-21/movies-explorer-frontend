@@ -1,11 +1,9 @@
 import React from "react";
-import {useMemo, useState} from 'react-router-dom';
 
 import MoviesCard from '../../Movies/MoviesCard/MoviesCard';
 import More from "../More/More";
 import './MoviesCardList.css';
 import {useMediaQuery} from '../../hooks/useMediaQuery';
-import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClick, filteredSavedMovies}) {
 
@@ -55,7 +53,6 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
       setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
     };
 
-
   return (
     <>
       <ul className='movies'>
@@ -70,11 +67,7 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
         )
         }
       </ul>
-
-                <More onClick={handleClick}/>
-
-
-      
+      {visibleCardCount > movies.length ? null : <More onClick={handleClick}/>}
     </>
   );
 }
@@ -82,6 +75,3 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
 export default MoviesCardList;
 
 
-// {movies.length === 0 ? (<p className="movies__text"> Фильмы по запросу не найдены</p>) :
-// (<More onClick={handleClick}/>) 
-// }
