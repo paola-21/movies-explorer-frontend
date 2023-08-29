@@ -8,16 +8,18 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import More from "./More/More";
 import Preloader from "./Preloader/Preloader";
 
-function Movies({ handleSearchButton, setSearch, filteredMovies, handlelikeClick, savedMovies, handleDeleteClick, setCheckbox,
+function Movies({ search, handleSearchButton, setSearch, filteredMovies, handlelikeClick, savedMovies, handleDeleteClick, setCheckbox,
   loggedIn, searchError, checkbox}) {
+
+    
 
   return (
     <>
-      <SearchForm setSearch={setSearch} setCheckbox={setCheckbox} handleSearchButton={handleSearchButton} checkbox={checkbox}/>
+      <SearchForm setSearch={setSearch} setCheckbox={setCheckbox} handleSearchButton={handleSearchButton} checkbox={checkbox} search={search}/>
       {!loggedIn ? (
       <Preloader/>
       ) : ( <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick} 
-        savedMovies={savedMovies} handleDeleteClick={handleDeleteClick}
+        handleDeleteClick={handleDeleteClick}
         />)   }
     </>
   );

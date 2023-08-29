@@ -29,6 +29,11 @@ function Profile({handleProfile}) {
   })
   }, [setValues, currentUser.name, currentUser.email]);
 
+  const isButtonDisabled =
+    isValid &&
+    (values.name !== currentUser.name || values.email !== currentUser.email);
+    
+
   return (
     <div className='profile'>
       <form className='profile__form' >
@@ -55,7 +60,7 @@ function Profile({handleProfile}) {
           </div>
           <span className="register__input-error">{errors.email}</span>
         </div>
-          <button className='profile__edit' onClick={handleSubmit} disabled={!isValid}>Редактировать</button>
+          <button className='profile__edit' onClick={handleSubmit} disabled={!isButtonDisabled ? true : false}>Редактировать</button>
           <button className='profile__exit'>Выйти из аккаунта</button>
       </form>
     </div>

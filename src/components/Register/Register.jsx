@@ -64,7 +64,7 @@ function Register({ onRegister } ) {
           />
           <span className="register__input-error">{errors.password}</span>
         </div>
-        <button className={button} type="submit" disabled={!isValid}>
+        <button className={button} type="submit" disabled={!isValid ? true : false}>
           Зарегистрироваться
         </button>
       </form>

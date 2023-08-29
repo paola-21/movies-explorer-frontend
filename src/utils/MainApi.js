@@ -88,7 +88,7 @@ export const saveMovies = (movie) => {
   .then(getResponseData);
 };
 
-export const getsaveMovies = (movie) => {
+export const getSavedMovies = (movie) => {
   return fetch(`${BASE_URL}/movies`, {
       credentials: 'include',
       headers: {

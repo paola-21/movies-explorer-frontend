@@ -30,7 +30,7 @@ function App() {
   //const checkboxValue = JSON.parse(localStorage.getItem('checkboxValue'));
   
   const checkboxValue = localStorage.getItem('checkboxValue') === 'true' ? true : false ;
-  
+  const searchValue = localStorage.getItem('searchValue');
 
 
 
@@ -38,7 +38,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [errorsUser, setErrorsUser] = React.useState('');
   const [movies, setMovies] = React.useState(null);
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState(searchValue || '');
   const [checkbox, setCheckbox] = React.useState(checkboxValue || false);
   const [ filteredMovies, setFilteredMovies ] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -49,8 +49,7 @@ function App() {
   const [isInfoTooltipProfile, setIsInfoTooltipProfile] = React.useState(false);
   const [searchError, setSearchError] = React.useState('');
 
-console.log(typeof checkboxValue, 'checkboxValue');
-console.log(checkbox, 'checkbox');
+  let {pathname} = useLocation();
   // попапы
   function handleInfoTooltipProfile() {
     setIsInfoTooltipProfile(true);
@@ -135,10 +134,12 @@ console.log(checkbox, 'checkbox');
       .then((newUser) => {
         handleInfoTooltipProfile();
         localStorage.setItem('token', newUser.token);
+        console.log(newUser);
         setCurrentUser({
-          email: newUser.email,
-          name: newUser.name
+          email: newUser.data.email,
+          name: newUser.data.name
         });
+        
       })
       .catch((err) => {
         handleInfoTooltipError();
@@ -194,11 +195,6 @@ console.log(checkbox, 'checkbox');
             filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
             localStorage.setItem('searchValue', s);
             }         
-
-        // if (checkbox) {
-        //     filtered = filtered.filter(n => n.duration < 40);
-        //     }
-        //     localStorage.setItem('checkboxValue', checkbox);
             setFilteredMovies(filtered);
     };
 
@@ -209,57 +205,28 @@ console.log(checkbox, 'checkbox');
           filtered = filtered.filter(n => n.duration < 40);
           console.log(filtered);
           setFilteredMovies(filtered);
-          //localStorage.setItem('checkboxValue', 'true');
         } else {
           if (movies) {
             let filtered = movies;
             const s = search.toLowerCase();
             filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-            // localStorage.setItem('searchValue', s);
             setFilteredMovies(filtered);
-            //localStorage.setItem('checkboxValue', 'false');
-  
-            console.log(s);
           }
-          //JSON.parse(localStorage.getItem('checkboxValue'))
-
-           //localStorage.setItem('checkboxValue', String(checkbox));
            
         }
         
-        // localStorage.getItem('checkboxValue', checkbox);
         localStorage.setItem('checkboxValue', String(checkbox));
-        console.log(checkbox, 'checkbox22');
-      console.log(checkbox, 'checkbox11');
-
     }, [ checkbox, movies ])
 
 
 
 
-      const handleCheckbox = (isChecked) => {
-        // e.preventDefault();
-        // let filtered = movies;
-        // setCheckbox(e.target.checked);
-        //setCheckbox(!checkbox)
-        console.log(isChecked, 'isChecked');
 
-
-
-        // if (checkbox) {
-        //   filtered = filtered.filter(n => n.duration < 40);
-        //   }
-        //   localStorage.setItem('checkboxValue', checkbox);
-        //   setFilteredMovies(filtered);
-          
-      }
-
-      console.log(checkbox, 'checkbox');
       
 
 
   //localStorage 
-  const searchValue = localStorage.getItem('searchValue');
+  //const searchValue = localStorage.getItem('searchValue');
   //const checkboxValue = localStorage.getItem('checkboxValue');
 
     React.useEffect(() => {
@@ -280,33 +247,54 @@ console.log(checkbox, 'checkbox');
     }, [ movies, checkboxValue, searchValue ])
 
 
-      //фильтр по имени и чекбокс сохраненные фильмы
+
+        //фильтр по имени сохраненных фильмов
       const handleSearchSavedMoviesButton = (e) => {
           e.preventDefault();
 
-          let filtered = savedMovies;
+      let filtered = savedMovies;
+      console.log(savedMovies, 'savedMovies')
+      if (search) {
+          const s = search.toLowerCase();
+          filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+          //localStorage.setItem('searchValue', s);
+          
+          }         
+          setFilteredSavedMovies(filtered);
+          console.log(filteredSavedMovies, 'setFilteredSavedMovies')
+          
+  };
 
-          if (search) {
-              const s = search.toLowerCase();
-              filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-              }
 
-          if (checkbox) {
-            filtered = filtered.filter(n => n.duration < 40);
-          }
-        setFilteredSavedMovies(filtered);
-};
+//       //фильтр по имени и чекбокс сохраненные фильмы
+//       const handleSearchSavedMoviesButton = (e) => {
+//           e.preventDefault();
+
+//           let filtered = savedMovies;
+
+//           if (search) {
+//               const s = search.toLowerCase();
+//               filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+//               }
+
+//           if (checkbox) {
+//             filtered = filtered.filter(n => n.duration < 40);
+//           }
+//         setFilteredSavedMovies(filtered);
+// };
     
     //загрузка сохранненых фильмов с сервера
     React.useEffect(() => {
       mainApi
-      .getsaveMovies()
+      .getSavedMovies()
         .then((response) => {
           setSavedMovies(response.data);
+          console.log(response.data, 'response.data')
         })
         .catch((err) => {
           setSearchError(err)
         });
+        
     }, []);
 
 
@@ -331,7 +319,7 @@ console.log(checkbox, 'checkbox');
     mainApi
       .saveMovies(NewMovie)
       .then((NewMovie) => {
-        NewMovie.image = URL + movie.image.url;
+        //NewMovie.image = URL + movie.image.url;
         setSavedMovies([NewMovie, ...setSavedMovies])})
       .catch((err) => {setSearchError(err)});
     } else {
@@ -362,11 +350,13 @@ console.log(checkbox, 'checkbox');
 
     function signOut() {
       localStorage.removeItem('token');
+      localStorage.removeItem('searchValue');
+      localStorage.removeItem('checkboxValue');
       setLoggedIn(false);
       navigate("/movies", { replace: true });
     }
     
-
+console.log(currentUser)
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -400,7 +390,7 @@ console.log(checkbox, 'checkbox');
         <Route path="/movies" element={
         <>
           <HeaderNavBar/>
-          <Movies handleSearchButton={handleSearchButton} setSearch={setSearch} handleCheckbox={handleCheckbox} 
+          <Movies handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
           filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
           handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} searchError={searchError} setCheckbox={setCheckbox} checkbox={checkbox}/>
           <Footer />
@@ -409,7 +399,7 @@ console.log(checkbox, 'checkbox');
           <Route path="/saved-movies" element={
           <>
             <HeaderNavBar />
-            <SavedMovies handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckbox={setCheckbox} setSearch={setSearch} filteredSavedMovies={filteredSavedMovies} savedMovies={filteredSavedMovies} handlelikeClick={handlelikeClick} 
+            <SavedMovies handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckbox={setCheckbox} setSearch={setSearch} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
             handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} searchError={searchError}/>
             <Footer />
           </>} />

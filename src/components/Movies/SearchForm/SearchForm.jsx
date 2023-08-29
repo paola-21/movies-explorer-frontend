@@ -5,7 +5,9 @@ import { useLocation } from 'react-router-dom';
 
 
 
-function SearchForm({ setSearch, handleCheckbox, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox }) {
+function SearchForm({ search, setSearch, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox }) {
+  // const {values, handleChange, errors, isValid } = useFormAndValidation()
+
 
   let {pathname} = useLocation();
   // поиск по инпуту
@@ -13,36 +15,28 @@ function SearchForm({ setSearch, handleCheckbox, setCheckbox, handleSearchButton
     setSearch(e.target.value)
   };
 
-  const handleChange = (e) => {
+  const handleChangeChecked = (e) => {
     setCheckbox(e.target.checked)
-    // let isChecked = e.target.checked;
-    // handleCheckbox(isChecked);
-    // // do whatever you want with isChecked value
     console.log(e.target.checked);
   }
 
-  const checkboxValue = checkbox ? 'true' : 'false'
-
-  // const handleChange = (e) => {
-  //   handleCheckbox(e);
-  // };
 
  // onChange={e => setCheckbox(e.target.checked)}
-
+ console.log(search, 'search');
   return (
     <div className="search">
       <div className="search">
       {pathname === '/movies' ? (
         <form className='search__movies'>
           <div className='search__container-input'>
-              <input type="text" placeholder="Фильм" className='search__input' onChange={handleSearchInput}/>
-              <button className='search__button'> 
-                <img src={Search} alt="найти" className='search__image' onClick={handleSearchButton}/>
+              <input type="text" placeholder="Фильм" value={search} className='search__input' onChange={handleSearchInput}/>
+              <button className='search__button' disabled={!search ? true : false} onClick={handleSearchButton}>
+                <img src={Search} alt="найти" className='search__image' />
               </button>
           </div>
           <div className='search__container-button'>
               <label>
-                  <input className='search__invisible-checkbox' type="checkbox" name="myCheckbox" checked={checkbox} onChange={(e) => handleChange(e)}/>
+                  <input className='search__invisible-checkbox' type="checkbox" name="myCheckbox" checked={checkbox} onChange={(e) => handleChangeChecked(e)}/>
                   <span className="search__visible-checkbox">
                   </span> 
               </label>
@@ -60,7 +54,7 @@ function SearchForm({ setSearch, handleCheckbox, setCheckbox, handleSearchButton
           </div>
           <div className='search__container-button'>
               <label>
-                  <input className='search__invisible-checkbox' type="checkbox" name="myCheckbox" onChange={handleCheckbox}/>
+                  <input className='search__invisible-checkbox' type="checkbox" name="myCheckbox" onChange={(e) => handleChangeChecked(e)}/>
                   <span className="search__visible-checkbox">
                   </span> 
               </label>
