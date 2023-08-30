@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://api.paola.movies-explorer.nomoreparties.sbs";
 
 const getResponseData = (res) => {
   if (res.ok) {
@@ -53,14 +53,12 @@ export const profile = (email, name ) => {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    //  body: JSON.stringify({ email, name }),
      credentials: 'include',
    }).then(getResponseData);
    
  }
 
  export const checkToken = (token) => {
-  //const token = localStorage.getItem('token');
   return fetch(`${BASE_URL}/users/me`, {
     credentials: 'include',
     method: "GET",
@@ -93,7 +91,6 @@ export const getSavedMovies = (movie) => {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(movie),
   })
@@ -106,7 +103,6 @@ export const deleteMovies = (id) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
   })
   .then(getResponseData);

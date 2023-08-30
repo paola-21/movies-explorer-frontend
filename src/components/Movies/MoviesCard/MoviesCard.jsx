@@ -67,29 +67,3 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
 
 export default MoviesCard;
 
-
-{/* <li className="movies-list">
-<a href={movie.trailerLink}>
-  <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} />
-</a>
-{pathname === '/saved-movies' ? (
-    <button
-      className='movies-list__button-close'
-      onClick={handleDelete}
-    ></button>
-  ) : (
-    <button
-      className={
-        isLiked
-          ? 'movies-list__button-save__activ'
-          : 'movies-list__button-save'
-      }
-      onClick={handleLike}
-      type='button'
-    ></button>
-  )}
-<div className='movies-list__container'>
-  <h3 className='movies-list__text'>{movie.nameRU}</h3>
-  <h3 className='movies-list__time'>{formatTime(movie.duration)}</h3>
-</div>
-</li> */}

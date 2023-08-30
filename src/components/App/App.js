@@ -49,7 +49,6 @@ function App() {
   const [isInfoTooltipError, setIsInfoTooltipError] = React.useState(false);
   const [isInfoTooltipErrorMovies, setIsInfoTooltipErrorMovies] = React.useState(false);
   const [isInfoTooltipProfile, setIsInfoTooltipProfile] = React.useState(false);
-  const [searchError, setSearchError] = React.useState('');
 
   let {pathname} = useLocation();
   // попапы
@@ -96,7 +95,7 @@ function App() {
   //авторизация
   function handleAuthorize({ email, password }) {
     mainApi
-      .authorize({ email, password })
+      .authorize({ email, password }, localStorage.getItem('token'))
       .then((data) => {
         if (data.token) {
           handleInfoTooltip();
@@ -182,7 +181,7 @@ function App() {
           setMovies(data);
         })
         .catch((err) => {
-          setSearchError(err);
+          console.log(err);
           handleInfoTooltipMovies();
         });
     }, []);
@@ -220,11 +219,6 @@ function App() {
         localStorage.setItem('checkboxValue', String(checkbox));
     }, [ checkbox, movies ])
   
-
-
-  //localStorage 
-  //const searchValue = localStorage.getItem('searchValue');
-  //const checkboxValue = localStorage.getItem('checkboxValue');
 
     React.useEffect(() => {
       let filtered = movies;
@@ -282,45 +276,22 @@ React.useEffect(() => {
       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
       setFilteredSavedMovies(filtered);
     }
-      
   }
   
-  //localStorage.setItem('checkboxValue', String(checkbox));
 }, [ checkbox, savedMovies ])
-
-
-
-
-
-//       //фильтр по имени и чекбокс сохраненные фильмы
-//       const handleSearchSavedMoviesButton = (e) => {
-//           e.preventDefault();
-
-//           let filtered = savedMovies;
-
-//           if (search) {
-//               const s = search.toLowerCase();
-//               filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//               }
-
-//           if (checkbox) {
-//             filtered = filtered.filter(n => n.duration < 40);
-//           }
-//         setFilteredSavedMovies(filtered);
-// };
     
-    //загрузка сохранненых фильмов с сервера
-    React.useEffect(() => {
-      mainApi
-      .getSavedMovies()
-        .then((response) => {
-          setSavedMovies(response.data);
-        })
-        .catch((err) => {
-          setSearchError(err)
-        });
-        
-    }, []);
+//загрузка сохранненых фильмов с сервера
+React.useEffect(() => {
+  mainApi
+  .getSavedMovies()
+    .then((response) => {
+      setSavedMovies(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    
+}, []);
 
 
   //сохраняем карточку фильма
@@ -347,9 +318,8 @@ React.useEffect(() => {
     mainApi
       .saveMovies(NewMovie)
       .then((NewMovie) => {
-        //NewMovie.image = URL + movie.image.url;
         setSavedMovies([NewMovie, ...setSavedMovies])})
-      .catch((err) => {setSearchError(err)});
+      .catch((err) => console.log(err));
     } else {
     const isSevedMovieId = savedMovies.find((item) => item.movieId === movie.id)._id;
     mainApi
@@ -360,8 +330,6 @@ React.useEffect(() => {
       .catch((err) => { console.log(err)});
       }
   };
-
-
 
   //удаляем карточку фильма
 
@@ -380,6 +348,7 @@ React.useEffect(() => {
       localStorage.removeItem('token');
       localStorage.removeItem('searchValue');
       localStorage.removeItem('checkboxValue');
+      localStorage.clear();
       setLoggedIn(false);
       navigate("/", { replace: true });
     }
@@ -394,9 +363,15 @@ React.useEffect(() => {
               path="/"
               element={
                 loggedIn ? (
-                  <Navigate to="/movies" />
+                  <>
+                  <HeaderNavBar />
+                  <Main /></>
+
                 ) : (
-                  <Navigate to="/signin" replace />
+                  <>
+                  <HeaderLogin />
+                  <Main />
+                  </>
                 )
               }
             />
@@ -429,13 +404,6 @@ React.useEffect(() => {
               }
             />
         
-        {/* <Route path="/profile" element={
-          <>
-            <HeaderNavBar/>
-            <Profile handleProfile={handleProfile}/>
-          </>}
-        /> */}
-
         <Route path="/" element={
           <>
             <HeaderLogin />
@@ -457,7 +425,7 @@ React.useEffect(() => {
                   loggedIn={loggedIn}
                   handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
           filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
-          handleDeleteClick={handleDeleteClick} searchError={searchError} setCheckbox={setCheckbox} checkbox={checkbox}
+          handleDeleteClick={handleDeleteClick} setCheckbox={setCheckbox} checkbox={checkbox}
                 />
                 <ProtectedRoute
                   element={Footer}
@@ -466,24 +434,6 @@ React.useEffect(() => {
               </>
               }
             />
-
-        {/* <Route path="/movies" element={
-        <>
-          <HeaderNavBar/>
-          <Movies handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
-          filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
-          handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} searchError={searchError} setCheckbox={setCheckbox} checkbox={checkbox}/>
-          <Footer />
-        </>} /> */}
-{/* 
-          <Route path="/saved-movies" element={
-          <>
-            <HeaderNavBar />
-            <SavedMovies handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckbox={setCheckbox} setSearch={setSearch} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
-            handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} searchError={searchError}/>
-            <Footer />
-          </>} /> */}
-
 
           <Route
               path="/saved-movies"
@@ -498,7 +448,7 @@ React.useEffect(() => {
                   element={SavedMovies}
                   loggedIn={loggedIn}
                   handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} handleSearchSavedMovies={handleSearchSavedMovies} setCheckbox={setCheckbox} setSearchSavedMovies={setSearchSavedMovies} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
-            handleDeleteClick={handleDeleteClick} searchError={searchError}
+            handleDeleteClick={handleDeleteClick}
                 />
                 <ProtectedRoute
                   element={Footer}
