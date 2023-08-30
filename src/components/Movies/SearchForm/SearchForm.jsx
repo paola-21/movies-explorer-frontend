@@ -5,9 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 
 
-function SearchForm({ search, setSearch, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox }) {
-  // const {values, handleChange, errors, isValid } = useFormAndValidation()
-
+function SearchForm({ search, setSearch, setSearchSavedMovies, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox }) {
 
   let {pathname} = useLocation();
   // поиск по инпуту
@@ -15,22 +13,27 @@ function SearchForm({ search, setSearch, setCheckbox, handleSearchButton, handle
     setSearch(e.target.value)
   };
 
+  // поиск по инпуту
+  const handleSearchInputSavedMovies = (e) => {
+    setSearchSavedMovies('');
+    setSearchSavedMovies(e.target.value)
+  };
+
+
   const handleChangeChecked = (e) => {
     setCheckbox(e.target.checked)
     console.log(e.target.checked);
   }
 
-
- // onChange={e => setCheckbox(e.target.checked)}
- console.log(search, 'search');
   return (
     <div className="search">
       <div className="search">
       {pathname === '/movies' ? (
+        //это функция на movies
         <form className='search__movies'>
           <div className='search__container-input'>
-              <input type="text" placeholder="Фильм" value={search} className='search__input' onChange={handleSearchInput}/>
-              <button className='search__button' disabled={!search ? true : false} onClick={handleSearchButton}>
+              <input type="text" placeholder="Фильм" className='search__input' onChange={handleSearchInput}/>
+              <button className='search__button' disabled={!search ? true : false} value={search} onClick={handleSearchButton}> 
                 <img src={Search} alt="найти" className='search__image' />
               </button>
           </div>
@@ -47,9 +50,9 @@ function SearchForm({ search, setSearch, setCheckbox, handleSearchButton, handle
       </form>) : (
           <form className='search__movies'>
           <div className='search__container-input'>
-              <input type="text" placeholder="Фильм" className='search__input' onChange={handleSearchInput}/>
-              <button className='search__button'> 
-                <img src={Search} alt="найти" className='search__image' onClick={handleSearchSavedMoviesButton}/>
+              <input type="text" placeholder="Фильм" className='search__input' onChange={handleSearchInputSavedMovies}/>
+              <button className='search__button' onClick={handleSearchSavedMoviesButton}> 
+                <img src={Search} alt="найти" className='search__image'/>
               </button>
           </div>
           <div className='search__container-button'>

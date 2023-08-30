@@ -9,8 +9,10 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
   let {pathname} = useLocation();
 
   const isLiked = savedMovies
-  ? savedMovies.some((item) => item.movieId === movie.id)
+  ? savedMovies.some((item) => item.movieId === movie._id)
   : false;
+
+  console.log(isLiked, 'isLiked ')
 
   //формат времени
   function formatTime(time) {

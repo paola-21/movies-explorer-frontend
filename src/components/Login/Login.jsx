@@ -6,7 +6,7 @@ import useFormAndValidation from '../hooks/useFormAndValidation';
 
 
 function Login({ onLogin }) {
-    const {values, handleChange, errors, isValid } = useFormAndValidation()
+    const {values, handleChange, errors, isValid, setValues } = useFormAndValidation()
   
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -50,7 +50,7 @@ function Login({ onLogin }) {
           />
           <span className="register__input-error">{errors.password}</span>
         </div>
-        <button className={button} type="submit" disabled={!isValid}>
+        <button className={button} type="submit" disabled={!isValid ? true : false}>
         Войти
         </button>
         </form>

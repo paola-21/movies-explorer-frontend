@@ -20,6 +20,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import InfoTooltip from '../InfoTooltip/InfoTooltip'; 
 import imageRegister from '../../images/Register.png';
 import imageNoRegister from '../../images/NoRegister.png';
+import ProtectedRoute from '../ProtectedRoute';
 
 
 import './App.css';
@@ -39,9 +40,10 @@ function App() {
   const [errorsUser, setErrorsUser] = React.useState('');
   const [movies, setMovies] = React.useState(null);
   const [search, setSearch] = React.useState(searchValue || '');
+  const [searchSavedMovies, setSearchSavedMovies] = React.useState('');
   const [checkbox, setCheckbox] = React.useState(checkboxValue || false);
   const [ filteredMovies, setFilteredMovies ] = React.useState([]);
-  const [savedMovies, setSavedMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState(null);
   const [ filteredSavedMovies, setFilteredSavedMovies ] = React.useState([]);
   const [isInfoTooltip, setIsInfoTooltip] = React.useState(false);
   const [isInfoTooltipError, setIsInfoTooltipError] = React.useState(false);
@@ -217,12 +219,7 @@ function App() {
         
         localStorage.setItem('checkboxValue', String(checkbox));
     }, [ checkbox, movies ])
-
-
-
-
-
-      
+  
 
 
   //localStorage 
@@ -236,7 +233,6 @@ function App() {
           const s = searchValue.toLowerCase();
           filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
           }
-       console.log(searchValue);
 
       if (checkboxValue) {
           filtered = filtered.filter(n => n.duration < 40);
@@ -244,26 +240,34 @@ function App() {
           setFilteredMovies(filtered);
       }
 
+      console.log(filteredMovies, 'filteredMovies');
+
     }, [ movies, checkboxValue, searchValue ])
 
 
 
-        //фильтр по имени сохраненных фильмов
-      const handleSearchSavedMoviesButton = (e) => {
-          e.preventDefault();
+//фильтр по имени сохраненных фильмов
+const handleSearchSavedMoviesButton = (e) => {
+  e.preventDefault();
 
-      let filtered = savedMovies;
-      console.log(savedMovies, 'savedMovies')
-      if (search) {
-          const s = search.toLowerCase();
-          filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-          //localStorage.setItem('searchValue', s);
-          
-          }         
-          setFilteredSavedMovies(filtered);
-          console.log(filteredSavedMovies, 'setFilteredSavedMovies')
-          
-  };
+  handleSearchSavedMovies();
+  
+};
+
+//фильтр по имени сохраненных фильмов
+const handleSearchSavedMovies = () => {
+  let filtered = savedMovies;
+  console.log(savedMovies, 'savedMovies')
+  if (searchSavedMovies) {
+  const s = searchSavedMovies.toLowerCase();
+  filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+ 
+  }         
+  setFilteredSavedMovies(filtered);
+  
+};
+
+
 
 
 //       //фильтр по имени и чекбокс сохраненные фильмы
@@ -289,7 +293,6 @@ function App() {
       .getSavedMovies()
         .then((response) => {
           setSavedMovies(response.data);
-          console.log(response.data, 'response.data')
         })
         .catch((err) => {
           setSearchError(err)
@@ -307,14 +310,17 @@ function App() {
       duration: movie.duration,
       year: movie.year,
       description: movie.description,
-      image: URL + movie.image.url,
+      image: 'https://api.nomoreparties.co/' + movie.image.url,
       trailerLink: movie.trailerLink,
-      thumbnail: URL + movie.image.formats.thumbnail.url,
+      thumbnail: 'https://api.nomoreparties.co/' + movie.thumbnail,
       movieId: movie.id,
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
     }
-      const isSevedMovies = savedMovies.some((item) => (item.movieId === movie.id));
+    //проверем есть ли карточка в сохраненных фильмах
+      const isSevedMovies = savedMovies.some((item) => (item.movieId === movie._id));
+      console.log(isSevedMovies, 'isSevedMovies');
+      //усли нет, то сохраняем
     if (!isSevedMovies) {
     mainApi
       .saveMovies(NewMovie)
@@ -353,10 +359,8 @@ function App() {
       localStorage.removeItem('searchValue');
       localStorage.removeItem('checkboxValue');
       setLoggedIn(false);
-      navigate("/movies", { replace: true });
+      navigate("/", { replace: true });
     }
-    
-console.log(currentUser)
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -364,6 +368,16 @@ console.log(currentUser)
       <div className='page'>
 
         <Routes>
+        <Route
+              path="/"
+              element={
+                loggedIn ? (
+                  <Navigate to="/movies" />
+                ) : (
+                  <Navigate to="/signin" replace />
+                )
+              }
+            />
 
         <Route path="/signup" element={
             <Register onRegister={handleRegister}/>
@@ -372,13 +386,33 @@ console.log(currentUser)
         <Route path="/signin" element={
                   <Login onLogin={handleAuthorize}/>
               } />
+
+
+           <Route
+              path="/profile"
+              element={
+                <>
+                <ProtectedRoute
+                  element={HeaderNavBar}
+                  loggedIn={loggedIn}
+                />
+
+                <ProtectedRoute
+                  element={Profile}
+                  loggedIn={loggedIn}
+                  handleProfile={handleProfile}
+                  signOut={signOut}
+                />
+              </>
+              }
+            />
         
-        <Route path="/profile" element={
+        {/* <Route path="/profile" element={
           <>
             <HeaderNavBar/>
             <Profile handleProfile={handleProfile}/>
           </>}
-        />
+        /> */}
 
         <Route path="/" element={
           <>
@@ -387,22 +421,70 @@ console.log(currentUser)
           </>}
         />
 
-        <Route path="/movies" element={
+            <Route
+              path="/movies"
+              element={
+                <>
+                <ProtectedRoute
+                  element={HeaderNavBar}
+                  loggedIn={loggedIn}
+                />
+
+                <ProtectedRoute
+                  element={Movies}
+                  loggedIn={loggedIn}
+                  handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
+          filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
+          handleDeleteClick={handleDeleteClick} searchError={searchError} setCheckbox={setCheckbox} checkbox={checkbox}
+                />
+                <ProtectedRoute
+                  element={Footer}
+                  loggedIn={loggedIn}
+                />
+              </>
+              }
+            />
+
+        {/* <Route path="/movies" element={
         <>
           <HeaderNavBar/>
           <Movies handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
           filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
           handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} searchError={searchError} setCheckbox={setCheckbox} checkbox={checkbox}/>
           <Footer />
-        </>} />
-
+        </>} /> */}
+{/* 
           <Route path="/saved-movies" element={
           <>
             <HeaderNavBar />
             <SavedMovies handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckbox={setCheckbox} setSearch={setSearch} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
             handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} searchError={searchError}/>
             <Footer />
-          </>} />
+          </>} /> */}
+
+
+          <Route
+              path="/saved-movies"
+              element={
+                <>
+                <ProtectedRoute
+                  element={HeaderNavBar}
+                  loggedIn={loggedIn}
+                />
+
+                <ProtectedRoute
+                  element={SavedMovies}
+                  loggedIn={loggedIn}
+                  handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} handleSearchSavedMovies={handleSearchSavedMovies} setCheckbox={setCheckbox} setSearchSavedMovies={setSearchSavedMovies} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
+            handleDeleteClick={handleDeleteClick} searchError={searchError}
+                />
+                <ProtectedRoute
+                  element={Footer}
+                  loggedIn={loggedIn}
+                />
+              </>
+              }
+            />
 
           <Route path="*" element={<PageNotFound />} />
 
