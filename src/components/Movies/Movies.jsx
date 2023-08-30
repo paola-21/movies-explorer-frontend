@@ -19,7 +19,7 @@ function Movies({ search, handleSearchButton, setSearch, filteredMovies, handlel
       {!loggedIn ? (
       <Preloader/>
       ) : ( <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick} 
-        handleDeleteClick={handleDeleteClick}
+        handleDeleteClick={handleDeleteClick} savedMovies={savedMovies}
         />)   }
     </>
   );

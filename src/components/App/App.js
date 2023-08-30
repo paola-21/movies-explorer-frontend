@@ -340,7 +340,7 @@ React.useEffect(() => {
       nameEN: movie.nameEN,
     }
     //проверем есть ли карточка в сохраненных фильмах
-      const isSevedMovies = savedMovies.some((item) => (item.movieId === movie._id));
+      const isSevedMovies = savedMovies.some((item) => (item.movieId === movie.id));
       console.log(isSevedMovies, 'isSevedMovies');
       //усли нет, то сохраняем
     if (!isSevedMovies) {
