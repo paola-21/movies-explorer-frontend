@@ -13,9 +13,9 @@ function SavedMovies({ handleSearchSavedMoviesButton, handleSearchSavedMovies, s
 
 //  }
 
-React.useEffect(() => {
-  handleSearchSavedMovies(); 
-}, []);
+// React.useEffect(() => {
+//   handleSearchSavedMovies(); 
+// }, []);
 
 
   return (

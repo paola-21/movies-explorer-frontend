@@ -268,6 +268,28 @@ const handleSearchSavedMovies = () => {
 };
 
 
+// чек бокс coxраненных фильмов
+React.useEffect(() => {
+  if (checkbox && filteredSavedMovies) {
+  let filtered = filteredSavedMovies;
+    filtered = filtered.filter(n => n.duration < 40);
+    console.log(filtered);
+    setFilteredSavedMovies(filtered);
+  } else {
+    if (savedMovies) {
+      let filtered = savedMovies;
+      const s = search.toLowerCase();
+      filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+      setFilteredSavedMovies(filtered);
+    }
+      
+  }
+  
+  //localStorage.setItem('checkboxValue', String(checkbox));
+}, [ checkbox, savedMovies ])
+
+
+
 
 
 //       //фильтр по имени и чекбокс сохраненные фильмы
