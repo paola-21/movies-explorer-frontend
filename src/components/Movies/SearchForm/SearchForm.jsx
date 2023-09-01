@@ -5,13 +5,7 @@ import { useLocation } from 'react-router-dom';
 import useFormAndValidation from '../../hooks/useFormAndValidation';
 
 
-function SearchForm({ errors, setErrors, search, setSearch, searchValue, setSearchSavedMovies, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox, handleCheckbox, movies }) {
-
-  
-  const [isError, setIsError] = React.useState(false);
-  const [isChange, setIsChange] = React.useState(true);
-  const [searchSuccessful, setSearchSuccessful] = React.useState(false);
-
+function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckboxSavedMovies, errors, setErrors, search, setSearch, searchValue, setSearchSavedMovies, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox, handleCheckbox, movies }) {
 
  let {pathname} = useLocation();
   // поиск по инпуту
@@ -21,14 +15,23 @@ function SearchForm({ errors, setErrors, search, setSearch, searchValue, setSear
 
   // поиск по инпуту
   const handleSearchInputSavedMovies = (e) => {
-    setSearchSavedMovies('');
+    //setSearchSavedMovies('');
     setSearchSavedMovies(e.target.value)
   };
+
+
 
   const handleChangeChecked = (e) => {
     setCheckbox(e.target.checked)
   }
 
+  const handleChangeCheckedSavedMovies = (e) => {
+    setCheckboxSavedMovies(e.target.checked)
+  }
+
+  console.log(handleChangeCheckedSavedMovies, 'handleChangeCheckedSavedMovies');
+
+  console.log(checkboxSavedMovies, 'checkboxSavedMovies ')
 
   // disabled={!search ? true : false}
 
@@ -43,7 +46,6 @@ function SearchForm({ errors, setErrors, search, setSearch, searchValue, setSear
                 <img src={Search} alt="найти" className='search__image' />
               </button>
               <span className='register__input-error'>{errors ? 'Нужно ввести ключевое слово' : ''}</span>
-              <p className={`${!searchSuccessful && 'invisable'}`}>Ничего не найдено</p>
           </div>
           <div className='search__container-button'>
               <label>
@@ -65,7 +67,8 @@ function SearchForm({ errors, setErrors, search, setSearch, searchValue, setSear
           </div>
           <div className='search__container-button'>
               <label>
-                  <input className='search__invisible-checkbox' type="checkbox" name="myCheckbox" onChange={(e) => handleChangeChecked(e)}/>
+                  <input className='search__invisible-checkbox' type="checkbox" name="myCheckboxSavedMovies" checked={checkboxSavedMovies}  onClick={handleCheckboxSavedMovies} 
+                  onChange={(e) => handleChangeCheckedSavedMovies(e)}/>
                   <span className="search__visible-checkbox">
                   </span> 
               </label>

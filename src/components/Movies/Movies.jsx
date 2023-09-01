@@ -8,9 +8,11 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Preloader from "./Preloader/Preloader";
 
 function Movies({ searchValue, search, handleSearchButton, setSearch, filteredMovies, handlelikeClick, savedMovies, handleDeleteClick, setCheckbox,
-  loggedIn, checkbox, handleCheckbox, movies, setErrors, errors}) {
+  loggedIn, setLoggedIn, checkbox, handleCheckbox, movies, setErrors, errors, setInPreloader}) {
 
-    
+    React.useEffect(() => {
+
+    })
 
   return (
     <>

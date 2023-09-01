@@ -50,6 +50,7 @@ function App() {
 
   const searchValue = localStorage.getItem('searchValue');
   const [search, setSearch] = React.useState(searchValue || '');
+  const [checkboxSavedMovies, setCheckboxSavedMovies] = React.useState(false);
 
   const [inPreloader, setInPreloader] = React.useState(false);
 
@@ -185,7 +186,7 @@ function deleteToken(token) {
           console.log(err);
           handleInfoTooltipMovies();
         })
-        .finally(() => setInPreloader(true))
+        .finally(() => setInPreloader(false))
     }, [loggedIn]);
 
     //фильтр по имени
@@ -202,9 +203,7 @@ function deleteToken(token) {
         if(!search) {
           console.log('err');
           setErrors(true);
-        }    
-        
-            //setFilteredMovies(filtered);
+        }
     };
 
 
@@ -222,9 +221,14 @@ function deleteToken(token) {
             filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
             setFilteredMovies(filtered);
           }
-        }        
+        }
         localStorage.setItem('checkboxValue', String(checkbox));
     }
+
+    // чек бокс beatfilm-movies
+    React.useEffect(() => {
+      handleCheckbox();
+    }, [ checkbox, movies ])  
 
 
 
@@ -267,52 +271,98 @@ function deleteToken(token) {
 
 
 
-    //часть savedMovies
+//часть savedMovies
+
 //фильтр по имени сохраненных фильмов
 const handleSearchSavedMoviesButton = (e) => {
   e.preventDefault();
 
   handleSearchSavedMovies();
-  
 };
-
-//фильтр по имени сохраненных фильмов
+  
+// //фильтр по имени сохраненных фильмов
 const handleSearchSavedMovies = () => {
   let filtered = savedMovies;
-  console.log(savedMovies, 'savedMovies в создании')
   if (searchSavedMovies) {
   const s = searchSavedMovies.toLowerCase();
   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
- 
-  }         
-  setFilteredSavedMovies(filtered);
-
-  console.log(savedMovies, 'savedMovies в созранении')
+  }
+  if(!search) {
+    console.log('err');
+    //setErrors(true);
+  }
   
+  setFilteredSavedMovies(filtered);  
 };
 
 
+// // чек бокс coxраненных фильмов
+// React.useEffect(() => {
+//   let filtered = filteredSavedMovies;
+//   if (checkbox && filteredSavedMovies) {
+//   //let filtered = filteredSavedMovies;
+//     filtered = filtered.filter(n => n.duration < 40);
+//     setFilteredSavedMovies(filtered);
+//   } else {
+//     if (savedMovies) {
+//       //let filtered = savedMovies;
+//       const s = search.toLowerCase();
+//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+//       setFilteredSavedMovies(filtered);
+      
+//     }
+//  setFilteredSavedMovies(filtered);
+// }
+  
+// }, [ checkbox, savedMovies ])
+
+
 // чек бокс coxраненных фильмов
-React.useEffect(() => {
-  if (checkbox && filteredSavedMovies) {
+const handleCheckboxSavedMovies = () => {
+  //let filtered = filteredSavedMovies;
+  if (checkboxSavedMovies && filteredSavedMovies) {
   let filtered = filteredSavedMovies;
     filtered = filtered.filter(n => n.duration < 40);
-    console.log(filtered);
     setFilteredSavedMovies(filtered);
+    console.log(filtered, 'filtered app 1')
   } else {
-    if (savedMovies.data) {
-      console.log(savedMovies, 'savedMovies')
-      console.log(savedMovies.data[0], 'ьассив')
+    if (savedMovies) {
       let filtered = savedMovies;
       const s = search.toLowerCase();
       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-      console.log(filtered);
       setFilteredSavedMovies(filtered);
-      
+      console.log(filtered, 'filtered app 2')
     }
-  }
+ //setFilteredSavedMovies(filtered);
+ //console.log(filtered, 'filtered app 3')
+}
   
-}, [ checkbox, savedMovies ])
+}
+
+// чек бокс beatfilm-movies
+React.useEffect(() => {
+  handleCheckboxSavedMovies();
+  handleSearchSavedMovies();
+}, [ checkboxSavedMovies, savedMovies ])
+
+
+React.useEffect(() => {
+  let filtered = savedMovies;
+  if (savedMovies) {
+    if (searchSavedMovies) {
+      const s = searchSavedMovies.toLowerCase();
+      filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+      setFilteredMovies(filtered);
+      }
+
+  if (checkboxSavedMovies) {
+      filtered = filtered.filter(n => n.duration < 40);
+      setFilteredSavedMovies(filtered);
+      }
+      //setFilteredMovies(filtered);
+  }
+
+}, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
     
 
 
@@ -366,12 +416,9 @@ React.useEffect(() => {
         setSavedMovies((savedMovies) =>
         savedMovies.filter((item) => item.movieId !== movie.movieId)
         );
-        console.log(savedMoviesData, 'savedMoviesData delete movies1')
-        console.log(savedMoviesData.data, 'savedMoviesData delete movies1 data')
       })
       .catch((err) => { console.log(err)});
 
-      console.log(savedMovies, 'savedMovies delete movies2')
   };
 
 
@@ -389,19 +436,7 @@ React.useEffect(() => {
     }, [loggedIn]);
 
 
-  // //загрузка сохранненых фильмов с сервера
-  // React.useEffect(() => {
-  //   mainApi
-  //   .getSavedMovies()
-  //     .then((response) => {
-  //       setSavedMovies(response.data);
-  //       handlelikeClick(response.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-      
-  // }, []);
+
 
     // попапы
     function handleInfoTooltipProfile() {
@@ -499,7 +534,7 @@ React.useEffect(() => {
 
                 <ProtectedRoute
                   element={Movies}
-                  loggedIn={loggedIn}
+                  loggedIn={loggedIn} setInPreloader={setInPreloader}
                   handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
           filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
           handleDeleteClick={handleDeleteClick} setCheckbox={setCheckbox} checkbox={checkbox} searchValue={searchValue} handleCheckbox={handleCheckbox} setErrors={setErrors} errors={errors}
@@ -524,7 +559,7 @@ React.useEffect(() => {
                 <ProtectedRoute
                   element={SavedMovies}
                   loggedIn={loggedIn}
-                  handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} handleSearchSavedMovies={handleSearchSavedMovies} setCheckbox={setCheckbox} setSearchSavedMovies={setSearchSavedMovies} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
+                  handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckboxSavedMovies={setCheckboxSavedMovies} checkboxSavedMovies={checkboxSavedMovies} handleCheckboxSavedMovies={handleCheckboxSavedMovies} setCheckbox={setCheckbox} setSearchSavedMovies={setSearchSavedMovies} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
             handleDeleteClick={handleDeleteClick} 
                 />
                 <ProtectedRoute

@@ -13,7 +13,7 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
   // : false;
 
   const isLiked = savedMovies.some((item) => item.movieId === movie.id);
-  console.log(isLiked, 'isLiked card')
+  //console.log(isLiked, 'isLiked card')
 
     // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
     //const isLiked = savedMovies.some(item => item.movieId === movie.id);
@@ -69,7 +69,7 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
           </>
         )}
       <div className='movies-list__container' >
-          <a className="movies-list__foto" target="_blank" href={movie.trailerLink}>
+          <a className="movies-list__link" target="_blank" href={movie.trailerLink}>
           <h3 className='movies-list__text'>{movie.nameRU}</h3>
           </a>        
         <h3 className='movies-list__time'>{formatTime(movie.duration)}</h3>
