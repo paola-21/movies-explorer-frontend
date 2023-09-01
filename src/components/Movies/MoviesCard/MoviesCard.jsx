@@ -8,11 +8,23 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
 
   let {pathname} = useLocation();
 
-  const isLiked = savedMovies
-  ? savedMovies.some((item) => item.movieId === movie.id)
-  : false;
+  // const isLiked = savedMovies
+  // ? savedMovies.some((item) => item.movieId === movie.id)
+  // : false;
 
-  console.log(isLiked, 'isLiked ')
+  const isLiked = savedMovies.some((item) => item.movieId === movie.id);
+  console.log(isLiked, 'isLiked card')
+
+    // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
+    //const isLiked = savedMovies.some(item => item.movieId === movie.id);
+
+    // Создаём переменную, которую после зададим в `className` для кнопки лайка
+    const cardLikeButtonClassName = `movies-list__button-save ${
+      isLiked && "movies-list__button-save__activ"
+    }`;
+
+  // console.log(isLiked, 'isLiked ')
+  // console.log(savedMovies, 'savedMovies movies card')
 
   //формат времени
   function formatTime(time) {
@@ -33,9 +45,9 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
     <li className="movies-list">
       {pathname === '/saved-movies' ? (
         <>
-          <a href={movie.trailerLink}>
+          {/* <a className="movies-list__foto" target="_blank" href={movie.trailerLink}> */}
             <img className="movies-list__foto" src={movie.image} alt={movie.nameRU} />
-          </a>
+          {/* </a> */}
           <button
             className='movies-list__button-close'
             onClick={handleDelete}
@@ -43,22 +55,23 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
           </>
         ) : (
           <>
-          <a href={movie.trailerLink}>
             <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} />
-          </a>
           <button
-            className={
-              isLiked
-                ? 'movies-list__button-save__activ'
-                : 'movies-list__button-save'
-            }
+          className={cardLikeButtonClassName}
+            // className={
+            //   isLiked
+            //     ? 'movies-list__button-save__activ'
+            //     : 'movies-list__button-save'
+            // }
             onClick={handleLike}
             type='button'
           ></button>
           </>
         )}
-      <div className='movies-list__container'>
-        <h3 className='movies-list__text'>{movie.nameRU}</h3>
+      <div className='movies-list__container' >
+          <a className="movies-list__foto" target="_blank" href={movie.trailerLink}>
+          <h3 className='movies-list__text'>{movie.nameRU}</h3>
+          </a>        
         <h3 className='movies-list__time'>{formatTime(movie.duration)}</h3>
       </div>
     </li>

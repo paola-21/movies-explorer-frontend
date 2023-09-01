@@ -31,54 +31,31 @@ function App() {
   //const checkboxValue = JSON.parse(localStorage.getItem('checkboxValue'));
   
   const checkboxValue = localStorage.getItem('checkboxValue') === 'true' ? true : false ;
-  const searchValue = localStorage.getItem('searchValue');
+  
 
 
-
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [errorsUser, setErrorsUser] = React.useState('');
-  const [movies, setMovies] = React.useState(null);
-  const [search, setSearch] = React.useState(searchValue || '');
   const [searchSavedMovies, setSearchSavedMovies] = React.useState('');
   const [checkbox, setCheckbox] = React.useState(checkboxValue || false);
   const [ filteredMovies, setFilteredMovies ] = React.useState([]);
-  const [savedMovies, setSavedMovies] = React.useState(null);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [ filteredSavedMovies, setFilteredSavedMovies ] = React.useState([]);
   const [isInfoTooltip, setIsInfoTooltip] = React.useState(false);
   const [isInfoTooltipError, setIsInfoTooltipError] = React.useState(false);
   const [isInfoTooltipErrorMovies, setIsInfoTooltipErrorMovies] = React.useState(false);
   const [isInfoTooltipProfile, setIsInfoTooltipProfile] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [errors, setErrors] = React.useState(false);
+  const [movies, setMovies] = React.useState(null);
 
-  let {pathname} = useLocation();
-  // попапы
-  function handleInfoTooltipProfile() {
-    setIsInfoTooltipProfile(true);
-  }
+  const searchValue = localStorage.getItem('searchValue');
+  const [search, setSearch] = React.useState(searchValue || '');
 
-  function handleInfoTooltip() {
-    setIsInfoTooltip(true);
-  }
-
-  function handleInfoTooltipError() {
-    setIsInfoTooltipError(true);
-  }
-
-  function handleInfoTooltipMovies() {
-    setIsInfoTooltipErrorMovies(true);
-  }
-
-    //закрытие всех попапов
-    function closeAllPopups() {
-      setIsInfoTooltip(false);
-      setIsInfoTooltipError(false);
-      setIsInfoTooltipProfile(false);
-      setIsInfoTooltipErrorMovies(false);
-    }
+  const [inPreloader, setInPreloader] = React.useState(false);
 
   //регистрация
   function handleRegister({ name, email, password }) {
-    signOut();
+    //signOut();
     mainApi
       .register({ name, email, password}, localStorage.getItem('token'))
       .then(() => {
@@ -98,6 +75,7 @@ function App() {
       .authorize({ email, password }, localStorage.getItem('token'))
       .then((data) => {
         if (data.token) {
+          //setMovies(null);
           handleInfoTooltip();
           setLoggedIn(true);
           localStorage.setItem('token', data.token);
@@ -164,10 +142,32 @@ function App() {
       }
     };
 
+function deleteToken(token) {
+  mainApi
+  .deleteToken(token, localStorage.removeItem('token'))
+  .then(() => {
+  })
+  .catch((err) => {
+    handleInfoTooltipError();
+    console.log(err);
+  });
+}
+
+
     React.useEffect(() => {
       localStorage.getItem('token');
       handleTokenCheck();
     }, [loggedIn]);
+
+    function signOut() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('searchValue');
+      localStorage.removeItem('checkboxValue');
+      deleteToken();
+      localStorage.clear();
+      setLoggedIn(false);
+      navigate("/", { replace: true });
+    }
 
 
     
@@ -175,6 +175,7 @@ function App() {
 
     //загрузка всех фильмов с сервера
       React.useEffect(() => {
+        setInPreloader(true)
       api
         .getMovies()
         .then((data) => {
@@ -183,25 +184,33 @@ function App() {
         .catch((err) => {
           console.log(err);
           handleInfoTooltipMovies();
-        });
-    }, []);
+        })
+        .finally(() => setInPreloader(true))
+    }, [loggedIn]);
 
     //фильтр по имени
     const handleSearchButton = (e) => {
             e.preventDefault();
-
         let filtered = movies;
         if (search) {
             const s = search.toLowerCase();
             filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
             localStorage.setItem('searchValue', s);
-            }         
             setFilteredMovies(filtered);
+            setErrors(false);
+            }
+        if(!search) {
+          console.log('err');
+          setErrors(true);
+        }    
+        
+            //setFilteredMovies(filtered);
     };
 
-    // чек бокс
-    React.useEffect(() => {
-        if (checkbox && filteredMovies) {
+
+    // чек бокс 
+    const handleCheckbox = () => {
+      if (checkbox && filteredMovies) {
         let filtered = filteredMovies;
           filtered = filtered.filter(n => n.duration < 40);
           console.log(filtered);
@@ -213,12 +222,29 @@ function App() {
             filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
             setFilteredMovies(filtered);
           }
-           
-        }
-        
+        }        
         localStorage.setItem('checkboxValue', String(checkbox));
-    }, [ checkbox, movies ])
-  
+    }
+
+
+
+    // // чек бокс
+    // React.useEffect(() => {
+    //     if (checkbox && filteredMovies) {
+    //     let filtered = filteredMovies;
+    //       filtered = filtered.filter(n => n.duration < 40);
+    //       console.log(filtered);
+    //       setFilteredMovies(filtered);
+    //     } else {
+    //       if (movies) {
+    //         let filtered = movies;
+    //         const s = search.toLowerCase();
+    //         filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+    //         setFilteredMovies(filtered);
+    //       }
+    //     }        
+    //     localStorage.setItem('checkboxValue', String(checkbox));
+    // }, [ checkbox, movies ])  
 
     React.useEffect(() => {
       let filtered = movies;
@@ -226,20 +252,22 @@ function App() {
         if (searchValue) {
           const s = searchValue.toLowerCase();
           filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+          setFilteredMovies(filtered);
           }
 
       if (checkboxValue) {
           filtered = filtered.filter(n => n.duration < 40);
-          }
           setFilteredMovies(filtered);
+          }
+          //setFilteredMovies(filtered);
       }
-
-      console.log(filteredMovies, 'filteredMovies');
 
     }, [ movies, checkboxValue, searchValue ])
 
 
 
+
+    //часть savedMovies
 //фильтр по имени сохраненных фильмов
 const handleSearchSavedMoviesButton = (e) => {
   e.preventDefault();
@@ -251,13 +279,15 @@ const handleSearchSavedMoviesButton = (e) => {
 //фильтр по имени сохраненных фильмов
 const handleSearchSavedMovies = () => {
   let filtered = savedMovies;
-  console.log(savedMovies, 'savedMovies')
+  console.log(savedMovies, 'savedMovies в создании')
   if (searchSavedMovies) {
   const s = searchSavedMovies.toLowerCase();
   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
  
   }         
   setFilteredSavedMovies(filtered);
+
+  console.log(savedMovies, 'savedMovies в созранении')
   
 };
 
@@ -270,33 +300,24 @@ React.useEffect(() => {
     console.log(filtered);
     setFilteredSavedMovies(filtered);
   } else {
-    if (savedMovies) {
+    if (savedMovies.data) {
+      console.log(savedMovies, 'savedMovies')
+      console.log(savedMovies.data[0], 'ьассив')
       let filtered = savedMovies;
       const s = search.toLowerCase();
       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+      console.log(filtered);
       setFilteredSavedMovies(filtered);
+      
     }
   }
   
 }, [ checkbox, savedMovies ])
     
-//загрузка сохранненых фильмов с сервера
-React.useEffect(() => {
-  mainApi
-  .getSavedMovies()
-    .then((response) => {
-      setSavedMovies(response.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    
-}, []);
 
 
   //сохраняем карточку фильма
   const handlelikeClick = (movie) => {
-    const URL = 'https://api.nomoreparties.co/';
     const NewMovie = {
       country: movie.country,
       director: movie.director,
@@ -311,47 +332,103 @@ React.useEffect(() => {
       nameEN: movie.nameEN,
     }
     //проверем есть ли карточка в сохраненных фильмах
-      const isSevedMovies = savedMovies.some((item) => (item.movieId === movie.id));
-      console.log(isSevedMovies, 'isSevedMovies');
+      const isSevedMovies = savedMovies.some((item) => item.movieId === movie.id);
       //усли нет, то сохраняем
     if (!isSevedMovies) {
     mainApi
       .saveMovies(NewMovie)
       .then((NewMovie) => {
-        setSavedMovies([NewMovie, ...setSavedMovies])})
+        setSavedMovies([...savedMovies, NewMovie.data])})
       .catch((err) => console.log(err));
+      console.log(savedMovies, 'savedMovies');
     } else {
     const isSevedMovieId = savedMovies.find((item) => item.movieId === movie.id)._id;
     mainApi
       .deleteMovies(isSevedMovieId)
-      .then(() => setSavedMovies((state) => 
-      state.filter((item) => item.movieId === movie.id)
+      .then(() => setSavedMovies((savedMovies) => 
+      savedMovies.filter((item) => item.movieId === movie.movieId)
       ))
       .catch((err) => { console.log(err)});
       }
+      console.log(savedMovies, 'setSavedMovies')
   };
 
-  //удаляем карточку фильма
+
+  //удаляем карточку сохраненного фильма
 
   const handleDeleteClick = (movie) => {
+    const savedMoviesData = savedMovies;
+
+    console.log(savedMoviesData, 'savedMoviesData')
     mainApi
       .deleteMovies(movie._id)
       .then(() => {
-        setSavedMovies((state) =>
-          state.filter((item) => item.movieId !== movie.movieId)
+        setSavedMovies((savedMovies) =>
+        savedMovies.filter((item) => item.movieId !== movie.movieId)
         );
+        console.log(savedMoviesData, 'savedMoviesData delete movies1')
+        console.log(savedMoviesData.data, 'savedMoviesData delete movies1 data')
       })
       .catch((err) => { console.log(err)});
+
+      console.log(savedMovies, 'savedMovies delete movies2')
   };
 
-    function signOut() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('searchValue');
-      localStorage.removeItem('checkboxValue');
-      localStorage.clear();
-      setLoggedIn(false);
-      navigate("/", { replace: true });
+
+    //загрузка сохранненых фильмов с сервера
+    React.useEffect(() => {
+      mainApi
+      .getSavedMovies()
+        .then((response) => {
+          setSavedMovies(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        
+    }, [loggedIn]);
+
+
+  // //загрузка сохранненых фильмов с сервера
+  // React.useEffect(() => {
+  //   mainApi
+  //   .getSavedMovies()
+  //     .then((response) => {
+  //       setSavedMovies(response.data);
+  //       handlelikeClick(response.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+      
+  // }, []);
+
+    // попапы
+    function handleInfoTooltipProfile() {
+      setIsInfoTooltipProfile(true);
     }
+  
+    function handleInfoTooltip() {
+      setIsInfoTooltip(true);
+    }
+  
+    function handleInfoTooltipError() {
+      setIsInfoTooltipError(true);
+    }
+  
+    function handleInfoTooltipMovies() {
+      setIsInfoTooltipErrorMovies(true);
+    }
+  
+      //закрытие всех попапов
+      function closeAllPopups() {
+        setIsInfoTooltip(false);
+        setIsInfoTooltipError(false);
+        setIsInfoTooltipProfile(false);
+        setIsInfoTooltipErrorMovies(false);
+      }
+
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -425,7 +502,7 @@ React.useEffect(() => {
                   loggedIn={loggedIn}
                   handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
           filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
-          handleDeleteClick={handleDeleteClick} setCheckbox={setCheckbox} checkbox={checkbox}
+          handleDeleteClick={handleDeleteClick} setCheckbox={setCheckbox} checkbox={checkbox} searchValue={searchValue} handleCheckbox={handleCheckbox} setErrors={setErrors} errors={errors}
                 />
                 <ProtectedRoute
                   element={Footer}
@@ -448,7 +525,7 @@ React.useEffect(() => {
                   element={SavedMovies}
                   loggedIn={loggedIn}
                   handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} handleSearchSavedMovies={handleSearchSavedMovies} setCheckbox={setCheckbox} setSearchSavedMovies={setSearchSavedMovies} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
-            handleDeleteClick={handleDeleteClick}
+            handleDeleteClick={handleDeleteClick} 
                 />
                 <ProtectedRoute
                   element={Footer}

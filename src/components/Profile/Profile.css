@@ -1,5 +1,6 @@
 .profile {
     background: #202020;
+    height: 100vh;
 }
 
 
@@ -74,9 +75,13 @@
     padding: 0;
 }
 
-.profile__edit:hover {
+.profile__edit__active:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+.profile__edit__inactive {
+    opacity: 0.3;;
 }
 
 .profile__exit {

@@ -86,6 +86,10 @@
     cursor: pointer;
 }
 
+.movies-list__foto {
+    text-decoration: none;
+}
+
 .movies-list__foto:hover + .movies-list__button-save {
     opacity: 1;
 }

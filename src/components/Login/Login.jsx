@@ -14,9 +14,8 @@ function Login({ onLogin }) {
         onLogin({ email, password });
     };
 
-    const button = `register__input-button ${
-      !isValid && "register__input-button__inactive"
-    }`;
+    const button = ( isValid) ? `register__input-button register__input-button__active` : `register__input-button register__input-button__inactive`
+    ;
 
     return (
     <div className="register" noValidate>
@@ -28,6 +27,7 @@ function Login({ onLogin }) {
           <input
             className="register__input"
             type="email"
+            pattern="\w+@\w+\.\w+"
             placeholder="Email"
             name="email"
             autoComplete="email"

@@ -6,6 +6,7 @@
     justify-content: center;
     padding-bottom: 70px;
     grid-template-rows: 78px 69px 380px 33px;
+    height: 100vh;
 }
 
 .register__photo-link {
@@ -83,11 +84,7 @@
     opacity: 0.2;
 }
 
-.register__input-button__inactive:hover {
-    opacity: 0.2;
-}
-
-.register__input-button:hover {
+.register__input-button__active:hover {
     opacity: 0.7;
     cursor: pointer;
 }

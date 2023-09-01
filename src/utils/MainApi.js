@@ -72,6 +72,18 @@ export const profile = (email, name ) => {
     .then((data) => data);
 };
 
+export const deleteToken = (token) => {
+  return fetch(`${BASE_URL}/signout`, {
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+  })
+  .then(getResponseData);
+};
+
+
 export const URL = 'https://api.nomoreparties.co/';
 
 export const saveMovies = (movie) => {
