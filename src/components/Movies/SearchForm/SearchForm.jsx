@@ -2,10 +2,8 @@ import React from 'react';
 import './SearchForm.css';
 import Search from '../../../images/search.svg';
 import { useLocation } from 'react-router-dom';
-import useFormAndValidation from '../../hooks/useFormAndValidation';
 
-
-function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckboxSavedMovies, errors, setErrors, search, setSearch, searchValue, setSearchSavedMovies, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox, handleCheckbox, movies }) {
+function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckboxSavedMovies, errors, SetErrors, search, setSearch, searchValue, setSearchSavedMovies, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox, handleCheckbox, movies }) {
 
  let {pathname} = useLocation();
   // поиск по инпуту
@@ -29,9 +27,9 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
     setCheckboxSavedMovies(e.target.checked)
   }
 
-  console.log(handleChangeCheckedSavedMovies, 'handleChangeCheckedSavedMovies');
+  // console.log(handleChangeCheckedSavedMovies, 'handleChangeCheckedSavedMovies');
 
-  console.log(checkboxSavedMovies, 'checkboxSavedMovies ')
+  // console.log(checkboxSavedMovies, 'checkboxSavedMovies ')
 
   // disabled={!search ? true : false}
 
@@ -64,6 +62,7 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
               <button className='search__button' onClick={handleSearchSavedMoviesButton}> 
                 <img src={Search} alt="найти" className='search__image'/>
               </button>
+              <span className='register__input-error'>{errors ? 'Нужно ввести ключевое слово' : ' '}</span>
           </div>
           <div className='search__container-button'>
               <label>
