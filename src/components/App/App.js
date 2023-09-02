@@ -99,26 +99,6 @@ function App() {
     }
   }, [loggedIn]);
 
-  //обновление данные профиля
-  function handleProfile({ email, name }) {
-    mainApi
-      .profile( email, name, localStorage.getItem('token') )
-      .then((newUser) => {
-        handleInfoTooltipProfile();
-        localStorage.setItem('token', newUser.token);
-        console.log(newUser);
-        setCurrentUser({
-          email: newUser.data.email,
-          name: newUser.data.name
-        });
-        
-      })
-      .catch((err) => {
-        handleInfoTooltipError();
-        console.log(err);
-      })
-  }
-
     //проверка токена
     function handleTokenCheck() {
       const token = localStorage.getItem('token');
@@ -152,15 +132,39 @@ function deleteToken(token) {
       handleTokenCheck();
     }, [loggedIn]);
 
+    console.log(searchValue, 'searchValue');
+    console.log(checkboxValue, 'checkboxValue');
+
     function signOut() {
       localStorage.removeItem('token');
       localStorage.removeItem('searchValue');
       localStorage.removeItem('checkboxValue');
       deleteToken();
-      localStorage.clear();
+      localStorage.clear({});
       setLoggedIn(false);
       navigate("/", { replace: true });
+      console.log(checkboxValue, 'checkboxValue выход')
     }
+
+      //обновление данные профиля
+  function handleProfile({ email, name }) {
+    mainApi
+      .profile( email, name, localStorage.getItem('token') )
+      .then((newUser) => {
+        handleInfoTooltipProfile();
+        localStorage.setItem('token', newUser.token);
+        console.log(newUser);
+        setCurrentUser({
+          email: newUser.data.email,
+          name: newUser.data.name
+        });
+        
+      })
+      .catch((err) => {
+        handleInfoTooltipError();
+        console.log(err);
+      })
+  }
 
 
     
@@ -200,20 +204,24 @@ function deleteToken(token) {
           console.log(search, 'search')
       };
 
+  
+
 
     // чек бокс 
     const handleCheckbox = () => {
-      if (checkbox && filteredMovies) {
+      console.log(checkbox && filteredMovies.length, 'checkbox && filteredMovies.length')
+      if (checkbox && filteredMovies.length) {
         let filtered = filteredMovies;
           filtered = filtered.filter(n => n.duration < 40);
-          console.log(filtered);
+          console.log(filtered, ' 238');
           setFilteredMovies(filtered);
         } else {
-          if (movies) {
-            let filtered = movies;
+          if (filteredMovies) {
+            let filtered = filteredMovies;
             const s = search.toLowerCase();
             filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
             setFilteredMovies(filtered);
+            console.log(filteredMovies, 'filteredMovies4246')
           }
         }
         localStorage.setItem('checkboxValue', String(checkbox));
@@ -226,6 +234,8 @@ function deleteToken(token) {
 
     React.useEffect(() => {
       let filtered = movies;
+      console.log(searchValue, 'searchValue useeffect');
+      console.log(checkboxValue, 'checkboxValue useeffect');
       if (movies) {
         if (searchValue) {
           const s = searchValue.toLowerCase();
@@ -268,28 +278,6 @@ const handleSearchSavedMovies = () => {
   setFilteredSavedMovies(filtered);  
 };
 
-
-// // чек бокс coxраненных фильмов
-// React.useEffect(() => {
-//   let filtered = filteredSavedMovies;
-//   if (checkbox && filteredSavedMovies) {
-//   //let filtered = filteredSavedMovies;
-//     filtered = filtered.filter(n => n.duration < 40);
-//     setFilteredSavedMovies(filtered);
-//   } else {
-//     if (savedMovies) {
-//       //let filtered = savedMovies;
-//       const s = search.toLowerCase();
-//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//       setFilteredSavedMovies(filtered);
-      
-//     }
-//  setFilteredSavedMovies(filtered);
-// }
-  
-// }, [ checkbox, savedMovies ])
-
-
 // чек бокс coxраненных фильмов
 const handleCheckboxSavedMovies = () => {
   //let filtered = filteredSavedMovies;
@@ -306,8 +294,6 @@ const handleCheckboxSavedMovies = () => {
       setFilteredSavedMovies(filtered);
       console.log(filtered, 'filtered app 2')
     }
- //setFilteredSavedMovies(filtered);
- //console.log(filtered, 'filtered app 3')
 }
   
 }
