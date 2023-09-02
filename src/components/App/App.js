@@ -6,7 +6,6 @@ import * as mainApi from '../../utils/MainApi';
 import { Route, Routes, useLocation, Navigate, useNavigate } from 'react-router-dom';
 
 import Main from '../Main/Main.jsx';
-import SearchForm from '../Movies/SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Register from '../Register/Register';
@@ -132,9 +131,6 @@ function deleteToken(token) {
       handleTokenCheck();
     }, [loggedIn]);
 
-    console.log(searchValue, 'searchValue');
-    console.log(checkboxValue, 'checkboxValue');
-
     function signOut() {
       localStorage.removeItem('token');
       localStorage.removeItem('searchValue');
@@ -165,9 +161,7 @@ function deleteToken(token) {
         console.log(err);
       })
   }
-
-
-    
+  
     //часть movies
 
         //загрузка всех фильмов на сервер
@@ -191,29 +185,23 @@ function deleteToken(token) {
               e.preventDefault();
           let filtered = movies;
           if (search) {
+            setErrors(false);
               const s = search.toLowerCase();
               filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
               localStorage.setItem('searchValue', s);
               setFilteredMovies(filtered);
               }
-          if(!search) {
+          if(search ==='') {
+            console.log('err');
             setErrors(true);
-            alert(1111);
           }
-          setErrors(false);
-          console.log(search, 'search')
       };
-
-  
-
 
     // чек бокс 
     const handleCheckbox = () => {
-      console.log(checkbox && filteredMovies.length, 'checkbox && filteredMovies.length')
       if (checkbox && filteredMovies.length) {
         let filtered = filteredMovies;
           filtered = filtered.filter(n => n.duration < 40);
-          console.log(filtered, ' 238');
           setFilteredMovies(filtered);
         } else {
           if (filteredMovies) {
@@ -221,7 +209,6 @@ function deleteToken(token) {
             const s = search.toLowerCase();
             filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
             setFilteredMovies(filtered);
-            console.log(filteredMovies, 'filteredMovies4246')
           }
         }
         localStorage.setItem('checkboxValue', String(checkbox));
@@ -234,8 +221,6 @@ function deleteToken(token) {
 
     React.useEffect(() => {
       let filtered = movies;
-      console.log(searchValue, 'searchValue useeffect');
-      console.log(checkboxValue, 'checkboxValue useeffect');
       if (movies) {
         if (searchValue) {
           const s = searchValue.toLowerCase();
@@ -292,10 +277,8 @@ const handleCheckboxSavedMovies = () => {
       const s = search.toLowerCase();
       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
       setFilteredSavedMovies(filtered);
-      console.log(filtered, 'filtered app 2')
     }
-}
-  
+}  
 }
 
 // чек бокс beatfilm-movies
@@ -377,8 +360,6 @@ React.useEffect(() => {
 
   };
 
-
-
     //загрузка сохранненых фильмов с сервера
     React.useEffect(() => {
       mainApi
@@ -419,8 +400,6 @@ React.useEffect(() => {
         setIsInfoTooltipProfile(false);
         setIsInfoTooltipErrorMovies(false);
       }
-
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

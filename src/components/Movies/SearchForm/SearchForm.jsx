@@ -17,8 +17,6 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
     setSearchSavedMovies(e.target.value)
   };
 
-
-
   const handleChangeChecked = (e) => {
     setCheckbox(e.target.checked)
   }
@@ -26,12 +24,6 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
   const handleChangeCheckedSavedMovies = (e) => {
     setCheckboxSavedMovies(e.target.checked)
   }
-
-  // console.log(handleChangeCheckedSavedMovies, 'handleChangeCheckedSavedMovies');
-
-  // console.log(checkboxSavedMovies, 'checkboxSavedMovies ')
-
-  // disabled={!search ? true : false}
 
   return (
     <div className="search">

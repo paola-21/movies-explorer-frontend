@@ -8,9 +8,8 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Preloader from "./Preloader/Preloader";
 
 function Movies({ isloading, searchValue, search, handleSearchButton, setSearch, filteredMovies, handlelikeClick, savedMovies, handleDeleteClick, setCheckbox,
-  loggedIn, setLoggedIn, checkbox, handleCheckbox, movies, setErrors, errors, setInPreloader}) {
+   checkbox, handleCheckbox, movies, setErrors, errors}) {
 
-  console.log(filteredMovies, 'filteredMovies')
   return (
     <>
       <SearchForm errors={errors} setErrors={setErrors} movies={movies} setSearch={setSearch} searchValue={searchValue} setCheckbox={setCheckbox} handleSearchButton={handleSearchButton} checkbox={checkbox} search={search} handleCheckbox={handleCheckbox}/>
