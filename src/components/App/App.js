@@ -181,20 +181,15 @@ function deleteToken(token) {
       }, [loggedIn]);
   
       //фильтр по имени
-      const handleSearchButton = (e) => {
-              e.preventDefault();
+      const handleSearchButton = () => {
+              // e.preventDefault();
           let filtered = movies;
           if (search) {
-            setErrors(false);
               const s = search.toLowerCase();
               filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
               localStorage.setItem('searchValue', s);
               setFilteredMovies(filtered);
               }
-          if(search ==='') {
-            console.log('err');
-            setErrors(true);
-          }
       };
 
     // чек бокс 
@@ -253,13 +248,7 @@ const handleSearchSavedMovies = () => {
   if (searchSavedMovies) {
   const s = searchSavedMovies.toLowerCase();
   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-  setErrors(false);
-  }
-  if(!searchSavedMovies) {
-    console.log('err');
-    setErrors(true);
-  }
-  
+  }  
   setFilteredSavedMovies(filtered);  
 };
 
@@ -473,7 +462,7 @@ React.useEffect(() => {
                   loggedIn={loggedIn} isloading={isloading}
                   handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
           filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
-          handleDeleteClick={handleDeleteClick} setCheckbox={setCheckbox} checkbox={checkbox} searchValue={searchValue} handleCheckbox={handleCheckbox} setErrors={setErrors} errors={errors}
+          handleDeleteClick={handleDeleteClick} setCheckbox={setCheckbox} checkbox={checkbox} searchValue={searchValue} handleCheckbox={handleCheckbox} 
                 />
                 <ProtectedRoute
                   element={Footer}
@@ -494,8 +483,8 @@ React.useEffect(() => {
 
                 <ProtectedRoute
                   element={SavedMovies}
-                  loggedIn={loggedIn} setErrors={setErrors} errors={errors}
-                  handleSearchSavedMoviesButton={handleSearchSavedMoviesButton} setCheckboxSavedMovies={setCheckboxSavedMovies} checkboxSavedMovies={checkboxSavedMovies} handleCheckboxSavedMovies={handleCheckboxSavedMovies} setCheckbox={setCheckbox} setSearchSavedMovies={setSearchSavedMovies} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
+                  loggedIn={loggedIn} searchSavedMovies={searchSavedMovies}
+                  handleSearchSavedMovies={handleSearchSavedMovies} setCheckboxSavedMovies={setCheckboxSavedMovies} checkboxSavedMovies={checkboxSavedMovies} handleCheckboxSavedMovies={handleCheckboxSavedMovies} setCheckbox={setCheckbox} setSearchSavedMovies={setSearchSavedMovies} filteredSavedMovies={filteredSavedMovies} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
             handleDeleteClick={handleDeleteClick} 
                 />
                 <ProtectedRoute

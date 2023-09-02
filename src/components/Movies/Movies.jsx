@@ -8,11 +8,11 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Preloader from "./Preloader/Preloader";
 
 function Movies({ isloading, searchValue, search, handleSearchButton, setSearch, filteredMovies, handlelikeClick, savedMovies, handleDeleteClick, setCheckbox,
-   checkbox, handleCheckbox, movies, setErrors, errors}) {
+   checkbox, handleCheckbox, movies}) {
 
   return (
     <>
-      <SearchForm errors={errors} setErrors={setErrors} movies={movies} setSearch={setSearch} searchValue={searchValue} setCheckbox={setCheckbox} handleSearchButton={handleSearchButton} checkbox={checkbox} search={search} handleCheckbox={handleCheckbox}/>
+      <SearchForm movies={movies} setSearch={setSearch} searchValue={searchValue} setCheckbox={setCheckbox} handleSearchButton={handleSearchButton} checkbox={checkbox} search={search} handleCheckbox={handleCheckbox}/>
       {isloading ? (
       <Preloader/>
       ) : ( <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick} 

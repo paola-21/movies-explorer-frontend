@@ -3,8 +3,9 @@ import './SearchForm.css';
 import Search from '../../../images/search.svg';
 import { useLocation } from 'react-router-dom';
 
-function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckboxSavedMovies, errors, SetErrors, search, setSearch, searchValue, setSearchSavedMovies, setCheckbox, handleSearchButton, handleSearchSavedMoviesButton, checkbox, handleCheckbox, movies }) {
+function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckboxSavedMovies, search, setSearch, searchSavedMovies, searchValue, setSearchSavedMovies, setCheckbox, handleSearchButton, handleSearchSavedMovies, checkbox, handleCheckbox, movies }) {
 
+  const [errorss, setErrorss] = React.useState('');
  let {pathname} = useLocation();
   // поиск по инпуту
   const handleSearchInput = (e) => {
@@ -25,6 +26,27 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
     setCheckboxSavedMovies(e.target.checked)
   }
 
+  const handleSearchMovies = (e) => {
+    e.preventDefault();
+    handleSearchButton();
+    if(search ==='' || !search || search === undefined) {
+      setErrorss(true);
+    } else {
+      setErrorss(false);
+    }
+  }
+
+
+  const handleSearchSavedMoviesSubmit = (e) => {
+    e.preventDefault();
+    handleSearchSavedMovies();
+    if(searchSavedMovies ==='' || !searchSavedMovies || searchSavedMovies === undefined) {
+      setErrorss(true);
+    } else {
+      setErrorss(false);
+    }
+  }
+
   return (
     <div className="search">
       <div className="search">
@@ -32,10 +54,10 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
         <form className='search__movies'>
           <div className='search__container-input'>
               <input type="text" name="text" placeholder="Фильм" className='search__input' onChange={handleSearchInput} value={search} />
-              <button className='search__button' onClick={handleSearchButton}> 
+              <button className='search__button' onClick={handleSearchMovies}> 
                 <img src={Search} alt="найти" className='search__image' />
               </button>
-              <span className='register__input-error'>{errors ? 'Нужно ввести ключевое слово' : ''}</span>
+              <span className='register__input-error'>{errorss ? 'Нужно ввести ключевое слово' : ''}</span>
           </div>
           <div className='search__container-button'>
               <label>
@@ -51,10 +73,10 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
           <form className='search__movies'>
           <div className='search__container-input'>
               <input type="text" placeholder="Фильм" className='search__input' onChange={handleSearchInputSavedMovies}/>
-              <button className='search__button' onClick={handleSearchSavedMoviesButton}> 
+              <button className='search__button' onClick={handleSearchSavedMoviesSubmit}> 
                 <img src={Search} alt="найти" className='search__image'/>
               </button>
-              <span className='register__input-error'>{errors ? 'Нужно ввести ключевое слово' : ' '}</span>
+              <span className='register__input-error'>{errorss ? 'Нужно ввести ключевое слово' : ''}</span>
           </div>
           <div className='search__container-button'>
               <label>
