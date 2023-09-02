@@ -51,7 +51,7 @@ function App() {
   //регистрация
   function handleRegister({ name, email, password }) {
     mainApi
-      .register({ name, email, password}, localStorage.getItem('token'))
+      .register({ name, email, password})
       .then(() => {
         handleInfoTooltip();
         navigate("/movies", { replace: true });
@@ -66,12 +66,12 @@ function App() {
   //авторизация
   function handleAuthorize({ email, password }) {
     mainApi
-      .authorize({ email, password }, localStorage.getItem('token'))
+      .authorize({ email, password })
       .then((data) => {
         if (data.token) {
           handleInfoTooltip();
-          setLoggedIn(true);
           localStorage.setItem('token', data.token);
+          setLoggedIn(true);
           navigate("/movies", { replace: true });
         }
       })
@@ -148,7 +148,7 @@ function deleteToken(token) {
 
 
     React.useEffect(() => {
-      localStorage.getItem('token');
+      //localStorage.getItem('token');
       handleTokenCheck();
     }, [loggedIn]);
 
@@ -166,39 +166,40 @@ function deleteToken(token) {
     
     //часть movies
 
-    //загрузка всех фильмов с сервера
-      React.useEffect(() => {
-        setIsloading(true)
-      api
-        .getMovies()
-        .then((data) => {
-          setMovies(data);
-        })
-        .catch((err) => {
-          console.log(err);
-          handleInfoTooltipMovies();
-        })
-        .finally(() => 
-        setIsloading(false))
-    }, [loggedIn]);
+        //загрузка всех фильмов на сервер
+        React.useEffect(() => {
+          setIsloading(true)
+        api
+          .getMovies()
+          .then((data) => {
+            setMovies(data);
+          })
+          .catch((err) => {
+            console.log(err);
+            handleInfoTooltipMovies();
+          })
+          .finally(() => 
+          setIsloading(false))
+      }, [loggedIn]);
+  
+      //фильтр по имени
+      const handleSearchButton = (e) => {
+              e.preventDefault();
+          let filtered = movies;
+          if (search) {
+              const s = search.toLowerCase();
+              filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+              localStorage.setItem('searchValue', s);
+              setFilteredMovies(filtered);
+              }
+          if(!search) {
+            setErrors(true);
+            alert(1111);
+          }
+          setErrors(false);
+          console.log(search, 'search')
+      };
 
-    //фильтр по имени
-    const handleSearchButton = (e) => {
-            e.preventDefault();
-            setErrors(false);
-        let filtered = movies;
-        if (search) {
-            const s = search.toLowerCase();
-            filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-            localStorage.setItem('searchValue', s);
-            setFilteredMovies(filtered);
-            setErrors(false);
-            }
-        if(search === 0) {
-          setErrors(true);
-        }
-        console.log(search, 'search')
-    };
 
     // чек бокс 
     const handleCheckbox = () => {
@@ -335,64 +336,6 @@ React.useEffect(() => {
 
 }, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
     
-
-
-  // //сохраняем карточку фильма
-  // const handlelikeClick = (movie) => {
-  //   const NewMovie = {
-  //     country: movie.country,
-  //     director: movie.director,
-  //     duration: movie.duration,
-  //     year: movie.year,
-  //     description: movie.description,
-  //     image: 'https://api.nomoreparties.co/' + movie.image.url,
-  //     trailerLink: movie.trailerLink,
-  //     thumbnail: 'https://api.nomoreparties.co/' + movie.thumbnail,
-  //     movieId: movie.id,
-  //     nameRU: movie.nameRU,
-  //     nameEN: movie.nameEN,
-  //   }
-  //   //проверем есть ли карточка в сохраненных фильмах
-  //     const isSevedMovies = savedMovies.some((item) => item.movieId === movie.id);
-  //     //усли нет, то сохраняем
-  //   if (!isSevedMovies) {
-  //   mainApi
-  //     .saveMovies(NewMovie)
-  //     .then((NewMovie) => {
-  //       setSavedMovies([...savedMovies, NewMovie.data])})
-  //     .catch((err) => console.log(err));
-  //     console.log(savedMovies, 'savedMovies');
-  //   } else {
-  //   const isSevedMovieId = savedMovies.find((item) => item.movieId === movie.id)._id;
-  //   mainApi
-  //     .deleteMovies(isSevedMovieId)
-  //     .then(() => setSavedMovies((savedMovies) => 
-  //     savedMovies.filter((item) => item.movieId === movie.movieId)
-  //     ))
-  //     .catch((err) => { console.log(err)});
-  //     }
-  //     console.log(savedMovies, 'setSavedMovies')
-  // };
-
-
-  // //удаляем карточку сохраненного фильма
-
-  // const handleDeleteClick = (movie) => {
-  //   const savedMoviesData = savedMovies;
-
-  //   console.log(savedMoviesData, 'savedMoviesData')
-  //   mainApi
-  //     .deleteMovies(movie._id)
-  //     .then(() => {
-  //       setSavedMovies((savedMovies) =>
-  //       savedMovies.filter((item) => item.movieId !== movie.id)
-  //       );
-  //     })
-  //     .catch((err) => { console.log(err)});
-
-  // };
-
-
   //сохраняем карточку фильма
   const handlelikeClick = (movie) => {
     const NewMovie = {
