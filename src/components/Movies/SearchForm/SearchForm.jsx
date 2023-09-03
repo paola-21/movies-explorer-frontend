@@ -29,7 +29,8 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
   const handleSearchMovies = (e) => {
     // setVisibleCardCount(initialCardCount)
     e.preventDefault();
-    handleSearchButton();
+    handleSearchButton(movies);
+    console.log(movies, 'movies Search')
     if(search ==='' || !search || search === undefined) {
       setErrorss(true);
     } else {

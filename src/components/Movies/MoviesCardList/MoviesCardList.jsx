@@ -53,10 +53,12 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
       setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
     };
 
+    console.log(movies, 'movies')
+
   return (
     <>
       <ul className='movies'>
-        {movies.length === 0 ? (
+        {(movies === [])? (
           <p className="movies__text"> Фильмы по запросу не найдены</p>
         ) : (
           movies?.slice(0, roundedVisibleCardCount).map((movie) => (

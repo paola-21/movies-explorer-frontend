@@ -26,7 +26,7 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
 
     return (
     <li className="movies-list">
-      {pathname === '/saved-movies' ? (
+      {pathname === '/saved-movies' && (
         <>
             <img className="movies-list__foto" src={movie.image} alt={movie.nameRU} />
           <button
@@ -34,20 +34,22 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
             onClick={handleDelete}
           ></button>
           </>
-        ) : (
-          <>
-            <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} />
-          <button
-            className={
-              isLiked
-                ? 'movies-list__button-save__activ'
-                : 'movies-list__button-save'
-            }
-            onClick={handleLike}
-            type='button'
-          ></button>
-          </>
-        )}
+      )} 
+      
+      {pathname === "/movies" &&        
+      ( <>
+        <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} />
+      <button
+        className={
+          isLiked
+            ? 'movies-list__button-save__activ'
+            : 'movies-list__button-save'
+        }
+        onClick={handleLike}
+        type='button'
+      ></button>
+      </>)}
+       
       <div className='movies-list__container' >
           <a className="movies-list__link" target="_blank" href={movie.trailerLink}>
           <h3 className='movies-list__text'>{movie.nameRU}</h3>

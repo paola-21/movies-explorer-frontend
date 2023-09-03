@@ -15,7 +15,8 @@ function Movies({ isloading, searchValue, search, handleSearchButton, setSearch,
       <SearchForm movies={movies} setSearch={setSearch} searchValue={searchValue} setCheckbox={setCheckbox} handleSearchButton={handleSearchButton} checkbox={checkbox} search={search} handleCheckbox={handleCheckbox}/>
       {isloading ? (
       <Preloader/>
-      ) : ( <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick} 
+      ) : ( 
+      <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick} 
         handleDeleteClick={handleDeleteClick} savedMovies={savedMovies}
         />)   }
     </>

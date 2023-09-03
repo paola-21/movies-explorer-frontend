@@ -2,7 +2,8 @@
 @import url(../../vendor/fonts/inter.css);
 
 .app {
-    background: #2F2F2F;
+    /* background: #2F2F2F;
+    height: 100vh; */
 }
 .page {
     max-width: 1280px;
