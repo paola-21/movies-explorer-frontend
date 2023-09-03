@@ -41,7 +41,7 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [errors, setErrors] = React.useState(false);
-  const [movies, setMovies] = React.useState(null);
+ //const [movies, setMovies] = React.useState(null);
   const searchValue = localStorage.getItem('searchValue');
   const [search, setSearch] = React.useState(searchValue || '');
   const [checkboxSavedMovies, setCheckboxSavedMovies] = React.useState(false);
@@ -164,21 +164,29 @@ function deleteToken(token) {
   
     //часть movies
 
+    const [movies, setMovies] = React.useState(
+      JSON.parse(localStorage.getItem("movies")) || []
+    );
+
         //загрузка всех фильмов на сервер
         React.useEffect(() => {
-          setIsloading(true)
-        api
-          .getMovies()
-          .then((data) => {
-            setMovies(data);
-          })
-          .catch((err) => {
-            console.log(err);
-            handleInfoTooltipMovies();
-          })
-          .finally(() => 
-          setIsloading(false))
-      }, [loggedIn]);
+          if (movies.length === 0) {
+            setIsloading(true)
+            api
+              .getMovies()
+              .then((data) => {
+                localStorage.setItem("movies", JSON.stringify(data));
+                setMovies(data);
+              })
+              .catch((err) => {
+                console.log(err);
+                handleInfoTooltipMovies();
+              })
+              .finally(() => 
+              setIsloading(false))
+          }
+          
+      }, []);
   
       //фильтр по имени
       const handleSearchButton = () => {
