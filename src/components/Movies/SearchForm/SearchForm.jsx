@@ -2,8 +2,57 @@ import React from 'react';
 import './SearchForm.css';
 import Search from '../../../images/search.svg';
 import { useLocation } from 'react-router-dom';
+import {useMediaQuery} from '../../hooks/useMediaQuery';
 
 function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckboxSavedMovies, search, setSearch, searchSavedMovies, searchValue, setSearchSavedMovies, setCheckbox, handleSearchButton, handleSearchSavedMovies, checkbox, handleCheckbox, movies }) {
+
+  const LG_ROW_CARD_COUNT = 3;
+  const MD_ROW_CARD_COUNT = 4;
+  const SM_ROW_CARD_COUNT = 2;
+
+  const LG_INITIAL_CARD_COUNT = 12;
+  const MD_INITIAL_CARD_COUNT = 8;
+  const SM_INITIAL_CARD_COUNT = 5;
+    
+  const isDesktop = useMediaQuery("(min-width: 1280px)");
+  const isTablet = useMediaQuery("(min-width: 768px)");
+
+  const cardColumnCount = isDesktop
+    ? LG_ROW_CARD_COUNT
+    : isTablet
+    ? MD_ROW_CARD_COUNT
+    : SM_ROW_CARD_COUNT;
+
+  const initialCardCount = isDesktop
+    ? LG_INITIAL_CARD_COUNT
+    : isTablet
+    ? MD_INITIAL_CARD_COUNT
+    : SM_INITIAL_CARD_COUNT;
+
+  const [visibleCardCount, setVisibleCardCount] = React.useState(
+    initialCardCount
+  );
+  
+  const roundedVisibleCardCount =
+    Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount;
+
+    const handleClick = () => {
+      calculateCardCount();
+    };
+  
+    const calculateCardCount = () => {
+      if (isDesktop) {
+        return setVisibleCardCount(visibleCardCount + LG_ROW_CARD_COUNT);
+      }
+  
+      if (isTablet) {
+        return setVisibleCardCount(visibleCardCount + MD_ROW_CARD_COUNT);
+      }
+  
+      setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
+    };
+
+// setVisibleCardCount(initialCardCount)
 
   const [errorss, setErrorss] = React.useState('');
  let {pathname} = useLocation();
@@ -27,7 +76,7 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
   }
 
   const handleSearchMovies = (e) => {
-    // setVisibleCardCount(initialCardCount)
+    setVisibleCardCount(initialCardCount)
     e.preventDefault();
     handleSearchButton(movies);
     console.log(movies, 'movies Search')
@@ -55,7 +104,7 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
       {pathname === '/movies' ? (
         <form className='search__movies'>
           <div className='search__container-input'>
-              <input type="text" name="text" placeholder="Фильм" className='search__input' onChange={handleSearchInput} value={search} />
+              <input type="text" name="text" placeholder="Фильм" className='search__input' onChange={handleSearchInput} value={search}/>
               <button className='search__button' onClick={handleSearchMovies}> 
                 <img src={Search} alt="найти" className='search__image' />
               </button>

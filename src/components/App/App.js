@@ -23,6 +23,7 @@ import ProtectedRoute from '../ProtectedRoute';
 
 
 import './App.css';
+import { react } from "@babel/types";
 
 function App() {
  
@@ -41,11 +42,14 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [errors, setErrors] = React.useState(false);
- //const [movies, setMovies] = React.useState(null);
+  //const [movies, setMovies] = React.useState(null);
   const searchValue = localStorage.getItem('searchValue');
   const [search, setSearch] = React.useState(searchValue || '');
   const [checkboxSavedMovies, setCheckboxSavedMovies] = React.useState(false);
   const [isloading, setIsloading] = React.useState(false);
+
+
+  
 
   //регистрация
   function handleRegister({ name, email, password }) {
@@ -168,9 +172,109 @@ function deleteToken(token) {
       JSON.parse(localStorage.getItem("movies")) || []
     );
 
-    //загрузка всех фильмов на сервер
-    React.useEffect(() => {
-      if (movies.length === 0) {
+
+    // const [ filteredMovies, setFilteredMovies ] = React.useState(
+    //   JSON.parse(localStorage.getItem("filteredMovies")) || []
+    // );
+
+  //   //загрузка всех фильмов на сервер
+  //   React.useEffect(() => {
+  //     if (movies.length === 0) {
+  //       setIsloading(true)
+  //       api
+  //         .getMovies()
+  //         .then((data) => {
+  //           localStorage.setItem("movies", JSON.stringify(data));
+  //           setMovies(data);
+  //           console.log(movies, 'Movies React.useEffect')
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           handleInfoTooltipMovies();
+  //         })
+  //         .finally(() => 
+  //         setIsloading(false))
+  //     }
+      
+  // }, []);
+
+
+  
+  // //фильтр по имени
+  // const handleSearchButton = () => {
+  //         // e.preventDefault();
+  //     let filtered = movies;
+  //     if (search) {
+  //         const s = search.toLowerCase();
+  //         filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+  //         localStorage.setItem('searchValue', s);
+  //         setFilteredMovies(filtered);
+  //         }
+  // };
+
+
+
+
+//   //   //загрузка всех фильмов на сервер
+//   //   React.useEffect(() => {
+//   //     if (movies.length === 0) {
+//   //       setIsloading(true)
+//   //       api
+//   //         .getMovies()
+//   //         .then((data) => {
+//   //           localStorage.setItem("movies", JSON.stringify(data));
+//   //           setMovies(data);
+//   //           console.log(movies, 'Movies React.useEffect')
+//   //         })
+//   //         .catch((err) => {
+//   //           console.log(err);
+//   //           handleInfoTooltipMovies();
+//   //         })
+//   //         .finally(() => 
+//   //         setIsloading(false))
+//   //     }
+      
+//   // }, []);
+
+  
+  
+//   //фильтр по имени
+//   const handleSearchButton = () => {
+//     if (movies.length === 0) {
+//       setIsloading(true)
+//       api
+//         .getMovies()
+//         .then((data) => {
+//           localStorage.setItem("movies", JSON.stringify(data));
+//           setMovies(data);
+//           handleSearchButtonSearch();
+//           console.log(movies, 'Movies React.useEffect')
+//         })
+//         .catch((err) => {
+//           console.log(err);
+//           handleInfoTooltipMovies();
+//         })
+//         .finally(() => 
+//         setIsloading(false))
+//     }
+//   };
+
+
+//   const handleSearchButtonSearch = () => {
+//     // e.preventDefault();
+// let filtered = localStorage.setItem('movies');
+// if (search) {
+//     const s = search.toLowerCase();
+//     filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+//     localStorage.setItem('searchValue', s);
+//     setFilteredMovies(filtered);
+//     }
+// };
+
+
+  //фильтр по имени
+  const handleSearchButton = () => {
+    if(movies){
         setIsloading(true)
         api
           .getMovies()
@@ -178,6 +282,18 @@ function deleteToken(token) {
             localStorage.setItem("movies", JSON.stringify(data));
             setMovies(data);
             console.log(movies, 'Movies React.useEffect')
+            //handleSearchButton();
+          })
+          .then(() => {
+            let filtered = JSON.parse(localStorage.getItem("movies"));
+              if (search) {
+                  const s = search.toLowerCase();
+                  filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+                  localStorage.setItem('searchValue', s);
+                  setFilteredMovies(filtered);
+                  console.log(filtered, 'filtered')
+                  }
+            console.log(filtered, 'filtered')
           })
           .catch((err) => {
             console.log(err);
@@ -185,21 +301,53 @@ function deleteToken(token) {
           })
           .finally(() => 
           setIsloading(false))
-      }
+        }
+};
+
+  //   React.useEffect(() => {
+  //     handleSearchButton(movies);
       
-  }, []);
+  // }, []);
+
+
+  //   //загрузка всех фильмов на сервер
+  //   React.useEffect(() => {
+  //     if (movies.length === 0) {
+  //       setIsloading(true)
+  //       api
+  //         .getMovies()
+  //         .then((data) => {
+  //           localStorage.setItem("movies", JSON.stringify(data));
+  //           setMovies(data);
+  //           console.log(movies, 'Movies React.useEffect')
+  //           handleSearchButton();
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           handleInfoTooltipMovies();
+  //         })
+  //         .finally(() => 
+  //         setIsloading(false))
+  //     }
+      
+  // }, []);
+
+
   
-  //фильтр по имени
-  const handleSearchButton = () => {
-          // e.preventDefault();
-      let filtered = movies;
-      if (search) {
-          const s = search.toLowerCase();
-          filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-          localStorage.setItem('searchValue', s);
-          setFilteredMovies(filtered);
-          }
-  };
+  // //фильтр по имени
+  // const handleSearchButton = () => {
+  //         // e.preventDefault();
+  //     let filtered = movies;
+  //     if (search) {
+  //         const s = search.toLowerCase();
+  //         filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+  //         localStorage.setItem('searchValue', s);
+  //         setFilteredMovies(filtered);
+  //         }
+  // };
+
+
+
 
     // чек бокс 
     const handleCheckbox = () => {
@@ -252,11 +400,11 @@ function deleteToken(token) {
 //часть savedMovies
 
 //фильтр по имени сохраненных фильмов
-const handleSearchSavedMoviesButton = (e) => {
-  e.preventDefault();
+// const handleSearchSavedMoviesButton = (e) => {
+//   e.preventDefault();
 
-  handleSearchSavedMovies();
-};
+//   handleSearchSavedMovies();
+// };
   
 // //фильтр по имени сохраненных фильмов
 const handleSearchSavedMovies = () => {
@@ -275,7 +423,6 @@ const handleCheckboxSavedMovies = () => {
   let filtered = filteredSavedMovies;
     filtered = filtered.filter(n => n.duration < 40);
     setFilteredSavedMovies(filtered);
-    console.log(filtered, 'filtered app 1')
   } else {
     if (savedMovies) {
       let filtered = savedMovies;
@@ -293,22 +440,22 @@ React.useEffect(() => {
 }, [ checkboxSavedMovies, savedMovies ])
 
 
-React.useEffect(() => {
-  let filtered = savedMovies;
-  if (savedMovies) {
-    if (searchSavedMovies) {
-      const s = searchSavedMovies.toLowerCase();
-      filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-      setFilteredMovies(filtered);
-      }
+// React.useEffect(() => {
+//   let filtered = savedMovies;
+//   if (savedMovies) {
+//     if (searchSavedMovies) {
+//       const s = searchSavedMovies.toLowerCase();
+//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+//       setFilteredSavedMovies(filtered);
+//       }
 
-  if (checkboxSavedMovies) {
-      filtered = filtered.filter(n => n.duration < 40);
-      setFilteredSavedMovies(filtered);
-      }
-  }
+//   if (checkboxSavedMovies) {
+//       filtered = filtered.filter(n => n.duration < 40);
+//       setFilteredSavedMovies(filtered);
+//       }
+//   }
 
-}, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
+// }, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
     
   //сохраняем карточку фильма
   const handlelikeClick = (movie) => {
