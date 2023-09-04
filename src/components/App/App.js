@@ -247,11 +247,69 @@ const [ searchLength, SetSearchLength] = React.useState(false);
           //setFilteredMovies(filtered);
       }
 
-    }, [ movies, checkboxValue, searchValue ])
+    }, [ movies, checkboxValue, searchValue, filteredMovies])
 
 
 //часть savedMovies
  
+// // //фильтр по имени сохраненных фильмов
+// const handleSearchSavedMovies = () => {
+//   let filtered = savedMovies;
+//   if (searchSavedMovies) {
+//   const s = searchSavedMovies.toLowerCase();
+//   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+//   }  
+//   setFilteredSavedMovies(filtered);  
+// };
+
+// // чек бокс coxраненных фильмов
+// const handleCheckboxSavedMovies = () => {
+//   //let filtered = filteredSavedMovies;
+//   if (checkboxSavedMovies && filteredSavedMovies) {
+//   let filtered = filteredSavedMovies;
+//     filtered = filtered.filter(n => n.duration < 40);
+//     setFilteredSavedMovies(filtered);
+//   } else {
+//     if (savedMovies) {
+//       let filtered = savedMovies;
+//       const s = search.toLowerCase();
+//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+//       setFilteredSavedMovies(filtered);
+//     }
+// }  
+// }
+
+// React.useEffect(() => {
+//   let filtered = savedMovies;
+//   if (savedMovies) {
+//     if (searchSavedMovies) {
+//       const s = searchSavedMovies.toLowerCase();
+//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+//       setFilteredSavedMovies(filtered);
+//       }
+
+//   if (checkboxSavedMovies) {
+//       filtered = filtered.filter(n => n.duration < 40);
+//       setFilteredSavedMovies(filtered);
+//       }
+//   }
+
+// }, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
+
+// // чек бокс beatfilm-movies
+// React.useEffect(() => {
+//   handleCheckboxSavedMovies();
+//   handleSearchSavedMovies();
+// }, [ checkboxSavedMovies, savedMovies ])
+
+
+//фильтр по имени сохраненных фильмов
+const handleSearchSavedMoviesButton = (e) => {
+  e.preventDefault();
+
+  handleSearchSavedMovies();
+};
+  
 // //фильтр по имени сохраненных фильмов
 const handleSearchSavedMovies = () => {
   let filtered = savedMovies;
@@ -269,6 +327,7 @@ const handleCheckboxSavedMovies = () => {
   let filtered = filteredSavedMovies;
     filtered = filtered.filter(n => n.duration < 40);
     setFilteredSavedMovies(filtered);
+    console.log(filtered, 'filtered app 1')
   } else {
     if (savedMovies) {
       let filtered = savedMovies;
@@ -284,6 +343,41 @@ React.useEffect(() => {
   handleCheckboxSavedMovies();
   handleSearchSavedMovies();
 }, [ checkboxSavedMovies, savedMovies ])
+
+
+React.useEffect(() => {
+  let filtered = filteredSavedMovies;
+  if (filteredSavedMovies) {
+    if (searchSavedMovies) {
+      const s = searchSavedMovies.toLowerCase();
+      filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+      setFilteredMovies(filtered);
+      }
+
+  if (checkboxSavedMovies) {
+      filtered = filtered.filter(n => n.duration < 40);
+      setFilteredSavedMovies(filtered);
+      }
+  }
+
+}, [ filteredSavedMovies, checkboxSavedMovies, searchSavedMovies ])
+
+React.useEffect(() => {
+  let filtered = savedMovies;
+  if (savedMovies) {
+    if (searchSavedMovies) {
+      const s = searchSavedMovies.toLowerCase();
+      filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+      setFilteredMovies(filtered);
+      }
+
+  if (checkboxSavedMovies) {
+      filtered = filtered.filter(n => n.duration < 40);
+      setFilteredSavedMovies(filtered);
+      }
+  }
+
+}, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
 
   
   //сохраняем карточку фильма
