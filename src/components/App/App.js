@@ -172,117 +172,15 @@ function deleteToken(token) {
       JSON.parse(localStorage.getItem("movies")) || []
     );
 
-
-    // const [ filteredMovies, setFilteredMovies ] = React.useState(
-    //   JSON.parse(localStorage.getItem("filteredMovies")) || []
-    // );
-
-  //   //загрузка всех фильмов на сервер
-  //   React.useEffect(() => {
-  //     if (movies.length === 0) {
-  //       setIsloading(true)
-  //       api
-  //         .getMovies()
-  //         .then((data) => {
-  //           localStorage.setItem("movies", JSON.stringify(data));
-  //           setMovies(data);
-  //           console.log(movies, 'Movies React.useEffect')
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //           handleInfoTooltipMovies();
-  //         })
-  //         .finally(() => 
-  //         setIsloading(false))
-  //     }
-      
-  // }, []);
-
-
-  
-  // //фильтр по имени
-  // const handleSearchButton = () => {
-  //         // e.preventDefault();
-  //     let filtered = movies;
-  //     if (search) {
-  //         const s = search.toLowerCase();
-  //         filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-  //         localStorage.setItem('searchValue', s);
-  //         setFilteredMovies(filtered);
-  //         }
-  // };
-
-
-
-
-//   //   //загрузка всех фильмов на сервер
-//   //   React.useEffect(() => {
-//   //     if (movies.length === 0) {
-//   //       setIsloading(true)
-//   //       api
-//   //         .getMovies()
-//   //         .then((data) => {
-//   //           localStorage.setItem("movies", JSON.stringify(data));
-//   //           setMovies(data);
-//   //           console.log(movies, 'Movies React.useEffect')
-//   //         })
-//   //         .catch((err) => {
-//   //           console.log(err);
-//   //           handleInfoTooltipMovies();
-//   //         })
-//   //         .finally(() => 
-//   //         setIsloading(false))
-//   //     }
-      
-//   // }, []);
-
-  
-  
-//   //фильтр по имени
-//   const handleSearchButton = () => {
-//     if (movies.length === 0) {
-//       setIsloading(true)
-//       api
-//         .getMovies()
-//         .then((data) => {
-//           localStorage.setItem("movies", JSON.stringify(data));
-//           setMovies(data);
-//           handleSearchButtonSearch();
-//           console.log(movies, 'Movies React.useEffect')
-//         })
-//         .catch((err) => {
-//           console.log(err);
-//           handleInfoTooltipMovies();
-//         })
-//         .finally(() => 
-//         setIsloading(false))
-//     }
-//   };
-
-
-//   const handleSearchButtonSearch = () => {
-//     // e.preventDefault();
-// let filtered = localStorage.setItem('movies');
-// if (search) {
-//     const s = search.toLowerCase();
-//     filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//     localStorage.setItem('searchValue', s);
-//     setFilteredMovies(filtered);
-//     }
-// };
-
-
+const [ searchLength, SetSearchLength] = React.useState(false);
   //фильтр по имени
   const handleSearchButton = () => {
-    if(movies){
-        setIsloading(true)
+           setIsloading(true)
         api
           .getMovies()
           .then((data) => {
             localStorage.setItem("movies", JSON.stringify(data));
             setMovies(data);
-            console.log(movies, 'Movies React.useEffect')
-            //handleSearchButton();
           })
           .then(() => {
             let filtered = JSON.parse(localStorage.getItem("movies"));
@@ -291,9 +189,14 @@ function deleteToken(token) {
                   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
                   localStorage.setItem('searchValue', s);
                   setFilteredMovies(filtered);
-                  console.log(filtered, 'filtered')
+                  if (filtered.length === 0) {
+                    SetSearchLength(true)
+                    console.log('нет фильмов')
+                  }          
                   }
-            console.log(filtered, 'filtered')
+              if(!search) {
+                console.log('не забит поиск')
+              }
           })
           .catch((err) => {
             console.log(err);
@@ -302,51 +205,6 @@ function deleteToken(token) {
           .finally(() => 
           setIsloading(false))
         }
-};
-
-  //   React.useEffect(() => {
-  //     handleSearchButton(movies);
-      
-  // }, []);
-
-
-  //   //загрузка всех фильмов на сервер
-  //   React.useEffect(() => {
-  //     if (movies.length === 0) {
-  //       setIsloading(true)
-  //       api
-  //         .getMovies()
-  //         .then((data) => {
-  //           localStorage.setItem("movies", JSON.stringify(data));
-  //           setMovies(data);
-  //           console.log(movies, 'Movies React.useEffect')
-  //           handleSearchButton();
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //           handleInfoTooltipMovies();
-  //         })
-  //         .finally(() => 
-  //         setIsloading(false))
-  //     }
-      
-  // }, []);
-
-
-  
-  // //фильтр по имени
-  // const handleSearchButton = () => {
-  //         // e.preventDefault();
-  //     let filtered = movies;
-  //     if (search) {
-  //         const s = search.toLowerCase();
-  //         filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-  //         localStorage.setItem('searchValue', s);
-  //         setFilteredMovies(filtered);
-  //         }
-  // };
-
-
 
 
     // чек бокс 
@@ -364,7 +222,6 @@ function deleteToken(token) {
           }
         }
         localStorage.setItem('checkboxValue', String(checkbox));
-        console.log(filteredMovies, 'FilteredMovies handleCheckbox')
     }
 
     // чек бокс beatfilm-movies
@@ -373,13 +230,12 @@ function deleteToken(token) {
     }, [ checkbox, movies ])  
 
     React.useEffect(() => {
-      let filtered = movies;
+      let filtered = JSON.parse(localStorage.getItem("movies"));
       if (movies) {
         if (searchValue) {
           const s = searchValue.toLowerCase();
           filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
           setFilteredMovies(filtered);
-          console.log(filteredMovies, 'React.useEffect')
           }
 
       if (checkboxValue) {
@@ -393,19 +249,7 @@ function deleteToken(token) {
 
 
 //часть savedMovies
-
-
-
-
-//часть savedMovies
-
-//фильтр по имени сохраненных фильмов
-// const handleSearchSavedMoviesButton = (e) => {
-//   e.preventDefault();
-
-//   handleSearchSavedMovies();
-// };
-  
+ 
 // //фильтр по имени сохраненных фильмов
 const handleSearchSavedMovies = () => {
   let filtered = savedMovies;
@@ -439,24 +283,7 @@ React.useEffect(() => {
   handleSearchSavedMovies();
 }, [ checkboxSavedMovies, savedMovies ])
 
-
-// React.useEffect(() => {
-//   let filtered = savedMovies;
-//   if (savedMovies) {
-//     if (searchSavedMovies) {
-//       const s = searchSavedMovies.toLowerCase();
-//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//       setFilteredSavedMovies(filtered);
-//       }
-
-//   if (checkboxSavedMovies) {
-//       filtered = filtered.filter(n => n.duration < 40);
-//       setFilteredSavedMovies(filtered);
-//       }
-//   }
-
-// }, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
-    
+  
   //сохраняем карточку фильма
   const handlelikeClick = (movie) => {
     const NewMovie = {
@@ -624,6 +451,7 @@ React.useEffect(() => {
                   element={Movies}
                   Movies={Movies}
                   loggedIn={loggedIn} isloading={isloading}
+                  searchLength={searchLength}
                   handleSearchButton={handleSearchButton} setSearch={setSearch} search={search}
           filteredMovies={filteredMovies} handlelikeClick={handlelikeClick} savedMovies={savedMovies} 
           handleDeleteClick={handleDeleteClick} setCheckbox={setCheckbox} checkbox={checkbox} searchValue={searchValue} handleCheckbox={handleCheckbox} 

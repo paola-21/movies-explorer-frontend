@@ -5,7 +5,7 @@ import More from "../More/More";
 import './MoviesCardList.css';
 import {useMediaQuery} from '../../hooks/useMediaQuery';
 
-function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClick, filteredSavedMovies }) {
+function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClick, filteredSavedMovies, search, searchLength}) {
 
   const LG_ROW_CARD_COUNT = 3;
   const MD_ROW_CARD_COUNT = 4;
@@ -56,26 +56,15 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
   return (
     <>
       <ul className='movies'>
-      {/* {!movies ? null : (
-          <p className="movies__text"> Фильмы по запросу не найдены</p>
+      {!searchLength ? true : (
+          <span className="movies__text"> {searchLength ? 'Нужно ввести ключевое слово' : ''}</span>
         )}
+
        {movies?.slice(0, roundedVisibleCardCount).map((movie) => (
           <MoviesCard
           movie={movie} key={movie._id}  handlelikeClick={handlelikeClick} savedMovies={savedMovies} handleDeleteClick={handleDeleteClick} filteredSavedMovies={filteredSavedMovies}
-          />))} */}
+          />))}
 
-        {!movies ? (
-          <p className="movies__text"> Фильмы по запросу не найдены</p>
-        ) : (!movies.length) ? (
-          <p className="movies__text"> Фильмы по запросу не найдены1</p>
-        ) :
-        ( movies?.slice(0, roundedVisibleCardCount).map((movie) => (
-          <MoviesCard
-          movie={movie} key={movie._id}  handlelikeClick={handlelikeClick} savedMovies={savedMovies} handleDeleteClick={handleDeleteClick} filteredSavedMovies={filteredSavedMovies}
-          />
-        ))
-        )
-        }
       </ul>
       {visibleCardCount > movies.length ? null : <More onClick={handleClick}/>}
     </>

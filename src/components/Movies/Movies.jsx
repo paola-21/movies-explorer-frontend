@@ -8,7 +8,7 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Preloader from "./Preloader/Preloader";
 
 function Movies({ isloading, searchValue, search, handleSearchButton, setSearch, filteredMovies, handlelikeClick, savedMovies, handleDeleteClick, setCheckbox,
-   checkbox, handleCheckbox, movies}) {
+   checkbox, handleCheckbox, movies, searchLength}) {
 
   return (
     <>
@@ -17,7 +17,7 @@ function Movies({ isloading, searchValue, search, handleSearchButton, setSearch,
       <Preloader/>
       ) : ( 
       <MoviesCardList movies={filteredMovies} handlelikeClick={handlelikeClick} 
-        handleDeleteClick={handleDeleteClick} savedMovies={savedMovies}
+        handleDeleteClick={handleDeleteClick} savedMovies={savedMovies} search={search} searchLength={searchLength}
         />)   }
     </>
   );
