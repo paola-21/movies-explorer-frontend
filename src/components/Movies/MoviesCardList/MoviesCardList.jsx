@@ -57,7 +57,7 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
     <>
       <ul className='movies'>
       {!searchLength ? true : (
-          <span className="movies__text"> {searchLength ? 'Нужно ввести ключевое слово' : ''}</span>
+          <span className="movies__text"> {searchLength ? 'Ничего не найдено' : ''}</span>
         )}
 
        {movies?.slice(0, roundedVisibleCardCount).map((movie) => (

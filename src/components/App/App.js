@@ -192,7 +192,9 @@ const [ searchLength, SetSearchLength] = React.useState(false);
                   if (filtered.length === 0) {
                     SetSearchLength(true)
                     console.log('нет фильмов')
-                  }          
+                  } else {
+                    SetSearchLength(false)
+                  } 
                   }
               if(!search) {
                 console.log('не забит поиск')
