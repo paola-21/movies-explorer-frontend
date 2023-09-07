@@ -171,17 +171,15 @@ function deleteToken(token) {
     //часть movies
 
     const [movies, setMovies] = React.useState(
-      JSON.parse(localStorage.getItem("movies")) || []
-    );
+      JSON.parse(localStorage.getItem("movies")) || [] );
 
-    const [filteredMovies, setFilteredMovies] = React.useState(
-      JSON.parse(localStorage.getItem("filteredMovies")) || []
-    );
+    // const [filteredMovies, setFilteredMovies] = React.useState(
+    //   JSON.parse(localStorage.getItem("filteredMovies")) || [] );
+    const [ filteredMovies, setFilteredMovies ] = React.useState([]);
 
 const [ searchLength, SetSearchLength] = React.useState(false);
   //фильтр по имени
-  const handleSearchButton = () => {
-           
+  const handleSearchButton = () => {           
         if (movies.length === 0) {
           setIsloading(true)
           api
@@ -197,7 +195,7 @@ const [ searchLength, SetSearchLength] = React.useState(false);
                   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
                   localStorage.setItem('searchValue', s);
                   setFilteredMovies(filtered);
-                  localStorage.setItem("filteredMovies", JSON.stringify(filtered));
+                  //localStorage.setItem("filteredMovies", JSON.stringify(filtered));
                   if (filtered.length === 0) {
                     SetSearchLength(true)
                   } else {
@@ -222,7 +220,7 @@ const [ searchLength, SetSearchLength] = React.useState(false);
                   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
                   localStorage.setItem('searchValue', s);
                   setFilteredMovies(filtered);
-                  localStorage.setItem("filteredMovies", JSON.stringify(filtered));
+                  //localStorage.setItem("filteredMovies", JSON.stringify(filtered));
                   if (filtered.length === 0) {
                     SetSearchLength(true)
                   } else {
@@ -256,27 +254,56 @@ const [ searchLength, SetSearchLength] = React.useState(false);
 
   // чек бокс beatfilm-movies
   React.useEffect(() => {
-    handleCheckbox();
-  }, [ checkbox, movies ])  
+    //if(filteredMovies === !filteredMovies) {
+      handleCheckbox();
+    //}
+  }, [ checkbox ])
+
+  // console.log(movies, 'movies')
+  // console.log(filteredMovies, 'filteredMovies')
+
 
   React.useEffect(() => {
     // let filtered = JSON.parse(localStorage.getItem("movies"));
-    let filtered = movies;
-    if (movies) {
-      if (searchValue) {
-        const s = searchValue.toLowerCase();
-        filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-        setFilteredMovies(filtered);
-        }
-
-    if (checkboxValue) {
-        filtered = filtered.filter(n => n.duration < 40);
-        setFilteredMovies(filtered);
-        }
-        //setFilteredMovies(filtered);
+    //if(filteredMovies === !filteredMovies) {
+      let filtered = filteredMovies;
+      if (filteredMovies) {
+        if (searchValue) {
+          const s = searchValue.toLowerCase();
+          filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+          setFilteredMovies(filtered);
+          }
+  
+      if (checkboxValue) {
+          filtered = filtered.filter(n => n.duration < 40);
+          setFilteredMovies(filtered);
+          }
+          //setFilteredMovies(filtered);
     }
+    //}
 
-  }, [ movies, checkboxValue, searchValue, filteredMovies])
+  }, [ checkboxValue, searchValue ])
+
+  React.useEffect(() => {
+    // let filtered = JSON.parse(localStorage.getItem("movies"));
+    //if(filteredMovies === !filteredMovies) {
+      let filtered = movies;
+      if (movies) {
+        if (searchValue) {
+          const s = searchValue.toLowerCase();
+          filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+          setFilteredMovies(filtered);
+          }
+  
+      if (checkboxValue) {
+          filtered = filtered.filter(n => n.duration < 40);
+          setFilteredMovies(filtered);
+          }
+          //setFilteredMovies(filtered);
+      }
+    //}
+
+  }, [ checkboxValue, searchValue, movies])
 
 
 //часть savedMovies
@@ -329,7 +356,7 @@ React.useEffect(() => {
     if (searchSavedMovies) {
       const s = searchSavedMovies.toLowerCase();
       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-      setFilteredMovies(filtered);
+      setFilteredSavedMovies(filtered);
       }
 
   if (checkboxSavedMovies) {
@@ -338,7 +365,7 @@ React.useEffect(() => {
       }
   }
 
-}, [ filteredSavedMovies, checkboxSavedMovies, searchSavedMovies ])
+}, [ checkboxSavedMovies, searchSavedMovies ])
 
 React.useEffect(() => {
   let filtered = savedMovies;
@@ -346,7 +373,7 @@ React.useEffect(() => {
     if (searchSavedMovies) {
       const s = searchSavedMovies.toLowerCase();
       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-      setFilteredMovies(filtered);
+      setFilteredSavedMovies(filtered);
       }
 
   if (checkboxSavedMovies) {
