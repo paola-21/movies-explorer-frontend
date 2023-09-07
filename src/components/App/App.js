@@ -181,9 +181,10 @@ function deleteToken(token) {
 const [ searchLength, SetSearchLength] = React.useState(false);
   //фильтр по имени
   const handleSearchButton = () => {
-           setIsloading(true)
-        //if (movies.length === 0) {}   
-        api
+           
+        if (movies.length === 0) {
+          setIsloading(true)
+          api
           .getMovies()
           .then((data) => {
             localStorage.setItem("movies", JSON.stringify(data));
@@ -213,6 +214,26 @@ const [ searchLength, SetSearchLength] = React.useState(false);
           })
           .finally(() => 
           setIsloading(false))
+
+        } else {
+          let filtered = movies;
+              if (search) {
+                  const s = search.toLowerCase();
+                  filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+                  localStorage.setItem('searchValue', s);
+                  setFilteredMovies(filtered);
+                  localStorage.setItem("filteredMovies", JSON.stringify(filtered));
+                  if (filtered.length === 0) {
+                    SetSearchLength(true)
+                  } else {
+                    SetSearchLength(false)
+                  } 
+                  }
+              if(!search) {
+                console.log('не забит поиск')
+              }
+        }
+       
         }
 
 
@@ -239,6 +260,7 @@ const [ searchLength, SetSearchLength] = React.useState(false);
   }, [ checkbox, movies ])  
 
   React.useEffect(() => {
+    // let filtered = JSON.parse(localStorage.getItem("movies"));
     let filtered = movies;
     if (movies) {
       if (searchValue) {
@@ -259,57 +281,6 @@ const [ searchLength, SetSearchLength] = React.useState(false);
 
 //часть savedMovies
 
-// // //фильтр по имени сохраненных фильмов
-// const handleSearchSavedMovies = () => {
-//   let filtered = savedMovies;
-//   if (searchSavedMovies) {
-//   const s = searchSavedMovies.toLowerCase();
-//   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//   }  
-//   setFilteredSavedMovies(filtered);  
-// };
-
-// // чек бокс coxраненных фильмов
-// const handleCheckboxSavedMovies = () => {
-//   //let filtered = filteredSavedMovies;
-//   if (checkboxSavedMovies && filteredSavedMovies) {
-//   let filtered = filteredSavedMovies;
-//     filtered = filtered.filter(n => n.duration < 40);
-//     setFilteredSavedMovies(filtered);
-//   } else {
-//     if (savedMovies) {
-//       let filtered = savedMovies;
-//       const s = search.toLowerCase();
-//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//       setFilteredSavedMovies(filtered);
-//     }
-// }  
-// }
-
-// React.useEffect(() => {
-//   let filtered = savedMovies;
-//   if (savedMovies) {
-//     if (searchSavedMovies) {
-//       const s = searchSavedMovies.toLowerCase();
-//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//       setFilteredSavedMovies(filtered);
-//       }
-
-//   if (checkboxSavedMovies) {
-//       filtered = filtered.filter(n => n.duration < 40);
-//       setFilteredSavedMovies(filtered);
-//       }
-//   }
-
-// }, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
-
-// // чек бокс beatfilm-movies
-// React.useEffect(() => {
-//   handleCheckboxSavedMovies();
-//   handleSearchSavedMovies();
-// }, [ checkboxSavedMovies, savedMovies ])
-
-
 //фильтр по имени сохраненных фильмов
 const handleSearchSavedMoviesButton = (e) => {
 e.preventDefault();
@@ -329,18 +300,18 @@ setFilteredSavedMovies(filtered);
 
 // чек бокс coxраненных фильмов
 const handleCheckboxSavedMovies = () => {
-//let filtered = filteredSavedMovies;
 if (checkboxSavedMovies && filteredSavedMovies) {
 let filtered = filteredSavedMovies;
   filtered = filtered.filter(n => n.duration < 40);
   setFilteredSavedMovies(filtered);
-  console.log(filtered, 'filtered app 1')
+  console.log(filteredSavedMovies, 'filteredSavedMovies 1');
 } else {
   if (savedMovies) {
     let filtered = savedMovies;
     const s = search.toLowerCase();
     filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
     setFilteredSavedMovies(filtered);
+    console.log(filteredSavedMovies, 'filteredSavedMovies 2');
   }
 }  
 }
@@ -353,39 +324,38 @@ handleSearchSavedMovies();
 
 
 React.useEffect(() => {
-let filtered = filteredSavedMovies;
-if (filteredSavedMovies) {
-  if (searchSavedMovies) {
-    const s = searchSavedMovies.toLowerCase();
-    filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-    setFilteredMovies(filtered);
-    }
+  let filtered = filteredSavedMovies;
+  if (filteredSavedMovies) {
+    if (searchSavedMovies) {
+      const s = searchSavedMovies.toLowerCase();
+      filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+      setFilteredMovies(filtered);
+      }
 
-if (checkboxSavedMovies) {
-    filtered = filtered.filter(n => n.duration < 40);
-    setFilteredSavedMovies(filtered);
-    }
-}
+  if (checkboxSavedMovies) {
+      filtered = filtered.filter(n => n.duration < 40);
+      setFilteredSavedMovies(filtered);
+      }
+  }
 
 }, [ filteredSavedMovies, checkboxSavedMovies, searchSavedMovies ])
 
 React.useEffect(() => {
-let filtered = savedMovies;
-if (savedMovies) {
-  if (searchSavedMovies) {
-    const s = searchSavedMovies.toLowerCase();
-    filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-    setFilteredMovies(filtered);
-    }
+  let filtered = savedMovies;
+  if (savedMovies) {
+    if (searchSavedMovies) {
+      const s = searchSavedMovies.toLowerCase();
+      filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
+      setFilteredMovies(filtered);
+      }
 
-if (checkboxSavedMovies) {
-    filtered = filtered.filter(n => n.duration < 40);
-    setFilteredSavedMovies(filtered);
-    }
-}
+  if (checkboxSavedMovies) {
+      filtered = filtered.filter(n => n.duration < 40);
+      setFilteredSavedMovies(filtered);
+      }
+  }
 
 }, [ savedMovies, checkboxSavedMovies, searchSavedMovies ])
-
   
   //сохраняем карточку фильма
   const handlelikeClick = (movie) => {
