@@ -23,7 +23,6 @@ import ProtectedRoute from '../ProtectedRoute';
 
 
 import './App.css';
-import { react } from "@babel/types";
 
 function App() {
  

@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClick, filteredSavedMovies, search, searchLength}) {
 
   const LG_ROW_CARD_COUNT = 3;
-  const MD_ROW_CARD_COUNT = 4;
+  const MD_ROW_CARD_COUNT = 2;
   const SM_ROW_CARD_COUNT = 2;
 
   const LG_INITIAL_CARD_COUNT = 12;
@@ -53,6 +53,10 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
   
       setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
     };
+
+    React.useEffect(() => {
+      setVisibleCardCount(initialCardCount);
+    }, [movies])
 
     let {pathname} = useLocation();
 
