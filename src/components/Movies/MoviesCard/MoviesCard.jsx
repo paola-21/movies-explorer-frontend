@@ -27,8 +27,9 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
     return (
     <li className="movies-list">
       {pathname === '/saved-movies' && (
-        <>
+        <> <a className="movies-list__link" target="_blank" href={movie.trailerLink}> 
             <img className="movies-list__foto" src={movie.image} alt={movie.nameRU} />
+            </a>
           <button
             className='movies-list__button-close'
             onClick={handleDelete}
@@ -38,7 +39,10 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
       
       {pathname === "/movies" &&        
       ( <>
-        <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} />
+      <a className="movies-list__link" target="_blank" href={movie.trailerLink}> 
+      <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} />
+            </a>
+        {/* <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} /> */}
       <button
         className={
           isLiked
@@ -51,9 +55,9 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
       </>)}
        
       <div className='movies-list__container' >
-          <a className="movies-list__link" target="_blank" href={movie.trailerLink}>
+          {/* <a className="movies-list__link" target="_blank" href={movie.trailerLink}> */}
           <h3 className='movies-list__text'>{movie.nameRU}</h3>
-          </a>        
+          {/* </a>         */}
         <h3 className='movies-list__time'>{formatTime(movie.duration)}</h3>
       </div>
     </li>

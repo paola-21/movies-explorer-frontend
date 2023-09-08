@@ -90,7 +90,7 @@
     text-decoration: none;
 }
 
-.movies-list__foto:hover + .movies-list__button-save {
+.movies-list__link:hover + .movies-list__button-save {
     opacity: 1;
 }
 
@@ -114,7 +114,7 @@
     cursor: pointer;
 }
 
-.movies-list__foto:hover + .movies-list__button-close {
+.movies-list__link:hover + .movies-list__button-close {
     opacity: 1;
 }
 
