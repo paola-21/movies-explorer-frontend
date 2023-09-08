@@ -52,8 +52,6 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
       setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
     };
 
-// setVisibleCardCount(initialCardCount)
-
   const [errorss, setErrorss] = React.useState('');
  let {pathname} = useLocation();
   // поиск по инпуту
@@ -76,8 +74,9 @@ function SearchForm({setCheckboxSavedMovies, checkboxSavedMovies, handleCheckbox
   }
 
   const handleSearchMovies = (e) => {
-    setVisibleCardCount(initialCardCount)
+    
     e.preventDefault();
+    setVisibleCardCount(initialCardCount)
     handleSearchButton(movies);
     if(search ==='' || !search || search === undefined) {
       setErrorss(true);

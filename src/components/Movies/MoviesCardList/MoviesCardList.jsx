@@ -4,6 +4,7 @@ import MoviesCard from '../../Movies/MoviesCard/MoviesCard';
 import More from "../More/More";
 import './MoviesCardList.css';
 import {useMediaQuery} from '../../hooks/useMediaQuery';
+import { useLocation } from 'react-router-dom';
 
 function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClick, filteredSavedMovies, search, searchLength}) {
 
@@ -53,9 +54,13 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
       setVisibleCardCount(visibleCardCount + SM_ROW_CARD_COUNT);
     };
 
+    let {pathname} = useLocation();
+
   return (
     <>
-      <ul className='movies'>
+    {pathname === '/movies' ? (
+      <>
+          <ul className='movies'>
       {!searchLength ? true : (
           <span className="movies__text"> {searchLength ? 'Ничего не найдено' : ''}</span>
         )}
@@ -64,9 +69,23 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
           <MoviesCard
           movie={movie} key={movie._id}  handlelikeClick={handlelikeClick} savedMovies={savedMovies} handleDeleteClick={handleDeleteClick} filteredSavedMovies={filteredSavedMovies}
           />))}
-
       </ul>
       {visibleCardCount > movies.length ? null : <More onClick={handleClick}/>}
+      </>
+    ) : (
+      <ul className='movies'>
+      {!searchLength ? true : (
+          <span className="movies__text"> {searchLength ? 'Ничего не найдено' : ''}</span>
+        )}
+
+       {movies.map((movie) => (
+          <MoviesCard
+          movie={movie} key={movie._id}  handlelikeClick={handlelikeClick} savedMovies={savedMovies} handleDeleteClick={handleDeleteClick} filteredSavedMovies={filteredSavedMovies}
+          />))}
+
+      </ul>
+    )}
+      
     </>
   );
 }

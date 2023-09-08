@@ -42,7 +42,6 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
       <a className="movies-list__link" target="_blank" href={movie.trailerLink}> 
       <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} />
             </a>
-        {/* <img className="movies-list__foto" src={URL + movie.image.url} alt={movie.nameRU} /> */}
       <button
         className={
           isLiked
@@ -55,9 +54,7 @@ function MoviesCard({ movie, handlelikeClick, savedMovies, handleDeleteClick }) 
       </>)}
        
       <div className='movies-list__container' >
-          {/* <a className="movies-list__link" target="_blank" href={movie.trailerLink}> */}
           <h3 className='movies-list__text'>{movie.nameRU}</h3>
-          {/* </a>         */}
         <h3 className='movies-list__time'>{formatTime(movie.duration)}</h3>
       </div>
     </li>
