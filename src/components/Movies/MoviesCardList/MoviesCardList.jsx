@@ -19,24 +19,27 @@ function MoviesCardList({ movies, handlelikeClick, savedMovies, handleDeleteClic
   const isDesktop = useMediaQuery("(min-width: 1280px)");
   const isTablet = useMediaQuery("(min-width: 768px)");
 
+  //добавляевые карточки
   const cardColumnCount = isDesktop
     ? LG_ROW_CARD_COUNT
     : isTablet
     ? MD_ROW_CARD_COUNT
     : SM_ROW_CARD_COUNT;
 
+  //первоначальные карточки
   const initialCardCount = isDesktop
     ? LG_INITIAL_CARD_COUNT
     : isTablet
     ? MD_INITIAL_CARD_COUNT
     : SM_INITIAL_CARD_COUNT;
 
+    //стейт с первоначальными карточками
   const [visibleCardCount, setVisibleCardCount] = React.useState(
     initialCardCount
   );
   
   const roundedVisibleCardCount =
-    Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount;
+    visibleCardCount / cardColumnCount * cardColumnCount;
 
     const handleClick = () => {
       calculateCardCount();
