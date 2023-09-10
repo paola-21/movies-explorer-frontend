@@ -40,8 +40,6 @@ function App() {
   const [isInfoTooltipProfile, setIsInfoTooltipProfile] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [errors, setErrors] = React.useState(false);
-  //const [movies, setMovies] = React.useState(null);
   const searchValue = localStorage.getItem('searchValue');
   const [search, setSearch] = React.useState(searchValue || '');
  
@@ -170,9 +168,6 @@ function deleteToken(token) {
 
     const [movies, setMovies] = React.useState(
       JSON.parse(localStorage.getItem("movies")) || [] );
-
-    // const [filteredMovies, setFilteredMovies] = React.useState(
-    //   JSON.parse(localStorage.getItem("filteredMovies")) || [] );
     const [ filteredMovies, setFilteredMovies ] = React.useState([]);
 
 const [ searchLength, SetSearchLength] = React.useState(false);
@@ -193,7 +188,6 @@ const [ searchLength, SetSearchLength] = React.useState(false);
                   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
                   localStorage.setItem('searchValue', s);
                   setFilteredMovies(filtered);
-                  //localStorage.setItem("filteredMovies", JSON.stringify(filtered));
                   if (filtered.length === 0) {
                     SetSearchLength(true)
                   } else {
@@ -218,7 +212,6 @@ const [ searchLength, SetSearchLength] = React.useState(false);
                   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
                   localStorage.setItem('searchValue', s);
                   setFilteredMovies(filtered);
-                  //localStorage.setItem("filteredMovies", JSON.stringify(filtered));
                   if (filtered.length === 0) {
                     SetSearchLength(true)
                   } else {
@@ -272,8 +265,6 @@ const [ searchLength, SetSearchLength] = React.useState(false);
   }, [ checkboxValue, searchValue ])
 
   React.useEffect(() => {
-    // let filtered = JSON.parse(localStorage.getItem("movies"));
-    //if(filteredMovies === !filteredMovies) {
       let filtered = movies;
       if (movies) {
         if (searchValue) {
@@ -286,118 +277,11 @@ const [ searchLength, SetSearchLength] = React.useState(false);
           filtered = filtered.filter(n => n.duration < 40);
           setFilteredMovies(filtered);
           }
-          //setFilteredMovies(filtered);
       }
     //}
 
   }, [ checkboxValue, searchValue, movies])
 
-
-
-
-
-
-// // //фильтр по имени сохраненных фильмов
-// const handleSearchSavedMovies = () => {
-//   let filtered = savedMovies;
-//   if (searchSavedMovies) {
-//   const s = searchSavedMovies.toLowerCase();
-//   filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//   }  
-//   setFilteredSavedMovies(filtered);  
-//   };
-  
-//   // чек бокс coxраненных фильмов
-//   const handleCheckboxSavedMovies = () => {
-//   if (checkboxSavedMovies && filteredSavedMovies) {
-//   let filtered = filteredSavedMovies;
-//     filtered = filtered.filter(n => n.duration < 40);
-//     setFilteredSavedMovies(filtered);
-//     console.log(filteredSavedMovies, 'filteredSavedMovies 1');
-//   } else {
-//     if (savedMovies) {
-//       let filtered = savedMovies;
-//       const s = search.toLowerCase();
-//       filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//       setFilteredSavedMovies(filtered);
-//       console.log(filteredSavedMovies, 'filteredSavedMovies 2');
-//     }
-//   }  
-//   }
-  
-//   // чек бокс
-//   React.useEffect(() => {
-//   handleCheckboxSavedMovies();
-//   handleSearchSavedMovies();
-//   //setFilteredSavedMovies(savedMovies);
-//   console.log(filteredSavedMovies, 'handleSearchSavedMovies useEffect');
-//   }, [ checkboxSavedMovies, savedMovies ])
-
-  
-//   React.useEffect(() => {
-//     let filtered = filteredSavedMovies;
-//     if (filteredSavedMovies) {
-//       if (searchSavedMovies) {
-//         const s = searchSavedMovies.toLowerCase();
-//         filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//         setFilteredSavedMovies(filtered);
-//         console.log(filteredSavedMovies, 'handleSearchSavedMovies filteredSavedMovies 1');
-//         }
-  
-//     if (checkboxSavedMovies) {
-//         filtered = filtered.filter(n => n.duration < 40);
-//         setFilteredSavedMovies(filtered);
-//         console.log(filteredSavedMovies, 'handleSearchSavedMovies filteredSavedMovies 12');
-//         }
-//     }
-  
-//   }, [ checkboxSavedMovies ])
-  
-//   React.useEffect(() => {
-//     let filtered = savedMovies;
-//     if (savedMovies) {
-//       if (searchSavedMovies) {
-//         const s = searchSavedMovies.toLowerCase();
-//         filtered = filtered.filter(n => n.nameRU.toLowerCase().includes(s));
-//         setFilteredSavedMovies(filtered);
-//         console.log(filteredSavedMovies, 'handleSearchSavedMovies filteredSavedMovies 21');
-//         }
-  
-//     if (checkboxSavedMovies) {
-//         filtered = filtered.filter(n => n.duration < 40);
-//         setFilteredSavedMovies(filtered);
-//         console.log(filteredSavedMovies, 'handleSearchSavedMovies filteredSavedMovies 22');
-//         }
-//     }
-  
-//   }, [ checkboxSavedMovies, savedMovies ])
-
-
-
-
-
-//часть savedMovies
-
-  // function handleSearchSavedMovies() {
-  //    const filtered = savedMovies.filter(n => n.nameRU.toLowerCase().includes(searchSavedMovies.toLowerCase()))
-  //   setFilteredSavedMovies(filtered);  
-  //   console.log(savedMovies, 'savedMovies');
-  //   };
-
-
-  // React.useEffect(() => {
-  // handleSearchSavedMovies();
-  // console.log(filteredSavedMovies, 'handleSearchSavedMovies useEffect');
-  // }, [ savedMovies ])
-
-
-
-
-
-
-
-
- 
   //сохраняем карточку фильма
   const handlelikeClick = (movie) => {
     const NewMovie = {
@@ -431,7 +315,6 @@ const [ searchLength, SetSearchLength] = React.useState(false);
       ))
       .catch((err) => { console.log(err)});
       }
-      //console.log(savedMovies, 'setSavedMovies')
   };
 
 
@@ -588,7 +471,6 @@ const [ searchLength, SetSearchLength] = React.useState(false);
 
                 <ProtectedRoute
                   element={SavedMovies}
-                  searchLength={searchLength}
                   loggedIn={loggedIn} 
                    setCheckbox={setCheckbox} savedMovies={savedMovies} handlelikeClick={handlelikeClick} 
             handleDeleteClick={handleDeleteClick} 
