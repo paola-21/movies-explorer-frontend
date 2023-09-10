@@ -4,7 +4,18 @@ import Preloader from "../Movies/Preloader/Preloader";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 
-function SavedMovies({ errors, searchLength, setErrors, searchSavedMovies, setCheckboxSavedMovies, checkboxSavedMovies, handleCheckboxSavedMovies, handleSearchSavedMovies, setSearch, savedMovies, handlelikeClick, handleDeleteClick, filteredSavedMovies, setCheckbox, loggedIn, setSearchSavedMovies }) {
+function SavedMovies({ setFilteredSavedMovies, errors, searchLength, setErrors, searchSavedMovies, setCheckboxSavedMovies, checkboxSavedMovies, handleCheckboxSavedMovies, handleSearchSavedMovies, setSearch, savedMovies, handlelikeClick, handleDeleteClick, filteredSavedMovies, setCheckbox, loggedIn, setSearchSavedMovies }) {
+
+
+
+  
+  React.useEffect(() => {
+    //handleSearchSavedMovies();
+    setFilteredSavedMovies(savedMovies);
+    setCheckboxSavedMovies(false);
+    console.log(filteredSavedMovies, 'handleSearchSavedMovies useEffect SavedMovies');
+    }, [ savedMovies ])
+
 
 return (
     <>
