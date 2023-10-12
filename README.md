@@ -1,7 +1,16 @@
-Макет dark-2
+## Frontend-приложение movies-explorer
 
-[Pull request](https://github.com/paola-21/movies-explorer-frontend/pull/2)
+Приложение позволяет регистрировать пользователей, изменять данные в личном кабинете, выполнять поиск фильмов, сохранять и удалять фильмы из сохраннных.
 
-Pull request https://github.com/paola-21/movies-explorer-frontend/pull/2
+# Технологии
 
-Ссылка на проект https://paola.movies-explorer.nomoredomainsicu.ru/movies
+* CSS;
+* Grid Layout;
+* Flexbox;
+* Media-запросы для большинства устройств;
+* React;
+* JavaScript;
+
+# Ссылка на сайт
+
+ttps://paola.movies-explorer.nomoredomainsicu.ru/movies

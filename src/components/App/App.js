@@ -171,6 +171,8 @@ function deleteToken(token) {
     const [ filteredMovies, setFilteredMovies ] = React.useState([]);
 
 const [ searchLength, SetSearchLength] = React.useState(false);
+
+
   //фильтр по имени
   const handleSearchButton = () => {           
         if (movies.length === 0) {
