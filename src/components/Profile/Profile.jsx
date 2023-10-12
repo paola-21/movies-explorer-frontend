@@ -1,22 +1,69 @@
 import './Profile.css';
+import React, { useContext, useEffect } from 'react';
+import useFormAndValidation from '../hooks/useFormAndValidation';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile() {
+function Profile({handleProfile, signOut}) {
+
+  const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
+
+  const handleSubmit = (e) => {
+    const { name, email } = values;
+    e.preventDefault();
+    handleProfile({ email, name });
+  }
+
+  React.useEffect(() => {
+    setValues ({
+      email: currentUser.email,
+      name: currentUser.name,
+  })
+  }, [setValues, currentUser.name, currentUser.email]);
+
+  const isButtonDisabled =
+    isValid && 
+    (values.name !== currentUser.name || values.email !== currentUser.email);
+
+    const button = ( isButtonDisabled ) ? `profile__edit profile__edit__active` : `profile__edit profile__edit__inactive`;
+
+
   return (
     <div className='profile'>
-      <form className='profile__form'>
-        <h2 className='profile__title'>Привет, Виталий!</h2>
+      <form className='profile__form' >
+        <h2 className='profile__title'>Привет, {currentUser.name}!</h2>
         <div>
           <div className='profile__input-container'>
-            <h3 className='profile__input-text'>Имя</h3>
-            <input className='profile__input' placeholder='Имя' type="text"></input>
+            <label className='profile__input-text' for="name" >Имя</label>
+            <input className='profile__input' 
+            type="text" onChange={handleChange}
+            name="name"
+            required
+            id="name"
+            placeholder='имя'
+        minLength="2"
+        value={values.name}
+        />
           </div>
+          <span className="register__input-error" name="name">{errors.name}</span>
           <div className='profile__input-container'>
-            <h3 className='profile__input-text'>E-mail</h3>
-            <input className='profile__input' placeholder='E-mail' type="email"></input>
+            <label className='profile__input-text' for="email">E-mail</label>
+            <input className='profile__input' placeholder='email' type="email" onChange={handleChange} name="email" minLength="2"
+          required id="email" 
+          value={values.email}/>
           </div>
+          <span className="register__input-error">{errors.email}</span>
         </div>
-          <button className='profile__edit'>Редактировать</button>
-          <button className='profile__exit'>Выйти из аккаунта</button>
+          <button className={button} onClick={handleSubmit} disabled={!isButtonDisabled ? true : false}>Редактировать</button>
+          <button className='profile__exit' onClick={signOut}>Выйти из аккаунта</button>
       </form>
     </div>
   );

@@ -1,0 +1,109 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 1s linear;
+  }
+
+.popup_opened {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .popup__close {
+    width: 32px;
+    height: 32px;
+    background-image: url(../../images/close.svg);
+    background-color: #11ffee00;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    transition: opacity 2s;
+  }
+  
+  .popup__close:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 1279px) {
+    .popup__close {
+      width: 20px;
+      height: 20px;
+      right: 0px;
+      top: -36px;
+      background-size: cover;
+    }
+  }
+
+  .infoTooltip__title {
+    font-family: 'Inter', "Arial ", sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    margin: 0 36px 60px 36px;
+    text-align: center;
+  }
+
+@media (max-width: 1279px) {
+  .infoTooltip__title {
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0 18px 50px 18px;
+  }
+}
+
+.infoTooltip__image {
+    width: 120px;
+    height: 120px;
+    margin: 60px 155px 32px 155px;
+  }
+
+
+  @media (max-width: 1279px) {
+    .infoTooltip__image {
+      margin: 50px 80px 40px 80px;
+    }
+  }
+
+  .infoTooltip__container {
+    width: 430px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    position: relative;
+    /* height: 100vh; */
+    }
+    
+    @media (max-width: 1279px) {
+      .infoTooltip__container {
+        width: 280px;
+      }
+    }
+
+    .popup__container {
+        width: 430px;
+        background: #FFFFFF;
+        box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        position: relative;
+      }
+      
+      @media (max-width: 1279px) {
+        .popup__container {
+          width: 282px;
+        }
+      }

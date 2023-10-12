@@ -5,18 +5,29 @@ import '../Register/Register.css';
 import useFormAndValidation from '../hooks/useFormAndValidation';
 
 
-function Register() {
-    const {values, handleChange, errors, isValid, setValues, resetForm} = useFormAndValidation()
-  return (
+function Login({ onLogin }) {
+    const {values, handleChange, errors, isValid, setValues } = useFormAndValidation()
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const { email, password } = values;
+        onLogin({ email, password });
+    };
+
+    const button = ( isValid) ? `register__input-button register__input-button__active` : `register__input-button register__input-button__inactive`
+    ;
+
+    return (
     <div className="register" noValidate>
       <Link className="register__photo-link" to='/'><img className="register__photo" src={logo} alt="логотип" /> </Link>
       <h2 className="register__header">Рады видеть!</h2>
-      <form className="register__form">
+      <form className="register__form" onSubmit={handleSubmit} noValidate>
         <div className="register__form-container">
           <h3 className="register__title">E-mail</h3>
           <input
             className="register__input"
             type="email"
+            pattern="\w+@\w+\.\w+"
             placeholder="Email"
             name="email"
             autoComplete="email"
@@ -39,12 +50,12 @@ function Register() {
           />
           <span className="register__input-error">{errors.password}</span>
         </div>
-        <button className="register__input-button" type="submit">
+        <button className={button} type="submit" disabled={!isValid ? true : false}>
         Войти
         </button>
         </form>
         <h2 className="register__text">
-        Ещё не зарегистрированы?{" "}
+        Ещё не зарегистрированы?
         <Link className="register__link" to={"/signup"}>
         Регистрация
         </Link>
@@ -53,4 +64,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

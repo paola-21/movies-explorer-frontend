@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import headerLogo from "../../../images/logo.svg";
 import './HeaderNavBar.css'
 
@@ -31,11 +31,11 @@ function HeaderNavBar() {
                 </Link>
               </li>
               <li className="header__link">
-                <Link className="header__link-text" to='/movies'> Фильмы
-                </Link>
+                <NavLink className={({isActive}) => `header__link-text ${isActive ? "header__link-text_active" : ""}`}      to='/movies'> Фильмы
+                </NavLink>
               </li>
               <li className="header__link">
-                <Link className="header__link-text" to='/saved-movies'>Сохранённые фильмы</Link>
+                <NavLink className={({isActive}) => `header__link-text ${isActive ? "header__link-text_active" : ""}`} to='/saved-movies'>Сохранённые фильмы</NavLink>
               </li>
             </ul>
             <Link className="header__account" to='/profile'>Аккаунт</Link>

@@ -86,7 +86,35 @@
     cursor: pointer;
 }
 
-.movies-list__foto:hover + .movies-list__button-save {
+.movies-list__link {
+    text-decoration: none;
+}
+
+.movies-list__link:hover + .movies-list__button-save {
+    opacity: 1;
+}
+
+.movies-list__button-close {
+    width: 21px;
+    height: 21px;
+    background-color: transparent;
+    background-image: url(../../../images/d3.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    margin: 0;
+    border: 0;
+    opacity: 0;
+}
+
+.movies-list__button-close:hover {
+    opacity: 1;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.movies-list__link:hover + .movies-list__button-close {
     opacity: 1;
 }
 
@@ -142,5 +170,11 @@
     .movies-list__button-save__activ {
         top: 11px;
         right: 10px;   
+    }
+
+    .movies-list__button-close {
+        opacity: 1;
+        top: 11px;
+        right: 10px;
     }
 }
