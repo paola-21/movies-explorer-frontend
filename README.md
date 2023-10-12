@@ -13,4 +13,4 @@
 
 # Ссылка на сайт
 
-ttps://paola.movies-explorer.nomoredomainsicu.ru/movies
+https://paola.movies-explorer.nomoredomainsicu.ru/movies
